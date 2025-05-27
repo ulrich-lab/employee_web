@@ -1,0 +1,113 @@
+query GetAllContactsList($company_id: uuid) {
+  employees(where: {company_id: {_eq: $company_id}}) {
+    firstname
+    lastname
+    id
+    phone_number
+    file{
+      file_url
+      file_name
+    }
+  }
+}
+
+mutation CreateConversation($firstParticipant: UUID!, $secondParticipants: UUID!) {
+  createConversation(
+    conversation: {isGroup: false, firstParticipant: $firstParticipant, secondParticipants: $secondParticipants}
+  ){
+    id
+  }
+}
+
+
+mutation InserMessageWithAttachment($sender_id: uuid!, $conversation_id: uuid!, $content: String=null, $file_path: String = null, $file_type: String = null, $mime_type: String = null, $file_size: String = null, $extension: String = null, $width: String, $length: String, $height: String, $filename: String, $message_mobile_id: String, $samples: String ) {
+  insert_messages_one(object: {is_read: false, sender_id: $sender_id, conversation_id: $conversation_id, content: $content, attachments: {data: {file_path: $file_path, file_type: $file_type, mime_type: $mime_type, file_size: $file_size, extension: $extension, width: $width, length: $length, height: $height, filename: $filename, samples: $samples}}, message_mobile_id: $message_mobile_id}){
+    id
+  }
+}
+
+
+mutation InserMessageWithoutAttachment($conversation_id: uuid!, $content: String =null, $sender_id: uuid!, $message_mobile_id: String) {
+  insert_messages_one(object: {conversation_id: $conversation_id, is_read: false, content: $content, sender_id: $sender_id, message_mobile_id: $message_mobile_id}){
+    id
+  }
+}
+
+
+subscription GetConversationStreamWithMessage($employee_id: uuid!) {
+  conversations(where: {employee_conversations: {employee_id: {_eq: $employee_id}}}, distinct_on: id) {
+    id
+    name
+    is_group
+    messages {
+      content
+      employee {
+        firstname
+        id
+        lastname
+      }
+      conversation_id
+      id
+      is_read
+      message_mobile_id
+      sender_id
+      created_at
+      attachments {
+        filename
+        file_type
+        file_size
+        file_path
+        extension
+        id
+        height
+        length
+        message_id
+        mime_type
+        updated_at
+        width
+        samples
+      }
+      message_statuses {
+        status
+        employee_id
+      }
+    }
+    employee_conversations(where: {employee_id: {_neq: $employee_id}}) {
+      employee_id
+    }
+  }
+}
+
+
+mutation UpdateMessageStatus($id: [UUID!]!, $status: String!) {
+  updateMessageStatus(messageIds: {id: $id, status: $status}) {
+    state
+  }
+}
+
+mutation CreateGroup($name: String = "", $members:  [employee_conversation_insert_input!]!) {
+  insert_conversations_one(object: {is_group: true, name: $name, employee_conversations: {data: $members} }) {
+    id
+  }
+}
+
+query GetAllEmployee {
+  departments {
+    id
+    abrev_code
+    text_content {
+      content
+    }
+    services{
+      id
+      text_content{
+        content
+      }
+      employees{
+        id
+        firstname
+        lastname
+      }
+    }
+  }
+}

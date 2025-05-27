@@ -1,0 +1,27 @@
+query GetUserEvents($date: Date!, $employeeId: UUID!) {
+        getEventsByUser(inputs: {date: $date, employeeId: $employeeId}) {
+            event {
+                date
+                description
+                endTime
+                startTime
+                title
+            }
+            participant {
+                firstname
+                lastname
+            }
+        }
+    }
+
+mutation DeclineEvents($id: UUID!) {
+  declineParticipateEvents(participant: {id: $id}) {
+    id
+  }
+}
+
+mutation AcceptEvent($id: UUID!) {
+  acceptParticipateEvents(participant: {id: $id}) {
+    id
+  }
+}

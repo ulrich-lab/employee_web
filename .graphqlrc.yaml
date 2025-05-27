@@ -1,0 +1,9 @@
+projects:
+  api:
+    schema: lib/config/graphql/schema.gql
+    documents: lib/config/graphql/**/*.graphql
+
+    extensions:
+      endpoints:
+        default:
+          url: https://api.cartql.com

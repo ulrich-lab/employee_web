@@ -1,0 +1,85 @@
+
+subscription ListenAllVisitor($host_employee: uuid!) {
+  visits(where: {host_employee: {_eq: $host_employee}}) {
+    id
+    reg_no
+    reason
+    visitorByVisitor {
+      firstname
+      lastname
+      # file {#FODECC
+      fileByPhoto{#CNPS & SED
+        file_url
+        
+      }
+      phone_number
+      id_number
+    }
+    status
+    check_in_at
+    check_out_at
+    date
+  }
+}
+
+query GetVisitorDetails($id: uuid!) {
+  visits_by_pk(id: $id) {
+    department {
+      id
+      text_content {
+        content
+      }
+    }
+    employee {
+      id
+      lastname
+      firstname
+      function
+    }
+    service {
+      id
+      text_content {
+        content
+      }
+    }
+    vehicle
+    status
+    visitorByVisitor {
+      id
+      id_number
+      lastname
+      firstname
+      phone_number
+      # file {#FODECC
+      fileByPhoto{#CNPS & SED
+        file_url
+        id
+      }
+    }
+    reason
+    id
+    reg_no
+    date
+    check_out_at
+    check_in_at
+  }
+}
+
+mutation ClockOutVisits($id: uuid!) {
+  update_visits_by_pk(pk_columns: {id: $id}, _set: {check_out_at: now}){
+    id
+  }
+}
+
+
+mutation AcceptVisit($id: uuid!) {
+  update_visits_by_pk(pk_columns: {id: $id}, _set: {status: ACCEPTED, check_in_at: now, date: now}){
+    id
+  }
+}
+
+mutation RejectVisit($id: uuid!) {
+  update_visits_by_pk(pk_columns: {id: $id}, _set: {status: REJECTED}){
+    id
+  }
+}

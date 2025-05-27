@@ -1,0 +1,32 @@
+
+# mutation UpdateEmployeeInfo($lastname: String, $firstname: String , $address: String, $phoneNumber: String, $id: UUID!) {
+#   updateUserInfo(
+#     employee: {id: $id, phoneNumber: $phoneNumber, lastname: $lastname, firstname: $firstname, address: $address}
+#   ) {
+#     phoneNumber
+#     id
+#     address
+#     firstname
+#     lastname
+#  }
+# }
+
+mutation UpdateEmployeeInfo($lastname: String=null, $firstname: String=null , $address: String=null, $phoneNumber: String=null, $id: UUID!) {
+  updateUserInfo(
+    employee: {id: $id, phoneNumber: $phoneNumber, lastname: $lastname, firstname: $firstname, address: $address}
+  ) {
+    phoneNumber
+    id
+    address
+    firstname
+    lastname
+  }
+}
+
+mutation UpdatePassword($currentPassword: String!, $newPassword: String!, $phoneNumber: String!) {
+  updateEmployeePassword(
+    employeeInfo: {phoneNumber: $phoneNumber, currentPassword: $currentPassword, newPassword: $newPassword}
+  ) {
+    success
+  }
+}

@@ -1,0 +1,20 @@
+subscription ListenAllNotifications($employee_id: uuid!) {
+  employee_notifications_stream(batch_size: 1, where: {employee_id: {_eq: $employee_id}, messageByMessageId: {message_statuses: 
+    {_or: [
+      {status: {_eq: "SENT"}},
+      {status: {_eq: "DELIVERED"}},
+    ]
+    }}}, cursor: {initial_value: {created_at: "2022-01-01"}}) {
+    updated_at
+    type
+    title
+    message_id
+    message
+    is_read
+    id
+    event_id
+    employee_id
+    action
+    created_at
+  }
+}

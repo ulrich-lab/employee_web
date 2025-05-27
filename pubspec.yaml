@@ -1,0 +1,120 @@
+name: visitor_pass
+description: A new Flutter project.
+
+
+publish_to: 'none'
+version: 1.0.8+8
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+    
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  http: ^1.2.1
+  # shared_preferences: ^2.0.12
+  shimmer: ^3.0.0
+  file_picker: ^8.0.3
+  # intl:
+  image_picker: ^1.1.2
+  path:
+  rflutter_alert: ^2.0.7
+  flutter_svg: any
+  extended_image: ^8.2.0
+  permission_handler: ^11.3.1
+  connectivity_plus: ^6.0.3
+  flutter_form_builder: ^8.0.0
+  pull_to_refresh: ^2.0.0
+  flutter_screenutil: ^5.9.3
+  table_calendar: ^3.0.8
+  flutter_multi_select_items: ^0.4.3
+  uno: ^1.1.10
+  graphql: ^5.2.0-beta.9
+  dartz: ^0.10.1
+  injectable: ^2.5.0
+  json_annotation: ^4.9.0
+  flutter_expandable_fab: ^2.3.0
+  easy_autocomplete: ^1.6.0
+  get_it: ^8.0.2
+  lottie: ^3.1.3
+  get_storage: ^2.0.3
+  emoji_picker_flutter: ^3.1.0
+  flutter_keyboard_visibility: ^6.0.0
+  uuid: ^4.3.3
+  url_launcher: ^6.1.10
+  cached_network_image: ^3.2.3
+  path_provider: ^2.0.15
+  # firebase_storage: ^12.3.1
+  flutter_emoji: ^2.4.0
+  video_player: ^2.7.0
+  mime: ^1.0.4
+  open_file_plus: ^3.4.1
+  logger: ^2.0.2
+  # isar: ^3.1.0+1
+  # isar_flutter_libs: ^3.1.0+1
+  visibility_detector: ^0.4.0+2
+  image: ^4.2.0
+  share_plus: ^7.0.2
+  audioplayers: ^6.1.0
+  audio_session: ^0.1.16
+  camera: ^0.10.5+3
+  photo_manager: ^3.7.0
+  google_fonts: ^6.1.0
+  flutter_sound: ^9.23.1
+  mobile_scanner: ^2.0.0
+  location: ^7.0.1
+  dio: ^5.7.0
+  package_info_plus: ^8.1.1
+  wakelock_plus: ^1.2.8
+  r_upgrade: ^0.4.2
+  flutter_timezone: ^3.0.1
+  date_time_picker: ^2.1.0
+  multiselect_nested:
+    path: ./packages/multiselect_nested
+  flutter_hooks: ^0.20.5
+  wolt_modal_sheet: ^0.11.0
+  custom_sliding_segmented_control: ^1.8.5
+  sidebarx: ^0.17.1
+  one_clock: ^1.0.8
+  # local_notifier: ^0.1.6
+  # window_manager: ^0.4.3
+  restart_app: ^1.3.2
+  # awesome_notifications: ^0.7.4+1
+  intl: ^0.17.0
+  awesome_notifications: ^0.7.4+1
+
+ 
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  freezed: 2.5.2
+  freezed_annotation: ^2.2.0
+  build_runner:
+  # isar_generator: ^3.1.0+1
+  json_serializable: ^6.7.1
+  injectable_generator:
+  graphql_codegen: ^1.1.0
+  flutter_launcher_icons: ^0.14.3
+  # brand_forge:
+  #   git:
+  #     url: https://github.com/Dhanabhon/brand_forge.git
+  #     ref: main
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
+    - assets/new/
+
+flutter_native_splash:
+  color: "#386BF6"
+  image: assets/new/icon.png
+  android: true
+  ios: true

@@ -1,0 +1,36 @@
+targets:
+  $default:
+    sources:
+      - pubspec.yaml
+      - $package$
+      - lib/**
+      - assets/**
+      - graphql/**
+    builders:
+      graphql_codegen:
+        options:
+          addTypename: true
+          addTypenameExcludedPaths:
+            - subscription
+          scopes:
+            - lib/config/graphql/**
+          clients:
+            - graphql
+
+          scalars:
+            DateTime:
+              type: DateTime
+              fromJsonFunctionName: fromGraphQLDateTimeToDartDateTime
+              toJsonFunctionName: fromDartDateTimeToGraphQLDateTime
+              import: package:visitor_pass/config/graphql/scalars/datetime.dart
+            Timestamp:
+              type: DateTime
+              fromJsonFunctionName: fromGraphQLTimestampToDartDateTime
+              toJsonFunctionName: fromDartDateTimeToGraphQLTimestamp
+              import: package:visitor_pass/config/graphql/scalars/timestamp.dart
+            ConnectionCursor:
+              type: String
+              fromJsonFunctionName: fromGraphQLConnectionCursorToDartString
+              toJsonFunctionName: fromDartStringToGraphQLConnectionCursor
+              import: package:visitor_pass/config/graphql/scalars/connection_cursor.dart
+

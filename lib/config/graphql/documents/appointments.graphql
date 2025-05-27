@@ -1,0 +1,33 @@
+subscription GetAllAppointments($company_id: uuid!, $date: date = now, $employee_id: uuid!) {
+  appointments(where: {employee: {company_id: {_eq: $company_id}}, _or: {date: {_eq: $date}, employee_id: {_eq: $employee_id}}}) {
+    id
+    date
+    description
+    employee {
+      firstname
+      id
+      lastname
+    }
+    status
+    start_time
+    visitor {
+      id
+      lastname
+      phone_number
+      firstname
+    }
+  }
+}
+
+mutation InsertAppintmentWithVisits($employee_id: uuid!, $end_time: time =null, $start_time: time!, $lastname: String, $phone_number: String, $firstname: String, $description: String, $date: date = "") {
+  insert_appointments_one(object: {employee_id: $employee_id, end_time: $end_time, start_time: $start_time, status: PENDING, visitor: {data: {lastname: $lastname, phone_number: $phone_number, firstname: $firstname}}, description: $description, date: $date}) {
+    id
+  }
+}
+
+
+mutation CompletedAppointment($id: uuid!) {
+  update_appointments_by_pk(pk_columns: {id: $id}, _set: {status: COMPLETED}) {
+    id
+  }
+}
