@@ -76,7 +76,7 @@ class AttendanceController extends GetxController {
 
   clockInUpdate(context, String data) async {
     // if (ScreenSize(context).mainWidth>650) {
-    if (ScreenUtil().screenWidth > 640) {
+    // if (ScreenUtil().screenWidth > 640) {
       loader.value = true;
       var r = attendanceRepository.clockIn(
         buildingId: data,
@@ -114,69 +114,69 @@ class AttendanceController extends GetxController {
         );
       });
       loader.value = false;
-    } else {
-      loader.value = true;
-      Location location = Location();
+    // } else {
+    //   loader.value = true;
+    //   Location location = Location();
 
-      bool? _serviceEnabled;
-      PermissionStatus? _permissionGranted;
-      LocationData? _locationData;
+    //   bool? _serviceEnabled;
+    //   PermissionStatus? _permissionGranted;
+    //   LocationData? _locationData;
 
-      _serviceEnabled = await location.serviceEnabled();
-      if (!_serviceEnabled) {
-        _serviceEnabled = await location.requestService();
-        if (!_serviceEnabled) {
-          return;
-        }
-      }
-      _permissionGranted = await location.hasPermission();
-      if (_permissionGranted == PermissionStatus.denied) {
-        _permissionGranted = await location.requestPermission();
-        if (_permissionGranted != PermissionStatus.granted) {
-          return;
-        }
-      }
-      _locationData = await location.getLocation();
-      double lat = _locationData.latitude ?? 0;
-      double long = _locationData.longitude ?? 0;
-      // UserService userService = UserService();
-      var r = attendanceRepository.clockIn(
-        buildingId: data,
-        id: box.read("user-id"),
-        long: long.toString(),
-        lat: lat.toString(),
-      );
-      r.then((result) {
-        result.fold(
-          (failure) {
-            // Get.rawSnackbar(
-            //   message: "you can make clock in at your position",
-            //   backgroundColor: Colors.red,
-            //   snackPosition: SnackPosition.TOP,
-            // );
-          },
-          (success) {
-            Get.rawSnackbar(
-              snackPosition: SnackPosition.TOP,
-              title: 'Clock In',
-              message: 'Clocked In Successfully',
-              backgroundColor: AppColor.greenColor.withOpacity(.9),
-              maxWidth: ScreenSize(context!).mainWidth / 1.004,
-              margin: const EdgeInsets.only(
-                bottom: 20,
-                left: 20,
-                right: 20,
-              ),
-            );
-          },
-        );
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur inattendue')),
-        );
-      });
-      loader.value = false;
-    }
+    //   _serviceEnabled = await location.serviceEnabled();
+    //   if (!_serviceEnabled) {
+    //     _serviceEnabled = await location.requestService();
+    //     if (!_serviceEnabled) {
+    //       return;
+    //     }
+    //   }
+    //   _permissionGranted = await location.hasPermission();
+    //   if (_permissionGranted == PermissionStatus.denied) {
+    //     _permissionGranted = await location.requestPermission();
+    //     if (_permissionGranted != PermissionStatus.granted) {
+    //       return;
+    //     }
+    //   }
+    //   _locationData = await location.getLocation();
+    //   double lat = _locationData.latitude ?? 0;
+    //   double long = _locationData.longitude ?? 0;
+    //   // UserService userService = UserService();
+    //   var r = attendanceRepository.clockIn(
+    //     buildingId: data,
+    //     id: box.read("user-id"),
+    //     long: long.toString(),
+    //     lat: lat.toString(),
+    //   );
+    //   r.then((result) {
+    //     result.fold(
+    //       (failure) {
+    //         // Get.rawSnackbar(
+    //         //   message: "you can make clock in at your position",
+    //         //   backgroundColor: Colors.red,
+    //         //   snackPosition: SnackPosition.TOP,
+    //         // );
+    //       },
+    //       (success) {
+    //         Get.rawSnackbar(
+    //           snackPosition: SnackPosition.TOP,
+    //           title: 'Clock In',
+    //           message: 'Clocked In Successfully',
+    //           backgroundColor: AppColor.greenColor.withOpacity(.9),
+    //           maxWidth: ScreenSize(context!).mainWidth / 1.004,
+    //           margin: const EdgeInsets.only(
+    //             bottom: 20,
+    //             left: 20,
+    //             right: 20,
+    //           ),
+    //         );
+    //       },
+    //     );
+    //   }).catchError((error) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(content: Text('Erreur inattendue')),
+    //     );
+    //   });
+    //   loader.value = false;
+    // }
   }
 
   clockOutUpdate(context) async {
