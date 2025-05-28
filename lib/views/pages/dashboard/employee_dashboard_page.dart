@@ -120,38 +120,38 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
           onRefresh: _onRefresh,
           child: ListView(
             children: [
-              if (PWAInstall().installPromptEnabled)
-                Padding(
-                  padding:  EdgeInsets.only(right: 10.w),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColorsLight.appBarColor,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 12.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8.0), // Border radius réduit
-                        ),
-                      ),
-                      onPressed: () {
-                        try {
-                          PWAInstall().promptInstall_();
-                        } catch (e) {
-                          // Gestion d'erreur ici si besoin
-                        }
-                      },
-                      child: Text(
-                        'Installez l\'application',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              // if (PWAInstall().installPromptEnabled)
+              //   Padding(
+              //     padding:  EdgeInsets.only(right: 10.w),
+              //     child: Align(
+              //       alignment: Alignment.centerRight,
+              //       child: ElevatedButton(
+              //         style: ElevatedButton.styleFrom(
+              //           backgroundColor: AppColorsLight.appBarColor,
+              //           padding: EdgeInsets.symmetric(
+              //               horizontal: 16.w, vertical: 12.h),
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius:
+              //                 BorderRadius.circular(8.0), // Border radius réduit
+              //           ),
+              //         ),
+              //         onPressed: () {
+              //           try {
+              //             PWAInstall().promptInstall_();
+              //           } catch (e) {
+              //             // Gestion d'erreur ici si besoin
+              //           }
+              //         },
+              //         child: Text(
+              //           'Installez l\'application',
+              //           style: TextStyle(
+              //             fontSize: 12.sp,
+              //             color: Colors.white,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
               ScreenSize(context).mainWidth > 640
                   ? SizedBox(height: 20.h)
                   : SizedBox(),
