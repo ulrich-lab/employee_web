@@ -1,6 +1,6 @@
 {
-    "name": "number_link",
-    "short_name": "number_link",
+    "name": "visitor_pass",
+    "short_name": "visitor_pass",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
