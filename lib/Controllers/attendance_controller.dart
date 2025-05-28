@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
-import 'package:location/location.dart';
+// import 'package:location/location.dart';
 import 'package:get/get.dart';
 import 'package:visitor_pass/Models/attendance_model.dart';
 import 'package:visitor_pass/Models/schedule_model.dart';

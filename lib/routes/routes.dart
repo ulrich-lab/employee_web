@@ -19,7 +19,7 @@ abstract class Routes {
     GetPage(name: "/AdminDashboardPage", page: () => EmployeeDashboardPage()),
     GetPage(name: "/visitor", page: () => VisitorListPage()),
     // GetPage(name: "/pre-register", page: () => PreRegisterListPage()),
-    GetPage(name: "/attendance", page: () => AttendancePage()),
+    // GetPage(name: "/attendance", page: () => AttendancePage()),
     GetPage(name: "/profile", page: () => ProfilePage()),
     // GetPage(
     //     name: "/pre-visitor-details", page: () => PreRegisterVisitorDetails()),

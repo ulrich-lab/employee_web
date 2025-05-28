@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: employee-web
-          image: ton-utilisateur/employee-web:latest
+          image: indrickvvims/employee-web:latest
           ports:
             - containerPort: 80

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pwa_install/pwa_install.dart';
 import 'package:visitor_pass/Controllers/auth-controller.dart'
     show AuthController;
 import 'package:visitor_pass/constants/constants.dart';
+import 'package:visitor_pass/theme/color_theme.dart';
 import 'package:visitor_pass/views/pages/login.dart';
 import 'package:visitor_pass/views/widget/custom_button.dart';
 import 'package:visitor_pass/views/widget/textfield_builder_widget.dart'
@@ -148,6 +150,35 @@ class _UserTypeState extends State<UserType> {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  if (PWAInstall().installPromptEnabled)
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorsLight.appBarColor,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 12.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                8.0), // Border radius réduit
+                          ),
+                        ),
+                        onPressed: () {
+                          try {
+                            PWAInstall().promptInstall_();
+                          } catch (e) {
+                            // Gestion d'erreur ici si besoin
+                          }
+                        },
+                        child: Text(
+                          'Installez l\'application',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   SizedBox(),
                   SvgPicture.asset('./assets/icons/type_icon.svg'),
                   Column(

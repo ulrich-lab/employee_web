@@ -7,10 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pwa_install/pwa_install.dart';
 import 'package:visitor_pass/Controllers/attendance_controller.dart';
 import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:visitor_pass/constants/constants.dart';
+import 'package:visitor_pass/theme/color_theme.dart';
 import 'package:visitor_pass/views/pages/attendance/qr_code_scanner.dart';
 import 'package:visitor_pass/views/pages/profile.dart';
 import 'package:visitor_pass/views/pages/visitor/visitor.dart';
@@ -118,9 +120,42 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
           onRefresh: _onRefresh,
           child: ListView(
             children: [
+              if (PWAInstall().installPromptEnabled)
+                Padding(
+                  padding:  EdgeInsets.only(right: 10.w),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColorsLight.appBarColor,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 12.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8.0), // Border radius réduit
+                        ),
+                      ),
+                      onPressed: () {
+                        try {
+                          PWAInstall().promptInstall_();
+                        } catch (e) {
+                          // Gestion d'erreur ici si besoin
+                        }
+                      },
+                      child: Text(
+                        'Installez l\'application',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ScreenSize(context).mainWidth > 640
                   ? SizedBox(height: 20.h)
                   : SizedBox(),
+
               Container(
                 decoration: BoxDecoration(
                   color: AppColor.bgCheckColor,
@@ -172,16 +207,16 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
                                     background:
                                         AppColor.primaryColor.withOpacity(0.7),
                                     onPressed: () async {
-                                      if (ScreenUtil().screenWidth > 640) {
-                                        attendance.clockInUpdate(context,
-                                            "d94085cf-286a-4895-b346-14401c69736d");
-                                      } else {
-                                        String result1 =
-                                            await Get.to(() => QrCodeScanner());
+                                      // if (ScreenUtil().screenWidth > 640) {
+                                      attendance.clockInUpdate(context,
+                                          "d94085cf-286a-4895-b346-14401c69736d");
+                                      // } else {
+                                      //   String result1 =
+                                      //       await Get.to(() => QrCodeScanner());
 
-                                        attendance.clockInUpdate(
-                                            context, result1);
-                                      }
+                                      //   attendance.clockInUpdate(
+                                      //       context, result1);
+                                      // }
                                     },
                                     text: 'clock_in'.tr,
                                   ),
