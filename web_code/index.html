@@ -9,19 +9,19 @@
   <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="quickpass_employee_app">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png"> -->
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
 
   <title>VVIMS</title>
-  <link rel="manifest" href="manifest.json">
+  <!-- <link rel="manifest" href="manifest.json"> -->
 
   <script>
-    const serviceWorkerVersion = "312893776";
+    // const serviceWorkerVersion = "312893776";
   </script>
 
   <script src="flutter.js" defer></script>
@@ -34,9 +34,7 @@
   <script>
     window.addEventListener('load', function () {
       _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
+        serviceWorker: null,
         onEntrypointLoaded: function (engineInitializer) {
           engineInitializer.initializeEngine().then(function (appRunner) {
             appRunner.runApp();
