@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pwa_install/pwa_install.dart';
+// import 'package:pwa_install/pwa_install.dart';
 import 'package:visitor_pass/Controllers/attendance_controller.dart';
 import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
