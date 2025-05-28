@@ -128,16 +128,18 @@ class _PreRegisterAddPageState extends State<PreRegisterAddPage> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          Center(
-                            child: Text(
-                              'add_pre_register'.tr,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                                color: AppColor.primaryColor,
-                              ),
-                            ),
-                          ),
+                          ScreenUtil().screenWidth > 640
+                              ? Center(
+                                  child: Text(
+                                    'add_pre_register'.tr,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20,
+                                      color: AppColor.primaryColor,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(),
                           FormTitle(
                             title: 'first_name'.tr,
                           ),
