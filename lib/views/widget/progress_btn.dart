@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:visitor_pass/theme/theme.dart';
@@ -44,7 +44,7 @@ class ProgressCancelBtn extends StatelessWidget {
                   ),
           ),
           Icon(
-            Platform.isAndroid ? Icons.close_rounded : Icons.stop_rounded,
+             Icons.stop_rounded,
             color: Colors.blueGrey,
           ),
         ],

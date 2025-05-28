@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +31,11 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
   String _descriptionText = '';
   // TextEditingController _descriptionController = TextEditingController();
-  File? _selectedFile;
+  // File? _selectedFile;
   bool _isUploading = false;
   double _uploadProgress = 0.0;
   bool _isImage = false;
-  String? imageUrl;
+  // String? imageUrl;
 
   Future<void> _selectDate(BuildContext context, bool isStartDate) async {
     if (_hoursOrDays == 'Heure') {
@@ -78,20 +78,20 @@ class _PermissionScreenState extends State<PermissionScreen> {
     }
   }
 
-  void _selectFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      String? mimeType = lookupMimeType(file.path);
-      bool isImage = mimeType?.startsWith("image/") ?? false;
+  // void _selectFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+  //   if (result != null) {
+  //     File file = File(result.files.single.path!);
+  //     String? mimeType = lookupMimeType(file.path);
+  //     bool isImage = mimeType?.startsWith("image/") ?? false;
 
-      setState(() {
-        _selectedFile = file;
-        _isImage = isImage;
-        _fileUploadMultipart(file: file);
-      });
-    }
-  }
+  //     setState(() {
+  //       _selectedFile = file;
+  //       _isImage = isImage;
+  //       _fileUploadMultipart(file: file);
+  //     });
+  //   }
+  // }
 
   // Future<void> _uploadFile() async {
   //   setState(() {
@@ -112,90 +112,90 @@ class _PermissionScreenState extends State<PermissionScreen> {
   // }
   bool trustSelfSigned = true;
 
-  HttpClient getHttpClient() {
-    HttpClient httpClient = HttpClient()
-      ..connectionTimeout = const Duration(seconds: 10)
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => trustSelfSigned);
+  // HttpClient getHttpClient() {
+  //   HttpClient httpClient = HttpClient()
+  //     ..connectionTimeout = const Duration(seconds: 10)
+  //     ..badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => trustSelfSigned);
 
-    return httpClient;
-  }
+  //   return httpClient;
+  // }
 
-  Future<void> _fileUploadMultipart({required File file}) async {
-    setState(() {
-      _isUploading = true;
-      _uploadProgress = 0.0;
-    });
-    // UserService userService = UserService();
-    String token = box.read('token');
-    Map<String, String> headers = {
-      'Authorization': token,
-      'Content-Type': 'multipart/form-data',
-    };
-    final url = "${APIList.server}/api/v1/upload-file?upload_type=local";
+  // Future<void> _fileUploadMultipart({required File file}) async {
+  //   setState(() {
+  //     _isUploading = true;
+  //     _uploadProgress = 0.0;
+  //   });
+  //   // UserService userService = UserService();
+  //   String token = box.read('token');
+  //   Map<String, String> headers = {
+  //     'Authorization': token,
+  //     'Content-Type': 'multipart/form-data',
+  //   };
+  //   final url = "${APIList.server}/api/v1/upload-file?upload_type=local";
 
-    final httpClient = getHttpClient();
+  //   final httpClient = getHttpClient();
 
-    final request = await httpClient.postUrl(Uri.parse(url));
+  //   final request = await httpClient.postUrl(Uri.parse(url));
 
-    var multipart = await http.MultipartFile.fromPath('file', file.path);
+  //   var multipart = await http.MultipartFile.fromPath('file', file.path);
 
-    var requestMultipart = http.MultipartRequest("POST", Uri.parse(url));
-    requestMultipart.headers.addAll(headers);
-    requestMultipart.files.add(multipart);
+  //   var requestMultipart = http.MultipartRequest("POST", Uri.parse(url));
+  //   requestMultipart.headers.addAll(headers);
+  //   requestMultipart.files.add(multipart);
 
-    var msStream = requestMultipart.finalize();
+  //   var msStream = requestMultipart.finalize();
 
-    var totalByteLength = requestMultipart.contentLength;
+  //   var totalByteLength = requestMultipart.contentLength;
 
-    request.contentLength = totalByteLength;
+  //   request.contentLength = totalByteLength;
 
-    request.headers.set(HttpHeaders.contentTypeHeader,
-        requestMultipart.headers[HttpHeaders.contentTypeHeader]!);
+  //   request.headers.set(HttpHeaders.contentTypeHeader,
+  //       requestMultipart.headers[HttpHeaders.contentTypeHeader]!);
 
-    Stream<List<int>> streamUpload = msStream.transform(
-      StreamTransformer.fromHandlers(
-        handleData: (data, sink) {
-          sink.add(data);
-          setState(() {
-            _uploadProgress += (data.length);
-          });
-        },
-        handleError: (error, stack, sink) {
-          setState(() {
-            _isUploading = false;
-          });
-          throw error;
-        },
-        handleDone: (sink) {
-          sink.close();
-          setState(() {
-            _isUploading = false;
-          });
-        },
-      ),
-    );
+  //   Stream<List<int>> streamUpload = msStream.transform(
+  //     StreamTransformer.fromHandlers(
+  //       handleData: (data, sink) {
+  //         sink.add(data);
+  //         setState(() {
+  //           _uploadProgress += (data.length);
+  //         });
+  //       },
+  //       handleError: (error, stack, sink) {
+  //         setState(() {
+  //           _isUploading = false;
+  //         });
+  //         throw error;
+  //       },
+  //       handleDone: (sink) {
+  //         sink.close();
+  //         setState(() {
+  //           _isUploading = false;
+  //         });
+  //       },
+  //     ),
+  //   );
 
-    await request.addStream(streamUpload);
+  //   await request.addStream(streamUpload);
 
-    final httpResponse = await request.close();
-    var statusCode = httpResponse.statusCode;
-    final responseBody = await httpResponse.transform(utf8.decoder).join();
+  //   final httpResponse = await request.close();
+  //   var statusCode = httpResponse.statusCode;
+  //   final responseBody = await httpResponse.transform(utf8.decoder).join();
 
-    if (statusCode == 200) {
-      setState(() {
-        imageUrl = jsonDecode(responseBody)['file_url'];
-      });
-    } else {}
-  }
+  //   if (statusCode == 200) {
+  //     setState(() {
+  //       imageUrl = jsonDecode(responseBody)['file_url'];
+  //     });
+  //   } else {}
+  // }
 
-  void _cancelUpload() {
-    setState(() {
-      _selectedFile = null;
-      _isUploading = false;
-      _uploadProgress = 0.0;
-    });
-  }
+  // void _cancelUpload() {
+  //   setState(() {
+  //     _selectedFile = null;
+  //     _isUploading = false;
+  //     _uploadProgress = 0.0;
+  //   });
+  // }
 
   bool _validateFields() {
     return _startDate != null &&
@@ -463,91 +463,35 @@ class _PermissionScreenState extends State<PermissionScreen> {
                               },
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                if (_selectedFile != null)
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        width: 40.w,
-                                        height: 40.w,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: _isImage
-                                              ? DecorationImage(
-                                                  image:
-                                                      FileImage(_selectedFile!),
-                                                  fit: BoxFit.cover,
-                                                  colorFilter: _isUploading
-                                                      ? ColorFilter.mode(
-                                                          Colors.black
-                                                              .withOpacity(0.3),
-                                                          BlendMode.dstATop,
-                                                        )
-                                                      : null,
-                                                )
-                                              : DecorationImage(
-                                                  image: AssetImage(
-                                                      "./assets/images/file.png"),
-                                                  fit: BoxFit.cover,
-                                                  colorFilter: _isUploading
-                                                      ? ColorFilter.mode(
-                                                          Colors.black
-                                                              .withOpacity(0.3),
-                                                          BlendMode.dstATop,
-                                                        )
-                                                      : null,
-                                                ),
-                                        ),
-                                        child: _isUploading
-                                            ? CircularProgressIndicator(
-                                                value: _uploadProgress,
-                                                color: Colors.blue,
-                                              )
-                                            : null,
-                                      ),
-                                      if (_isUploading)
-                                        Positioned(
-                                          top: -5,
-                                          right: -5,
-                                          child: IconButton(
-                                            icon: Icon(Icons.cancel,
-                                                color: Colors.red),
-                                            onPressed: _cancelUpload,
-                                          ),
-                                        ),
-                                    ],
-                                  )
-                                else
-                                  SizedBox(),
-                                SizedBox(),
-                                _selectedFile != null
-                                    ? IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _selectedFile = null;
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.delete_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                      )
-                                    : IconButton(
-                                        onPressed: _selectFile,
-                                        icon: Icon(
-                                          Icons.attach_file,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                               
+                          //       SizedBox(),
+                          //       _selectedFile != null
+                          //           ? IconButton(
+                          //               onPressed: () {
+                          //                 setState(() {
+                          //                   _selectedFile = null;
+                          //                 });
+                          //               },
+                          //               icon: Icon(
+                          //                 Icons.delete_outlined,
+                          //                 color: Colors.grey,
+                          //               ),
+                          //             )
+                          //           : IconButton(
+                          //               onPressed: _selectFile,
+                          //               icon: Icon(
+                          //                 Icons.attach_file,
+                          //                 color: Colors.grey,
+                          //               ),
+                          //             ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -573,7 +517,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                             start_date: _startDate.toString(),
                                             end_date: _endDate.toString(),
                                             leave_type: "OTHER",
-                                            file_url: imageUrl,
+                                            file_url: null,
                                             onSuccess: () async {
                                               await Get.rawSnackbar(
                                                 message:

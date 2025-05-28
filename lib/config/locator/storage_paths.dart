@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:injectable/injectable.dart';
 
@@ -23,11 +23,11 @@ class DeviceStorage {
   }
 
   static Future<String> initMediaDir() async {
-    final dir = Directory("$appDocsDirPath/media");
-    if (!(await dir.exists())) {
-      await dir.create(recursive: true);
-    }
-    return dir.path;
+    // final dir = Directory("$appDocsDirPath/media");
+    // if (!(await dir.exists())) {
+    //   await dir.create(recursive: true);
+    // }
+    return "";
   }
 
   static String getMediaFilePath(String fileName) {

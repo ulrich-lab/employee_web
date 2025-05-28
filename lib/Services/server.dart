@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -16,10 +16,10 @@ class Server {
   }
 
   Future<dynamic> getRequest({String? endPoint}) async {
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      // client.badCertificateCallback =
+      //     ((X509Certificate cert, String host, int port) => true);
       // return await http.get(Uri.parse(endPoint!), headers: _getHttpHeaders(),);
       return await http.get(
         Uri.parse(endPoint!),
@@ -28,54 +28,54 @@ class Server {
     } catch (error) {
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
-  Future<dynamic> getRequestNotToken({String? endPoint}) async {
-    HttpClient client = HttpClient();
-    try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-      return await http.get(Uri.parse(endPoint!),
-          headers: _getHttpHeadersNotToken());
-    } catch (error) {
-      return null;
-    } finally {
-      client.close();
-    }
-  }
+  // Future<dynamic> getRequestNotToken({String? endPoint}) async {
+  //   HttpClient client = HttpClient();
+  //   try {
+  //     client.badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => true);
+  //     return await http.get(Uri.parse(endPoint!),
+  //         headers: _getHttpHeadersNotToken());
+  //   } catch (error) {
+  //     return null;
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
 
-  Future<dynamic> getRequestSettings(endPoint) async {
-    HttpClient client = HttpClient();
-    try {
-      return await http.get(Uri.parse(APIList.server! + endPoint!),
-          headers: getAuthHeaders());
-    } catch (error) {
-      return null;
-    } finally {
-      client.close();
-    }
-  }
+  // Future<dynamic> getRequestSettings(endPoint) async {
+  //   HttpClient client = HttpClient();
+  //   try {
+  //     return await http.get(Uri.parse(APIList.server! + endPoint!),
+  //         headers: getAuthHeaders());
+  //   } catch (error) {
+  //     return null;
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
 
-  Future<dynamic> getRequestWithParam(
-      {String? endPoint, var categoryId, bool? forCheckIn}) async {
-    HttpClient client = HttpClient();
-    try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-      return await http.get(
-        Uri.parse(forCheckIn ?? false
-            ? endPoint!
-            : "${APIList.server!}$categoryId/show"),
-        headers: _getHttpHeaders(),
-      );
-    } catch (error) {
-      return null;
-    } finally {
-      client.close();
-    }
-  }
+  // Future<dynamic> getRequestWithParam(
+  //     {String? endPoint, var categoryId, bool? forCheckIn}) async {
+  //   HttpClient client = HttpClient();
+  //   try {
+  //     client.badCertificateCallback =
+  //         ((X509Certificate cert, String host, int port) => true);
+  //     return await http.get(
+  //       Uri.parse(forCheckIn ?? false
+  //           ? endPoint!
+  //           : "${APIList.server!}$categoryId/show"),
+  //       headers: _getHttpHeaders(),
+  //     );
+  //   } catch (error) {
+  //     return null;
+  //   } finally {
+  //     client.close();
+  //   }
+  // }
 
   Future<dynamic> postRequest({
     required String endPoint,
@@ -120,10 +120,10 @@ class Server {
   }
 
   Future<dynamic> postRequestWithToken({String? endPoint, String? body}) async {
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      // client.badCertificateCallback =
+      //     ((X509Certificate cert, String host, int port) => true);
       return await http.post(
         Uri.parse(endPoint!),
         headers: _getHttpHeaders(),
@@ -132,7 +132,7 @@ class Server {
     } catch (error) {
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
@@ -142,10 +142,10 @@ class Server {
       'Authorization': bearerToken!,
       'Content-Type': 'multipart/form-data',
     };
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      // client.badCertificateCallback =
+      //     ((X509Certificate cert, String host, int port) => true);
 
       var request = http.MultipartRequest('POST', Uri.parse(endPoint!));
       request.headers.addAll(headers);
@@ -162,21 +162,21 @@ class Server {
       print("Error: $error");
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
   Future<dynamic> putRequest({String? endPoint, String? body}) async {
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      // client.badCertificateCallback =
+      //     ((X509Certificate cert, String host, int port) => true);
       return await http.put(Uri.parse(endPoint!),
           headers: _getHttpHeaders(), body: body);
     } catch (error) {
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
@@ -186,7 +186,7 @@ class Server {
       'Content-Type': 'multipart/form-data',
     };
 
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
       var request;
 
@@ -200,12 +200,12 @@ class Server {
       print(error);
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
   Future<dynamic> getRequestParam({String? endPoint, body}) async {
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     var uri =
         Uri.https(APIList.apiUrl!, APIList.apiEndPoint! + endPoint!, body);
     try {
@@ -213,21 +213,21 @@ class Server {
     } catch (error) {
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 
   Future<dynamic> deleteRequest({String? endPoint}) async {
-    HttpClient client = HttpClient();
+    // HttpClient client = HttpClient();
     try {
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
+      // client.badCertificateCallback =
+      //     ((X509Certificate cert, String host, int port) => true);
       return await http.delete(Uri.parse(endPoint!),
           headers: _getHttpHeaders());
     } catch (error) {
       return null;
     } finally {
-      client.close();
+      // client.close();
     }
   }
 

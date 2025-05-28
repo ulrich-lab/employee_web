@@ -33,36 +33,36 @@ class PreVisitorDetailsController extends GetxController {
   }
 
   getVisitorDetails(id) async {
-    loader = true;
-    update();
-    server
-        .getRequest(endPoint: (APIList.preVisitorDetails! + "$id" + "/show"))
-        .then((response) {
-      if (response != null && response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-        var preVisitorDetailsData = PreRegisterDetails.fromJson(jsonResponse);
-        preVisitor = preVisitorDetailsData.data!.visitor!;
-        firstNameController.text = preVisitor.firstName!.toString();
-        lastNameController.text = preVisitor.lastName!.toString();
-        emailController.text = preVisitor.email!.toString();
-        phoneController.text = preVisitor.phone!.toString();
-        genderID = preVisitor.genderId!.toString();
-        addressController.text = preVisitor.address!.toString();
-        nidController.text = preVisitor.nationalIdentificationNo!.toString();
-        purposeController.text = preVisitor.comment!.toString();
-        dateController.text =
-            DateTime.parse(preVisitor.rawExpectedDate.toString()).toString();
-        timeController.text = preVisitor.rawExpectedTime.toString();
-        print(preVisitor.rawExpectedTime.toString());
+    // loader = true;
+    // update();
+    // server
+    //     .getRequest(endPoint: (APIList.preVisitorDetails! + "$id" + "/show"))
+    //     .then((response) {
+    //   if (response != null && response.statusCode == 200) {
+    //     var jsonResponse = jsonDecode(response.body);
+    //     var preVisitorDetailsData = PreRegisterDetails.fromJson(jsonResponse);
+    //     preVisitor = preVisitorDetailsData.data!.visitor!;
+    //     firstNameController.text = preVisitor.firstName!.toString();
+    //     lastNameController.text = preVisitor.lastName!.toString();
+    //     emailController.text = preVisitor.email!.toString();
+    //     phoneController.text = preVisitor.phone!.toString();
+    //     genderID = preVisitor.genderId!.toString();
+    //     addressController.text = preVisitor.address!.toString();
+    //     nidController.text = preVisitor.nationalIdentificationNo!.toString();
+    //     purposeController.text = preVisitor.comment!.toString();
+    //     dateController.text =
+    //         DateTime.parse(preVisitor.rawExpectedDate.toString()).toString();
+    //     timeController.text = preVisitor.rawExpectedTime.toString();
+    //     print(preVisitor.rawExpectedTime.toString());
 
-        loader = false;
-        update();
-      } else {
-        loader = false;
-        update();
-        return null;
-      }
-    });
+    //     loader = false;
+    //     update();
+    //   } else {
+    //     loader = false;
+    //     update();
+    //     return null;
+    //   }
+    // });
   }
 
   updatePreRegisterVisitor(context, preRegisterData, id) {

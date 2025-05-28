@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -154,10 +154,7 @@ class ProfileController extends GetxController {
               // Get.find<GlobalController>().userLogout();
               // await userService.removeSharedPreferenceData();
               await box.erase();
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-                // (context as Element).markNeedsBuild();
-              }
+             
 
               return;
             }

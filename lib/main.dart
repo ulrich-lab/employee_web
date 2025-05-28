@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:visitor_pass/Services/date_time_service.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
@@ -35,7 +35,7 @@ Future<void> main() async {
 
   dynamic langValue = const Locale('fr', 'FR');
 
-  HttpOverrides.global = MyHttpOverrides();
+  // HttpOverrides.global = MyHttpOverrides();
 
   await NotificationControllerService.initializeLocalNotifications();
   // await NotificationControllerService.initializeIsolateReceivePort();
@@ -94,11 +94,11 @@ class NotificationDataModel {
   }
 }
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback =
+//           (X509Certificate cert, String host, int port) => true;
+//   }
+// }
