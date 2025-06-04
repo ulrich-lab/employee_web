@@ -6,7 +6,8 @@ import 'package:visitor_pass/Services/server.dart';
 import 'package:visitor_pass/views/pages/drawer_view_page.dart';
 import 'package:visitor_pass/views/pages/login.dart' show LoginPage;
 import 'package:visitor_pass/views/pages/onbording/omboarding_screen.dart';
-import 'package:visitor_pass/views/pages/onbording/user_type.dart' show UserType;
+import 'package:visitor_pass/views/pages/onbording/user_type.dart'
+    show UserType;
 import 'package:visitor_pass/views/widget/bottom_nav.dart';
 import '../../Controllers/auth-controller.dart';
 import '../../Controllers/global-controller.dart';
@@ -32,14 +33,26 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-
   logInCheck() async {
     if (Get.find<GlobalController>().isUser) {
       Server.initClass(token: "token");
       Get.put(GlobalController()).initController();
-      Get.off(() =>ScreenSize(context).mainWidth>640? SideBar():  BottomNav());
+      if (ScreenSize(context).mainWidth > 640) {
+        Get.offAllNamed("/SideBar");
+      } else {
+        Get.offAllNamed("/BottomNav");
+      }
+      // Get.off(
+      //     () => ScreenSize(context).mainWidth > 640 ? SideBar() : BottomNav());
     } else {
-      Get.off(() =>ScreenSize(context).mainWidth>640?  UserType(): const OnboardingView());
+      // Get.off(() => ScreenSize(context).mainWidth > 640
+      //     ? UserType()
+      //     : const OnboardingView());
+      if (ScreenSize(context).mainWidth > 640) {
+        Get.offAllNamed("/UserType");
+      } else {
+        Get.offAllNamed("/OnboardingView");
+      }
     }
   }
 
@@ -70,6 +83,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
 }
-
