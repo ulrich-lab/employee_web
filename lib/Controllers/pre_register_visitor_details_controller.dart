@@ -66,125 +66,125 @@ class PreVisitorDetailsController extends GetxController {
   }
 
   updatePreRegisterVisitor(context, preRegisterData, id) {
-    loader = true;
-    update();
-    Map body = preRegisterData;
-    String jsonBody = json.encode(body);
-    print(preRegisterData);
-    server
-        .postRequestWithToken(
-            endPoint: (APIList.preRegUpdate! + "$id"), body: jsonBody)
-        .then((response) {
-      final jsonResponse = json.decode(response?.body??"");
-      if (response != null && response.statusCode == 200) {
-        getVisitorDetails(id);
-        Get.find<PreRegisterController>().onInit();
-        Get.back();
-        Get.rawSnackbar(
-          snackPosition: SnackPosition.TOP,
-          title: 'Pre Register',
-          message: 'Successfully Updated',
-          backgroundColor: AppColor.greenColor.withOpacity(.9),
-          maxWidth: ScreenSize(context!).mainWidth / 1.007,
-          margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-        );
-        loader = false;
-        update();
-      } else if (response != null && response.statusCode == 422) {
-        if (jsonResponse['data']['message']['email'] != null) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.TOP,
-            title: 'Email',
-            message: jsonResponse['data']['message']['email'].toString(),
-            backgroundColor: AppColor.redColor.withOpacity(.9),
-            maxWidth: ScreenSize(context!).mainWidth / 1.007,
-            margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-          );
-        } else if (jsonResponse['data']['message']['phone'] != null) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.TOP,
-            title: 'Phone',
-            message: jsonResponse['data']['message']['phone'].toString(),
-            backgroundColor: AppColor.redColor.withOpacity(.9),
-            maxWidth: ScreenSize(context!).mainWidth / 1.007,
-            margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-          );
-        } else if (jsonResponse['data']['message']['expected_date'] != null) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.TOP,
-            title: 'Expected Date',
-            message:
-                jsonResponse['data']['message']['expected_date'].toString(),
-            backgroundColor: AppColor.redColor.withOpacity(.9),
-            maxWidth: ScreenSize(context!).mainWidth / 1.007,
-            margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-          );
-        } else if (jsonResponse['data']['message']['expected_date'] != null) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.TOP,
-            title: 'Expected Time',
-            message:
-                jsonResponse['data']['message']['expected_date'].toString(),
-            backgroundColor: AppColor.redColor.withOpacity(.9),
-            maxWidth: ScreenSize(context!).mainWidth / 1.007,
-            margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-          );
-        }
-        loader = false;
-        Future.delayed(const Duration(milliseconds: 10), () {
-          update();
-        });
-      } else {
-        loader = false;
-        Future.delayed(const Duration(milliseconds: 10), () {
-          update();
-        });
-        Get.rawSnackbar(
-          snackPosition: SnackPosition.TOP,
-          title: 'Pre Register',
-          message: 'Something Wrong',
-          backgroundColor: AppColor.redColor.withOpacity(.9),
-          maxWidth: ScreenSize(context!).mainWidth / 1.007,
-          margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-        );
-      }
-    });
+    // loader = true;
+    // update();
+    // Map body = preRegisterData;
+    // String jsonBody = json.encode(body);
+    // print(preRegisterData);
+    // server
+    //     .postRequestWithToken(
+    //         endPoint: (APIList.preRegUpdate! + "$id"), body: jsonBody)
+    //     .then((response) {
+    //   final jsonResponse = json.decode(response?.body??"");
+    //   if (response != null && response.statusCode == 200) {
+    //     getVisitorDetails(id);
+    //     Get.find<PreRegisterController>().onInit();
+    //     Get.back();
+    //     Get.rawSnackbar(
+    //       snackPosition: SnackPosition.TOP,
+    //       title: 'Pre Register',
+    //       message: 'Successfully Updated',
+    //       backgroundColor: AppColor.greenColor.withOpacity(.9),
+    //       maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //     );
+    //     loader = false;
+    //     update();
+    //   } else if (response != null && response.statusCode == 422) {
+    //     if (jsonResponse['data']['message']['email'] != null) {
+    //       Get.rawSnackbar(
+    //         snackPosition: SnackPosition.TOP,
+    //         title: 'Email',
+    //         message: jsonResponse['data']['message']['email'].toString(),
+    //         backgroundColor: AppColor.redColor.withOpacity(.9),
+    //         maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //       );
+    //     } else if (jsonResponse['data']['message']['phone'] != null) {
+    //       Get.rawSnackbar(
+    //         snackPosition: SnackPosition.TOP,
+    //         title: 'Phone',
+    //         message: jsonResponse['data']['message']['phone'].toString(),
+    //         backgroundColor: AppColor.redColor.withOpacity(.9),
+    //         maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //       );
+    //     } else if (jsonResponse['data']['message']['expected_date'] != null) {
+    //       Get.rawSnackbar(
+    //         snackPosition: SnackPosition.TOP,
+    //         title: 'Expected Date',
+    //         message:
+    //             jsonResponse['data']['message']['expected_date'].toString(),
+    //         backgroundColor: AppColor.redColor.withOpacity(.9),
+    //         maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //       );
+    //     } else if (jsonResponse['data']['message']['expected_date'] != null) {
+    //       Get.rawSnackbar(
+    //         snackPosition: SnackPosition.TOP,
+    //         title: 'Expected Time',
+    //         message:
+    //             jsonResponse['data']['message']['expected_date'].toString(),
+    //         backgroundColor: AppColor.redColor.withOpacity(.9),
+    //         maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //       );
+    //     }
+    //     loader = false;
+    //     Future.delayed(const Duration(milliseconds: 10), () {
+    //       update();
+    //     });
+    //   } else {
+    //     loader = false;
+    //     Future.delayed(const Duration(milliseconds: 10), () {
+    //       update();
+    //     });
+    //     Get.rawSnackbar(
+    //       snackPosition: SnackPosition.TOP,
+    //       title: 'Pre Register',
+    //       message: 'Something Wrong',
+    //       backgroundColor: AppColor.redColor.withOpacity(.9),
+    //       maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //     );
+    //   }
+    // });
   }
 
   deletePreReg(context, id) {
-    loader = true;
-    update();
-    server
-        .deleteRequest(endPoint: (APIList.preRegisterDelete! + "$id"))
-        .then((response) {
-      if (response != null && response.statusCode == 200) {
-        getVisitorDetails(id);
-        Get.find<PreRegisterController>().onInit();
-        Get.back();
-        Get.rawSnackbar(
-          snackPosition: SnackPosition.TOP,
-          title: 'Delete Pre Register',
-          message: 'Successfully Deleted',
-          backgroundColor: AppColor.greenColor.withOpacity(.9),
-          maxWidth: ScreenSize(context!).mainWidth / 1.007,
-          margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-        );
-        loader = false;
-        update();
-      } else {
-        loader = false;
-        Future.delayed(const Duration(milliseconds: 10), () {
-          update();
-        });
-        Get.rawSnackbar(
-          snackPosition: SnackPosition.TOP,
-          title: 'Delete Pre Register',
-          message: 'Something Wrong',
-          backgroundColor: AppColor.redColor.withOpacity(.9),
-          maxWidth: ScreenSize(context!).mainWidth / 1.007,
-          margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-        );
-      }
-    });
+    // loader = true;
+    // update();
+    // server
+    //     .deleteRequest(endPoint: (APIList.preRegisterDelete! + "$id"))
+    //     .then((response) {
+    //   if (response != null && response.statusCode == 200) {
+    //     getVisitorDetails(id);
+    //     Get.find<PreRegisterController>().onInit();
+    //     Get.back();
+    //     Get.rawSnackbar(
+    //       snackPosition: SnackPosition.TOP,
+    //       title: 'Delete Pre Register',
+    //       message: 'Successfully Deleted',
+    //       backgroundColor: AppColor.greenColor.withOpacity(.9),
+    //       maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //     );
+    //     loader = false;
+    //     update();
+    //   } else {
+    //     loader = false;
+    //     Future.delayed(const Duration(milliseconds: 10), () {
+    //       update();
+    //     });
+    //     Get.rawSnackbar(
+    //       snackPosition: SnackPosition.TOP,
+    //       title: 'Delete Pre Register',
+    //       message: 'Something Wrong',
+    //       backgroundColor: AppColor.redColor.withOpacity(.9),
+    //       maxWidth: ScreenSize(context!).mainWidth / 1.007,
+    //       margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+    //     );
+    //   }
+    // });
   }
 }
