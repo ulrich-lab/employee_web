@@ -336,20 +336,10 @@ class ProfilePage extends StatelessWidget {
                                 onTap: () {
                                   // Get.find<GlobalController>().userLogout(),
                                   _globalController.userLogout();
-                                  if (ScreenUtil().screenWidth > 640) {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (context) => UserType(),
-                                      ),
-                                      (route) => route.settings.name == "/",
-                                    );
+                                  if (ScreenSize(context).mainWidth > 640) {
+                                    Get.offAllNamed("/SideBar");
                                   } else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                        builder: (context) => LoginPage(),
-                                      ),
-                                      (route) => route.settings.name == "/",
-                                    );
+                                    Get.offAllNamed("/BottomNav");
                                   }
                                 },
                                 leading: SvgPicture.asset(
