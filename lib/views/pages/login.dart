@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -136,6 +135,18 @@ class _LoginPageState extends State<LoginPage> {
                                   obscureText: true,
                                   borderRadius: 30,
                                   controller: _passwordController,
+                                  onActionClick: (data) {
+                                    if (_passwordController.text != "" &&
+                                        _emailController.text != "") {
+                                      auth.loginOnTap(
+                                          login: _emailController.text
+                                              .toString()
+                                              .trim(),
+                                          pass: _passwordController.text
+                                              .toString()
+                                              .trim());
+                                    }
+                                  },
                                 ),
                                 const SizedBox(
                                   height: 21,

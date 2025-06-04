@@ -134,6 +134,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
                 height: 55.h,
                 decoration: BoxDecoration(color: widget.contentColor),
                 child: TextFormField(
+                  
                   initialValue: widget.controller != null ? null : field.value,
                   obscuringCharacter: '*',
                   enabled: widget.visible ?? widget.enable,
