@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:url_strategy/url_strategy.dart';
 import 'package:visitor_pass/Services/date_time_service.dart';
+import 'package:visitor_pass/SplashScreen/splash_screen.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:visitor_pass/notificatons/notifications_helper.dart';
@@ -81,6 +82,10 @@ class _MyAppState extends State<MyApp> {
         theme: themeController.currentTheme,
         initialRoute: "/",
         getPages: Routes.pages,
+        unknownRoute: GetPage(
+          name: '/',
+          page: () => SplashScreen(),
+        ),
       ),
     );
   }

@@ -91,7 +91,7 @@ class AuthController extends GetxController {
           Get.rawSnackbar(
             message: "Connexion reussie",
             backgroundColor: Colors.green,
-            snackPosition: SnackPosition.TOP,
+            snackPosition: SnackPosition.TOP, 
           );
         } else {
           loader = false;

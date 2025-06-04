@@ -23,24 +23,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _phoneController = TextEditingController();
   bool isChecked = false;
   bool _isObscure = true;
-
-//   bool gotKeyboardHeight = false;
-
-//   @override
-//   void initState() {
-//     if (gotKeyboardHeight) return;
-
-//     double keyboardSize = MediaQuery.of(context).viewInsets.bottom;
-//     SharedPref.instance.setDouble('keyboardHeight', keyboardSize);
-
-//     if (keyboardSize < 300) return;
-//     gotKeyboardHeight = true;
-
-//     super.initState();
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: 30,
                                   controller: _passwordController,
                                   onActionClick: (data) {
+                                    print("object=000=============");
                                     if (_passwordController.text != "" &&
                                         _emailController.text != "") {
                                       auth.loginOnTap(
@@ -183,40 +168,6 @@ class _LoginPageState extends State<LoginPage> {
                                 const SizedBox(
                                   height: 26,
                                 ),
-                                /* Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          minimumSize: Size.fromHeight(60),
-                                          backgroundColor: AppColor.primaryColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                10), // <-- Radius
-                                          ),
-                                          // fromHeight use double.infinity as width and 40 is the height
-                                        ),
-                                        onPressed: () async {
-                                          // if (_formKey.currentState!.validate()) {
-                                          if (_passwordController.text != "" &&
-                                              _emailController.text != "") {
-                                            auth.loginOnTap(
-                                                login: _emailController.text
-                                                    .toString()
-                                                    .trim(),
-                                                pass: _passwordController.text
-                                                    .toString()
-                                                    .trim());
-                                          }
-                                        },
-                                        child: Text(
-                                          "login".tr,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ),*/
                                 CustomButton(
                                   onPressed: () async {
                                     if (_passwordController.text != "" &&
