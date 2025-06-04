@@ -1,6 +1,7 @@
 import 'dart:async';
 // import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:visitor_pass/Services/date_time_service.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ import 'package:intl/date_symbol_data_local.dart';
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await DateTimeService.instance.init();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -39,7 +40,7 @@ Future<void> main() async {
 
   await NotificationControllerService.initializeLocalNotifications();
   // await NotificationControllerService.initializeIsolateReceivePort();
-
+  setPathUrlStrategy();
   await initializeDateFormatting()
       .then((_) => runApp(MyApp(langValue: langValue)));
 }
