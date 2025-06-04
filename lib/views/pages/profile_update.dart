@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class ProfileUpdatePage extends StatefulWidget {
 
 class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   String? imagePath;
-  File? file;
+  // File? file;
   String get routeName => 'update_page';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -105,15 +105,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                                   fit: BoxFit.cover,
                                                 ),
                                               ))
-                                      : CircleAvatar(
-                                          radius: 40.0,
-                                          backgroundColor: Colors.transparent,
-                                          backgroundImage: FileImage(
-                                            File(
-                                              imagePath.toString(),
-                                            ),
-                                          ),
-                                        ),
+                                      :SizedBox()
                                 ), //Center
                                 Positioned(
                                   top: 70,
@@ -126,7 +118,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                       child: Container(
                                         child: TextButton(
                                           onPressed: () {
-                                            getImage();
+                                            // getImage();
                                           },
                                           child: CircleAvatar(
                                             backgroundColor: Colors.white,
@@ -630,22 +622,22 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
     );
   }
 
-  Future getImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    double imageSize = await ImageSize.getImageSize(image!);
-    file = File(image.path);
-    if (imageSize > 2) {
-      Get.rawSnackbar(
-          message: "IMAGE_SHOULD_BE_LESS_THAN_2MB".tr,
-          backgroundColor: Colors.red,
-          snackPosition: SnackPosition.BOTTOM);
-    } else {
-      //updateUserProfile(image.path, true);
-      setState(() {
-        file = File(image.path);
-        imagePath = image.path;
-      });
-    }
-  }
+  // Future getImage() async {
+  //   final ImagePicker _picker = ImagePicker();
+  //   final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  //   double imageSize = await ImageSize.getImageSize(image!);
+  //   file = File(image.path);
+  //   if (imageSize > 2) {
+  //     Get.rawSnackbar(
+  //         message: "IMAGE_SHOULD_BE_LESS_THAN_2MB".tr,
+  //         backgroundColor: Colors.red,
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   } else {
+  //     //updateUserProfile(image.path, true);
+  //     setState(() {
+  //       file = File(image.path);
+  //       imagePath = image.path;
+  //     });
+  //   }
+  // }
 }

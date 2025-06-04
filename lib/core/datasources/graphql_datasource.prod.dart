@@ -1,4 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:graphql/client.dart';
@@ -9,20 +9,20 @@ import 'graphql_datasource.dart';
 @LazySingleton(as: GraphqlDatasource)
 class GraphqlDatasourceImpl implements GraphqlDatasource {
   final GraphQLClient client;
-  final Connectivity connectivity;
+  // final Connectivity connectivity;
 
   GraphqlDatasourceImpl({
     required this.client,
-    required this.connectivity,
+    // required this.connectivity,
   });
 
   @override
   Future<Either<Failure, TParsed>> mutate<TParsed>(
       MutationOptions<TParsed> options) async {
-    if ((await connectivity.checkConnectivity())
-        .contains(ConnectivityResult.none)) {
-      return const Left(Failure.connection());
-    }
+    // if ((await connectivity.checkConnectivity())
+    //     .contains(ConnectivityResult.none)) {
+    //   return const Left(Failure.connection());
+    // }
     final result = await client.mutate(options);
     if (result.hasException) {
       return Left(Failure.parseOperationException(result.exception!));
@@ -33,10 +33,10 @@ class GraphqlDatasourceImpl implements GraphqlDatasource {
   @override
   Future<Either<Failure, TParsed>> query<TParsed>(
       QueryOptions<TParsed> options) async {
-    if ((await connectivity.checkConnectivity())
-        .contains(ConnectivityResult.none)) {
-      return const Left(Failure.connection());
-    }
+    // if ((await connectivity.checkConnectivity())
+    //     .contains(ConnectivityResult.none)) {
+    //   return const Left(Failure.connection());
+    // }
     final result = await client.query(options);
     if (result.hasException) {
       if (kDebugMode) print(result.exception);

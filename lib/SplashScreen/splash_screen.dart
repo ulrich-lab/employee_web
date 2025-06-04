@@ -24,11 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // FirebaseMessaging.instance
-    //     .getInitialMessage()
-    //     .then((RemoteMessage? message) {});
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
     Timer(
       const Duration(seconds: 2),
       () => ({logInCheck()},),
@@ -37,14 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  // update(String token) async {
-  //   SharedPreferences storage = await SharedPreferences.getInstance();
-  //   await storage.setString('deviceToken', token);
-  // }
 
   logInCheck() async {
     if (Get.find<GlobalController>().isUser) {
-      // _authController.refreshToken(context);
       Server.initClass(token: "token");
       Get.put(GlobalController()).initController();
       Get.off(() =>ScreenSize(context).mainWidth>640? SideBar():  BottomNav());
@@ -55,8 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // double keyboardSize = MediaQuery.of(context).viewInsets.bottom;
-    // box.write('keyboardHeight', keyboardSize);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: Column(
@@ -83,62 +71,5 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  // Future<void> start() async {
-  //   if (!_appStarted) {
-  //     /// Starting Askless and other services
-  //     await getIt
-  //         .get<InitializeApp>()
-  //         .start(onAutoReauthenticationFails: _onAutoReauthenticationFails);
-
-  //     /// Configuring Askless to receive calls
-  //     AsklessClient.instance.addOnReceiveCallListener(
-  //       (ReceivingCall receivingCall) {
-  //         getIt.get<UsersRepo>().readUser(receivingCall.remoteUserId).then(
-  //           (res) {
-  //             res.fold(
-  //               (l) {
-  //                 print(
-  //                     "Accepting call failed! Could not read the remoteUser ${receivingCall.remoteUserId}: \"${l.error}\"");
-  //               },
-  //               (remoteUser) {
-  //                 Get.toNamed(
-  //                   "/call",
-  //                   arguments: CallScreenArgs(
-  //                     remoteUserId: receivingCall.remoteUserId,
-  //                     callDirection: CallDirection.receivingCall,
-  //                     remoteUserFullName: remoteUser.fullName,
-  //                     videoCall: receivingCall.additionalData["videoCall"]!,
-  //                     receivingCall: receivingCall,
-  //                   ),
-  //                 );
-  //               },
-  //             );
-  //           },
-  //         );
-  //       },
-  //     );
-  //     _appStarted = true;
-  //   }
-  // }
-
-  // void _start() {
-  //   if (!_started) {
-  //     _started = true;
-  //     (() async {
-  //       start().then((_) {
-  //         // if (Get.find<GlobalController>().isUser) {
-  //         if (getIt.get<AuthRepo>().isAuthenticated()) {
-  //           Get.offAllNamed("/contact");
-  //         } else {
-  //           Get.offAllNamed("/login");
-  //         }
-  //       });
-  //     })();
-  //   }
-  // }
 }
 
-// final _onAutoReauthenticationFails = () {
-//   getIt.get<Logout>().call();
-//   Get.offAllNamed("login");
-// };

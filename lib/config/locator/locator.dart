@@ -1,4 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart' as g;
 import 'package:get_it/get_it.dart';
 import 'package:graphql/client.dart';
@@ -15,8 +15,8 @@ void configureDependencies() => locator.init(
 
 @module
 abstract class ServiceModule {
-  @lazySingleton
-  Connectivity get connectivity => Connectivity();
+  // @lazySingleton
+  // Connectivity get connectivity => Connectivity();
 
   @factoryMethod
   GraphQLClient create() {
