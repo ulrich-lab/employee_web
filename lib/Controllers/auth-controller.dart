@@ -83,9 +83,9 @@ class AuthController extends GetxController {
             update();
           });
           if (ScreenUtil().screenWidth > 640) {
-            Get.offAll(() => SideBar());
+            Get.offAllNamed("/SideBar");
           } else {
-            Get.offAll(() => BottomNav());
+            Get.offAllNamed("/BottomNav");
           }
 
           Get.rawSnackbar(
