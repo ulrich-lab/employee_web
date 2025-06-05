@@ -336,11 +336,11 @@ class ProfilePage extends StatelessWidget {
                                 onTap: () {
                                   // Get.find<GlobalController>().userLogout(),
                                   _globalController.userLogout();
-                                  if (ScreenSize(context).mainWidth > 640) {
-                                    Get.offAllNamed("/SideBar");
-                                  } else {
-                                    Get.offAllNamed("/BottomNav");
-                                  }
+                                  // if (ScreenSize(context).mainWidth > 640) {
+                                  //   Get.offAllNamed("/");
+                                  // } else {
+                                    Get.offAllNamed("/");
+                                  // }
                                 },
                                 leading: SvgPicture.asset(
                                   Images.menuLogout,

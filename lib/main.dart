@@ -1,5 +1,6 @@
 import 'dart:async';
 // import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:url_strategy/url_strategy.dart';
 import 'package:visitor_pass/Services/date_time_service.dart';
@@ -17,34 +18,75 @@ import '../../language/language.dart';
 import 'constants/constants.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+// Future<void> main() async {
+//   await GetStorage.init();
+//   WidgetsFlutterBinding.ensureInitialized();
+
+//   await DateTimeService.instance.init();
+//   await SystemChrome.setPreferredOrientations([
+//     DeviceOrientation.portraitUp,
+//     DeviceOrientation.portraitDown,
+//   ]);
+
+//   configureDependencies();
+//   // dynamic langValue = const Locale('en', 'US');
+//   // if (box.read('lang') != null) {
+//   //   langValue = Locale(box.read('lang'), box.read('langKey'));
+//   // } else {
+//   //   langValue = const Locale('en', 'US');
+//   // }
+
+//   dynamic langValue = const Locale('fr', 'FR');
+
+//   // HttpOverrides.global = MyHttpOverrides();
+
+//   await NotificationControllerService.initializeLocalNotifications();
+//   // await NotificationControllerService.initializeIsolateReceivePort();
+//   // setPathUrlStrategy();
+//   await initializeDateFormatting()
+//       .then((_) => runApp(MyApp(langValue: langValue)));
+// }
+
 Future<void> main() async {
-  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
 
-  await DateTimeService.instance.init();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+
+  try {
+    await GetStorage.init();
+  } catch (e) {
+    debugPrint("Erreur GetStorage : $e");
+  }
 
   configureDependencies();
-  // dynamic langValue = const Locale('en', 'US');
-  // if (box.read('lang') != null) {
-  //   langValue = Locale(box.read('lang'), box.read('langKey'));
-  // } else {
-  //   langValue = const Locale('en', 'US');
-  // }
 
-  dynamic langValue = const Locale('fr', 'FR');
+  try {
+    await DateTimeService.instance.init();
+  } catch (e) {
+    debugPrint("Erreur DateTimeService : $e");
+  }
 
-  // HttpOverrides.global = MyHttpOverrides();
+  if (!kIsWeb) {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
-  await NotificationControllerService.initializeLocalNotifications();
-  // await NotificationControllerService.initializeIsolateReceivePort();
-  // setPathUrlStrategy();
-  await initializeDateFormatting()
-      .then((_) => runApp(MyApp(langValue: langValue)));
+    try {
+      await NotificationControllerService.initializeLocalNotifications();
+    } catch (e) {
+      debugPrint("Erreur Notifications : $e");
+    }
+  }
+
+  try {
+    await initializeDateFormatting();
+  } catch (e) {
+    debugPrint("Erreur Intl Date Formatting : $e");
+  }
+
+  runApp(MyApp(langValue: const Locale('fr', 'FR')));
 }
+
 
 const double kMargin = 16.0;
 const double kPageContentWidth = 600;
