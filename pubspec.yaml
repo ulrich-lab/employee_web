@@ -70,7 +70,7 @@ dependencies:
   dio: ^5.7.0
   package_info_plus: ^8.1.1
   wakelock_plus: ^1.2.8
-  r_upgrade: ^0.4.2
+  # r_upgrade: ^0.4.2
   flutter_timezone: ^3.0.1
   date_time_picker: ^2.1.0
   multiselect_nested:

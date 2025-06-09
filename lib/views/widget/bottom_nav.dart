@@ -12,7 +12,7 @@ import 'package:visitor_pass/Controllers/permission_controller.dart';
 import 'package:visitor_pass/Controllers/pre_register_controller.dart';
 import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
-import 'package:visitor_pass/config/upgrader/version_checker.dart';
+// import 'package:visitor_pass/config/upgrader/version_checker.dart';
 import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/views/pages/Schedule/schedule_screen.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart';
@@ -134,9 +134,7 @@ class _BottomNavState extends State<BottomNav>
     return Scaffold(
       body: Stack(
         children: [
-          VersionChecker(
-            child: navigation[selectedIndex],
-          ),
+          navigation[selectedIndex],
           !isDeviceConnected
               ? Positioned(
                   child: Stack(
