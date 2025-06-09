@@ -10,8 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
-import 'package:visitor_pass/views/pages/login.dart';
-import 'package:visitor_pass/views/pages/onbording/user_type.dart';
+import 'package:visitor_pass/main.dart';
 import 'package:visitor_pass/views/pages/profile_update.dart';
 import 'package:visitor_pass/views/widget/shimmer/profile_shimmer.dart';
 
@@ -255,7 +254,7 @@ class ProfilePage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: AppColor.nameColor),
                                 ),
-                                trailing: box.read('lang') == 'ar'
+                                trailing: prefs.getString('lang') == 'ar'
                                     ? Transform.rotate(
                                         angle: pi,
                                         child: SvgPicture.asset(
@@ -303,7 +302,7 @@ class ProfilePage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: AppColor.nameColor),
                                 ),
-                                trailing: box.read('lang') == 'ar'
+                                trailing: prefs.getString('lang') == 'ar'
                                     ? Transform.rotate(
                                         angle: pi,
                                         child: SvgPicture.asset(

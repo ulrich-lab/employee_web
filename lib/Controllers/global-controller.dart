@@ -1,21 +1,8 @@
-import 'dart:convert';
-// import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restart_app/restart_app.dart';
-import 'package:visitor_pass/Controllers/profile_controller.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visitor_pass/Models/employee_model.dart';
-import 'package:visitor_pass/Models/profile_model.dart';
-import 'package:visitor_pass/config/locator/isar_bd.dart';
-import 'package:visitor_pass/config/locator/locator.dart';
-import 'package:visitor_pass/constants/constants.dart';
-import 'package:visitor_pass/views/pages/login.dart';
-import 'package:visitor_pass/views/pages/onbording/user_type.dart';
-import '../Services/api-list.dart';
+import 'package:visitor_pass/main.dart';
 import '/services/server.dart';
-import '/services/user-service.dart';
 
 class GlobalController extends GetxController {
   Server server = Server();
@@ -36,14 +23,14 @@ class GlobalController extends GetxController {
   String? userEmail;
 
   initController() async {
-    final validUser = box.read("is-user");
+    final validUser = prefs.getString("is-user");
     isUser = validUser == "true";
     Future.delayed(const Duration(milliseconds: 10), () {
       update();
     });
     if (isUser) {
-      final token = await box.read('token');
-      final myId = await box.read('user-id');
+      final token = await prefs.getString('token');
+      final myId = await prefs.getString('user-id');
       bearerToken = token;
       userId = myId;
       Future.delayed(const Duration(milliseconds: 10), () {
@@ -77,7 +64,7 @@ class GlobalController extends GetxController {
   userLogout({BuildContext? context}) async {
     // getValue();
     // await userService.removeSharedPreferenceData();
-    await box.erase();
+    await prefs.clear();
     isUser = false;
     Future.delayed(const Duration(milliseconds: 10), () {
       update();

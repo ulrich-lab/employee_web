@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Models/pre_register_model.dart';
 import 'package:visitor_pass/config/graphql/documents/appointments.graphql.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/core/datasources/graphql_datasource.dart';
 import 'package:visitor_pass/core/error/failure.dart';
 import 'package:visitor_pass/domain/appointments_repository.dart';
+import 'package:visitor_pass/main.dart';
 
 @prod
 @LazySingleton(as: AppointmentsRepository)
@@ -24,8 +24,8 @@ class AppointmentsRepositoryImpl implements AppointmentsRepository {
         .subscribe(
       Options$Subscription$GetAllAppointments(
         variables: Variables$Subscription$GetAllAppointments(
-          employee_id: box.read("user-id"),
-          company_id: box.read("company_id"),
+          employee_id: prefs.getString("user-id")??"",
+          company_id: prefs.getString("company_id")??"",
         ),
       ),
     ).map(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:visitor_pass/constants/constants.dart';
+import 'package:visitor_pass/main.dart';
 
 class DopDownLang extends StatefulWidget {
   const DopDownLang({Key? key, required this.onChanged}) : super(key: key);
@@ -22,7 +23,7 @@ class _DopDownLangState extends State<DopDownLang> {
   @override
   void initState() {
     super.initState();
-    if (box.read('lang') == "en") {
+    if (prefs.getString('lang') == "en") {
       selectedItem = 'english';
     } else {
       selectedItem = "french";
@@ -55,16 +56,16 @@ class _DopDownLangState extends State<DopDownLang> {
 
             if (newValue == "english") {
               setState(() {
-                box.write('lang', 'en');
-                box.write('langKey', 'US');
-                box.write('selectedValue', 'English');
+                prefs.setString('lang', 'en');
+                prefs.setString('langKey', 'US');
+                prefs.setString('selectedValue', 'English');
                 Get.updateLocale(const Locale('en', 'US'));
               });
             } else if (newValue == "french") {
               setState(() {
-                box.write('lang', 'fr');
-                box.write('langKey', 'FR');
-                box.write('selectedValue', 'France');
+                prefs.setString('lang', 'fr');
+                prefs.setString('langKey', 'FR');
+                prefs.setString('selectedValue', 'France');
                 Get.updateLocale(const Locale('fr', 'FR'));
               });
             }

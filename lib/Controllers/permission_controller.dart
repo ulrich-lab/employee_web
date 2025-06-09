@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Models/permission_model.dart';
 import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/domain/permission_repository.dart';
+import 'package:visitor_pass/main.dart';
 
 @lazySingleton
 class PermissionController extends GetxController {
@@ -154,7 +155,7 @@ class PermissionController extends GetxController {
 
     permissionRepository
         .listenToAllPermissions(
-      uuid: box.read("user-id"),
+      uuid: prefs.getString("user-id")??"",
       offset: page,
     )
         .listen(

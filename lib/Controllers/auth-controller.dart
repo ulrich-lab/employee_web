@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:visitor_pass/Models/login_model.dart';
 import 'package:visitor_pass/Models/profile_model.dart';
-import 'package:visitor_pass/constants/constants.dart';
-import 'package:visitor_pass/views/pages/drawer_view_page.dart';
-import '../views/widget/bottom_nav.dart';
+import 'package:visitor_pass/main.dart';
 import '/services/api-list.dart';
 import '/services/server.dart';
 import 'package:get/get.dart';
@@ -54,23 +52,23 @@ class AuthController extends GetxController {
           final jsonResponse = response;
           print("===========${jsonResponse}");
           var profile = Profile.fromJson(jsonResponse['employee']);
-          box.write('profile', jsonEncode(profile.toJson()));
-          box.write('company_id', jsonResponse['employee']['company_id']);
+          prefs.setString('profile', jsonEncode(profile.toJson()));
+          prefs.setString('company_id', jsonResponse['employee']['company_id']);
 
           var loginData = LoginModel.fromJson(jsonResponse);
 
           var bearerToken = 'Bearer ' + "${loginData.token}";
-          box.write('is-user', "true");
+          prefs.setString('is-user', "true");
 
-          box.write('token', bearerToken);
-          box.write('user-id', loginData.employee?.id.toString());
-          box.write('user-id', loginData.employee?.id.toString());
-          box.write('employee_id', loginData.employee?.id.toString());
-          box.write('email', loginData.employee?.email.toString());
-          box.write('image', loginData.employee?.profilePicture.toString());
-          box.write('name',
+          prefs.setString('token', bearerToken);
+          prefs.setString('user-id', loginData.employee?.id.toString()??"");
+          prefs.setString('user-id', loginData.employee?.id.toString()??"");
+          prefs.setString('employee_id', loginData.employee?.id.toString()??"");
+          prefs.setString('email', loginData.employee?.email.toString()??"");
+          prefs.setString('image', loginData.employee?.profilePicture.toString()??"");
+          prefs.setString('name',
               "${loginData.employee!.firstname.toString()} ${loginData.employee!.lastname.toString()}");
-          box.write('phone', loginData.employee!.phoneNumber.toString());
+          prefs.setString('phone', loginData.employee!.phoneNumber.toString());
 
           Server.initClass(token: bearerToken);
 

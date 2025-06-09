@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:visitor_pass/Models/visitor_model.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:visitor_pass/constants/constants.dart';
+import 'package:visitor_pass/main.dart';
 import 'package:visitor_pass/views/pages/pre-register/pre_register_add_page.dart';
 import '../../../Controllers/pre_register_controller.dart';
 import '../../shimmer/visitor-shimmer.dart';
@@ -101,7 +102,7 @@ class _PreRegisterListPageState extends State<PreRegisterListPage> {
                                   ),
                                   fillColor: Colors.red,
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: box.read('lang') == 'ar'
+                                    borderRadius: prefs.getString('lang') == 'ar'
                                         ? BorderRadius.only(
                                             topRight: Radius.circular(5),
                                             bottomRight: Radius.circular(5))
@@ -112,7 +113,7 @@ class _PreRegisterListPageState extends State<PreRegisterListPage> {
                                         width: 1, color: AppColor.primaryColor),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: box.read('lang') == 'ar'
+                                    borderRadius: prefs.getString('lang') == 'ar'
                                         ? BorderRadius.only(
                                             topRight: Radius.circular(5),
                                             bottomRight: Radius.circular(5))
@@ -140,7 +141,7 @@ class _PreRegisterListPageState extends State<PreRegisterListPage> {
                             Container(
                               width: 45,
                               height: 45,
-                              decoration: box.read('lang') == 'ar'
+                              decoration: prefs.getString('lang') == 'ar'
                                   ? BoxDecoration(
                                       color: AppColor.primaryColor,
                                       borderRadius: BorderRadius.only(

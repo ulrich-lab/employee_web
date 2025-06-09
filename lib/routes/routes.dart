@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:visitor_pass/constants/constants.dart';
+import 'package:visitor_pass/main.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart';
 import 'package:visitor_pass/views/pages/drawer_view_page.dart';
 import 'package:visitor_pass/views/pages/onbording/omboarding_screen.dart';
@@ -74,7 +74,7 @@ class AuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    final userId = box.read("user-id");
+    final userId = prefs.getString("user-id");
     if (userId == null) {
       return const RouteSettings(name: "/");
     }

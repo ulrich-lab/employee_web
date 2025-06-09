@@ -1,10 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Models/notification_model.dart';
 import 'package:visitor_pass/config/graphql/documents/notifications.graphql.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/core/datasources/graphql_datasource.dart';
 import 'package:visitor_pass/domain/notification_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:visitor_pass/main.dart';
 
 @LazySingleton(as: NotificationRepository)
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -20,7 +19,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
         .subscribe(
       Options$Subscription$ListenAllNotifications(
         variables: Variables$Subscription$ListenAllNotifications(
-          employee_id: box.read("user-id"),
+          employee_id: prefs.getString("user-id")??"",
         ),
       ),
     )

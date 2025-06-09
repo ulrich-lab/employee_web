@@ -1,11 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/domain/visitors_repository.dart';
-import 'package:visitor_pass/services/user-service.dart';
+import 'package:visitor_pass/main.dart';
 
 import '../Models/dashboard_model.dart';
 import '../services/server.dart';
@@ -32,15 +28,13 @@ class DashboardController extends GetxController {
     loader.value = true;
     // UserService userService = UserService();
     visitorsRepository
-        .listenToAllVisitors(id:box.read("user-id"))!
+        .listenToAllVisitors(id: prefs.getString("user-id") ?? "")!
         .listen(
       (data) {
         visitors.value = data ?? [];
       },
-      onError: (error) {
-      },
-      onDone: () {
-      },
+      onError: (error) {},
+      onDone: () {},
     );
     ;
     // visitorList.value = <DashboardVisitor>[];
@@ -69,7 +63,7 @@ class DashboardController extends GetxController {
       visitorsRepository.acceptVisit(id: id);
     } else if (status == "rejected") {
       visitorsRepository.rejectVisit(id: id);
-    }else{
+    } else {
       visitorsRepository.clockOutVisits(id: id);
     }
     // server

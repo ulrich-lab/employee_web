@@ -3,10 +3,10 @@ import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Models/permission_model.dart';
 import 'package:visitor_pass/config/graphql/documents/permission.graphql.dart';
 import 'package:visitor_pass/config/graphql/schema.graphqls.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/core/datasources/graphql_datasource.dart';
 import 'package:visitor_pass/core/error/failure.dart';
 import 'package:visitor_pass/domain/permission_repository.dart';
+import 'package:visitor_pass/main.dart';
 
 @prod
 @LazySingleton(as: PermissionRepository)
@@ -44,7 +44,7 @@ class PermissionRepositoryImpl implements PermissionRepository {
           end_date: end_date,
           start_date: start_date,
           comment: comment,
-          employee_id: box.read("user-id"),
+          employee_id: prefs.getString("user-id")??"",
           leave_type: Enum$leave_type_enum.fromJson(leave_type),
           file: file_url,
         ),

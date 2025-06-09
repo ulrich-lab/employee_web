@@ -2,11 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/config/graphql/documents/profile.graphql.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/core/datasources/graphql_datasource.dart';
 import 'package:visitor_pass/core/error/failure.dart';
 import 'package:visitor_pass/domain/profile_repository.dart';
-import 'package:visitor_pass/services/user-service.dart';
+import 'package:visitor_pass/main.dart';
 
 @prod
 @LazySingleton(as: ProfileRepository)
@@ -35,7 +34,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       Options$Mutation$UpdateEmployeeInfo(
         variables: Variables$Mutation$UpdateEmployeeInfo(
           firstname: firstName,
-          id: box.read("user-id"),
+          id: prefs.getString("user-id")??"",
           lastname: lastName,
           address: address,
           phoneNumber: phoneNumber,
@@ -61,7 +60,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         variables: Variables$Mutation$UpdatePassword(
           currentPassword: currentPassword,
           newPassword: newPassword,
-          phoneNumber: box.read("phone"),
+          phoneNumber: prefs.getString("phone")??"",
         ),
       ),
     );

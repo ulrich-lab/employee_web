@@ -1,15 +1,12 @@
 import 'dart:convert';
-// import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Services/api-list.dart';
-import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/domain/profile_repository.dart';
+import 'package:visitor_pass/main.dart';
 import '/services/server.dart';
-import '/services/user-service.dart';
 import '../Models/profile_model.dart';
 
 @lazySingleton
@@ -42,15 +39,15 @@ class ProfileController extends GetxController {
   //   super.onInit();
   // }
 
-
   getUserProfile() async {
     // server.getRequest(endPoint: APIList.profile).then((response) async{
     // UserService userService = UserService();
 
-    if (box.read("profile") != "") {
+    if (prefs.getString("profile") != "") {
       profileLoader = false;
       // final jsonResponse = json.decode(response.body);
-      var profileData = Profile.fromJson(jsonDecode(box.read("profile")));
+      var profileData =
+          Profile.fromJson(jsonDecode(prefs.getString("profile") ?? ""));
       profileUser = profileData;
       emailController.text = profileUser.email.toString();
       firstNameController.text = profileUser.first_name.toString();
@@ -76,13 +73,11 @@ class ProfileController extends GetxController {
     // });
   }
 
-
-
   updateUserProfile(filepath, type, context) async {
     // UserService userService = UserService();
 
     if (phoneController.text.isNotEmpty &&
-        phoneController.text != await box.read("phone")) {
+        phoneController.text != await prefs.getString("phone")) {
       bool shouldProceed = await _showPhoneChangeDialog(context);
       if (!shouldProceed) {
         return;
@@ -101,11 +96,12 @@ class ProfileController extends GetxController {
       )
           .then((response) async {
         if (response != null && response.statusCode == 200) {
-          if (box.read("profile") != "") {
-            var profileData = Profile.fromJson(jsonDecode(box.read("profile")));
+          if (prefs.getString("profile") != "") {
+            var profileData =
+                Profile.fromJson(jsonDecode(prefs.getString("profile") ?? ""));
             Profile newp = profileData.copyWith(
                 image: json.decode(response.body)['file_url']);
-            await box.write('profile', jsonEncode(newp.toJson()));
+            await prefs.setString('profile', jsonEncode(newp.toJson()));
             profileUpdateLoader = false;
 
             Future.delayed(const Duration(milliseconds: 10), () {
@@ -143,7 +139,7 @@ class ProfileController extends GetxController {
           (success) async {
             // UserService userService = UserService();
             if (phoneController.text.isNotEmpty &&
-                phoneController.text != box.read("phone")) {
+                phoneController.text != prefs.getString("phone")) {
               // emailController.clear();
               // firstNameController.clear();
               // lastNameController.clear();
@@ -153,14 +149,13 @@ class ProfileController extends GetxController {
               // Phoenix.rebirth(context);
               // Get.find<GlobalController>().userLogout();
               // await userService.removeSharedPreferenceData();
-              await box.erase();
-             
+              await prefs.clear();
 
               return;
             }
-            if (box.read("profile") != "") {
-              var profileData =
-                  Profile.fromJson(jsonDecode(box.read("profile")));
+            if (prefs.getString("profile") != "") {
+              var profileData = Profile.fromJson(
+                  jsonDecode(prefs.getString("profile") ?? ""));
               Profile newp = profileData.copyWith(
                 last_name: success.lastName,
                 first_name: success.firstName,
@@ -168,7 +163,7 @@ class ProfileController extends GetxController {
                 phone: success.phoneNumber,
               );
 
-              await box.write(
+              await prefs.setString(
                 'profile',
                 jsonEncode(newp.toJson()),
               );

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:visitor_pass/Models/attendance_model.dart';
 import 'package:visitor_pass/Models/schedule_model.dart';
 import 'package:visitor_pass/domain/attendance_repository.dart';
+import 'package:visitor_pass/main.dart';
 
 import '../constants/constants.dart';
 import '/services/api-list.dart';
@@ -46,7 +47,7 @@ class AttendanceController extends GetxController {
   Future<void>? getAttendanceStatus() async {
     // UserService userService = UserService();
     attendanceRepository
-        .listenToAttendanceStatus(id: box.read("user-id"))!
+        .listenToAttendanceStatus(id: prefs.getString("user-id")??"")!
         .listen(
       (data) {
         attendance.value = data!;
@@ -80,7 +81,7 @@ class AttendanceController extends GetxController {
       loader.value = true;
       var r = attendanceRepository.clockIn(
         buildingId: data,
-        id: box.read("user-id"),
+        id: prefs.getString("user-id")??"",
         long: "11.5170657",
         lat: "3.8727566",
       );
@@ -142,7 +143,7 @@ class AttendanceController extends GetxController {
     //   // UserService userService = UserService();
     //   var r = attendanceRepository.clockIn(
     //     buildingId: data,
-    //     id: box.read("user-id"),
+    //     id: prefs.getString("user-id"),
     //     long: long.toString(),
     //     lat: lat.toString(),
     //   );
@@ -181,7 +182,7 @@ class AttendanceController extends GetxController {
 
   clockOutUpdate(context) async {
     // UserService userService = UserService();
-    var r = attendanceRepository.clockOut(id: box.read("user-id"));
+    var r = attendanceRepository.clockOut(id: prefs.getString("user-id")??"");
     r.then((result) {
       result.fold(
         (failure) {

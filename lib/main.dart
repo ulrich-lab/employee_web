@@ -2,6 +2,7 @@ import 'dart:async';
 // import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:url_strategy/url_strategy.dart';
 import 'package:visitor_pass/Services/date_time_service.dart';
 import 'package:visitor_pass/SplashScreen/splash_screen.dart';
@@ -13,10 +14,12 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:visitor_pass/theme/theme.dart';
 import 'Controllers/global-controller.dart';
-import 'package:get_storage/get_storage.dart';
+// import 'package:get_storage/get_storage.dart';
 import '../../language/language.dart';
 import 'constants/constants.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+late SharedPreferences prefs;
 
 // Future<void> main() async {
 //   await GetStorage.init();
@@ -51,11 +54,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-  try {
-    await GetStorage.init();
-  } catch (e) {
-    debugPrint("Erreur GetStorage : $e");
-  }
+  // try {
+  //   await GetStorage.init();
+  // } catch (e) {
+  //   debugPrint("Erreur GetStorage : $e");
+  // }
+  prefs = await SharedPreferences.getInstance();
 
   configureDependencies();
 

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:get_storage/get_storage.dart';
+// import 'package:get_storage/get_storage.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-final box = GetStorage();
+// final box = GetStorage();
+// fina 
 
 class AppColor {
   static const Color primaryColor = Color(0xff386BF6);
