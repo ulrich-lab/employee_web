@@ -5,19 +5,13 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'package:visitor_pass/Controllers/attendance_controller.dart';
-import 'package:visitor_pass/Controllers/chat_controller.dart';
-import 'package:visitor_pass/Controllers/contacts_controller.dart';
 import 'package:visitor_pass/Controllers/dashboard_controller.dart';
-import 'package:visitor_pass/Controllers/notification_controller.dart';
 import 'package:visitor_pass/Controllers/permission_controller.dart';
 import 'package:visitor_pass/Controllers/pre_register_controller.dart';
 import 'package:visitor_pass/Controllers/profile_controller.dart'
     show ProfileController;
-import 'package:visitor_pass/config/locator/isar_bd.dart' show IsarDb;
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:visitor_pass/constants/constants.dart' show AppColor, Images;
-import 'package:visitor_pass/utils/abc.dart' show isConnected;
-import 'package:visitor_pass/views/pages/chat/base_chat.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart'
     show EmployeeDashboardPage;
 import 'package:visitor_pass/views/pages/pre-register/pre_register.dart';
@@ -44,8 +38,8 @@ class _SideBarState extends State<SideBar> {
 
   // final ChatController chatController = Get.put(locator<ChatController>());
 
-  final NotificationController _notificationController =
-      Get.put(locator<NotificationController>());
+  // final NotificationController _notificationController =
+  //     Get.put(locator<NotificationController>());
 
   AttendanceController attendanceController =
       Get.put(locator<AttendanceController>());
@@ -80,7 +74,7 @@ class _SideBarState extends State<SideBar> {
     // chatController.addContactsGroup();
     // contactPickerController.fetchContacts();
     dashboardController.getDashboard();
-    _notificationController.initNotif();
+    // _notificationController.initNotif();
     preRegisterController.getPreVisitors();
     permissionController.getLeavesList();
     permissionController.getReasonList();

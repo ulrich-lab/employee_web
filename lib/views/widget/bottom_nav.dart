@@ -32,8 +32,8 @@ class _BottomNavState extends State<BottomNav>
 
   // final ChatController chatController = Get.put(locator<ChatController>());
 
-  final NotificationController _notificationController =
-      Get.put(locator<NotificationController>());
+  // final NotificationController _notificationController =
+  //     Get.put(locator<NotificationController>());
 
   AttendanceController attendanceController =
       Get.put(locator<AttendanceController>());
@@ -73,7 +73,7 @@ class _BottomNavState extends State<BottomNav>
     // chatController.addContactsGroup();
     // contactPickerController.fetchContacts();
     dashboardController.getDashboard();
-    _notificationController.initNotif();
+    // _notificationController.initNotif();
     preRegisterController.getPreVisitors();
     permissionController.getLeavesList();
     permissionController.getReasonList();

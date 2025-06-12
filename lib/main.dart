@@ -1,23 +1,15 @@
 import 'dart:async';
-// import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:url_strategy/url_strategy.dart';
-import 'package:visitor_pass/Services/date_time_service.dart';
 import 'package:visitor_pass/SplashScreen/splash_screen.dart';
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:visitor_pass/notificatons/notifications_helper.dart';
 import 'package:visitor_pass/routes/routes.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
 import 'package:visitor_pass/theme/theme.dart';
 import 'Controllers/global-controller.dart';
-// import 'package:get_storage/get_storage.dart';
 import '../../language/language.dart';
-import 'constants/constants.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 late SharedPreferences prefs;
 
@@ -63,24 +55,6 @@ Future<void> main() async {
 
   configureDependencies();
 
-  try {
-    await DateTimeService.instance.init();
-  } catch (e) {
-    debugPrint("Erreur DateTimeService : $e");
-  }
-
-  if (!kIsWeb) {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    try {
-      await NotificationControllerService.initializeLocalNotifications();
-    } catch (e) {
-      debugPrint("Erreur Notifications : $e");
-    }
-  }
 
   try {
     await initializeDateFormatting();
@@ -137,14 +111,14 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class NotificationDataModel {
-  String? type;
-  NotificationDataModel({required this.type});
+// class NotificationDataModel {
+//   String? type;
+//   NotificationDataModel({required this.type});
 
-  NotificationDataModel.fromJson(Map data) {
-    NotificationDataModel(type: data["data"]);
-  }
-}
+//   NotificationDataModel.fromJson(Map data) {
+//     NotificationDataModel(type: data["data"]);
+//   }
+// }
 
 // class MyHttpOverrides extends HttpOverrides {
 //   @override
