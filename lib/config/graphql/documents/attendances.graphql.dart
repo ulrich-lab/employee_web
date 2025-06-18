@@ -1931,3 +1931,770 @@ class _CopyWithStubImpl$Subscription$AttendanceStatus$attendance$attendance_stat
   }) =>
       _res;
 }
+
+class Variables$Subscription$AttendanceList {
+  factory Variables$Subscription$AttendanceList(
+          {required String employee_id}) =>
+      Variables$Subscription$AttendanceList._({
+        r'employee_id': employee_id,
+      });
+
+  Variables$Subscription$AttendanceList._(this._$data);
+
+  factory Variables$Subscription$AttendanceList.fromJson(
+      Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$employee_id = data['employee_id'];
+    result$data['employee_id'] = (l$employee_id as String);
+    return Variables$Subscription$AttendanceList._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get employee_id => (_$data['employee_id'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$employee_id = employee_id;
+    result$data['employee_id'] = l$employee_id;
+    return result$data;
+  }
+
+  CopyWith$Variables$Subscription$AttendanceList<
+          Variables$Subscription$AttendanceList>
+      get copyWith => CopyWith$Variables$Subscription$AttendanceList(
+            this,
+            (i) => i,
+          );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Variables$Subscription$AttendanceList ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$employee_id = employee_id;
+    final lOther$employee_id = other.employee_id;
+    if (l$employee_id != lOther$employee_id) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$employee_id = employee_id;
+    return Object.hashAll([l$employee_id]);
+  }
+}
+
+abstract class CopyWith$Variables$Subscription$AttendanceList<TRes> {
+  factory CopyWith$Variables$Subscription$AttendanceList(
+    Variables$Subscription$AttendanceList instance,
+    TRes Function(Variables$Subscription$AttendanceList) then,
+  ) = _CopyWithImpl$Variables$Subscription$AttendanceList;
+
+  factory CopyWith$Variables$Subscription$AttendanceList.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Subscription$AttendanceList;
+
+  TRes call({String? employee_id});
+}
+
+class _CopyWithImpl$Variables$Subscription$AttendanceList<TRes>
+    implements CopyWith$Variables$Subscription$AttendanceList<TRes> {
+  _CopyWithImpl$Variables$Subscription$AttendanceList(
+    this._instance,
+    this._then,
+  );
+
+  final Variables$Subscription$AttendanceList _instance;
+
+  final TRes Function(Variables$Subscription$AttendanceList) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({Object? employee_id = _undefined}) =>
+      _then(Variables$Subscription$AttendanceList._({
+        ..._instance._$data,
+        if (employee_id != _undefined && employee_id != null)
+          'employee_id': (employee_id as String),
+      }));
+}
+
+class _CopyWithStubImpl$Variables$Subscription$AttendanceList<TRes>
+    implements CopyWith$Variables$Subscription$AttendanceList<TRes> {
+  _CopyWithStubImpl$Variables$Subscription$AttendanceList(this._res);
+
+  TRes _res;
+
+  call({String? employee_id}) => _res;
+}
+
+class Subscription$AttendanceList {
+  Subscription$AttendanceList({required this.attendance});
+
+  factory Subscription$AttendanceList.fromJson(Map<String, dynamic> json) {
+    final l$attendance = json['attendance'];
+    return Subscription$AttendanceList(
+        attendance: (l$attendance as List<dynamic>)
+            .map((e) => Subscription$AttendanceList$attendance.fromJson(
+                (e as Map<String, dynamic>)))
+            .toList());
+  }
+
+  final List<Subscription$AttendanceList$attendance> attendance;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$attendance = attendance;
+    _resultData['attendance'] = l$attendance.map((e) => e.toJson()).toList();
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$attendance = attendance;
+    return Object.hashAll([Object.hashAll(l$attendance.map((v) => v))]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Subscription$AttendanceList ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$attendance = attendance;
+    final lOther$attendance = other.attendance;
+    if (l$attendance.length != lOther$attendance.length) {
+      return false;
+    }
+    for (int i = 0; i < l$attendance.length; i++) {
+      final l$attendance$entry = l$attendance[i];
+      final lOther$attendance$entry = lOther$attendance[i];
+      if (l$attendance$entry != lOther$attendance$entry) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Subscription$AttendanceList
+    on Subscription$AttendanceList {
+  CopyWith$Subscription$AttendanceList<Subscription$AttendanceList>
+      get copyWith => CopyWith$Subscription$AttendanceList(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Subscription$AttendanceList<TRes> {
+  factory CopyWith$Subscription$AttendanceList(
+    Subscription$AttendanceList instance,
+    TRes Function(Subscription$AttendanceList) then,
+  ) = _CopyWithImpl$Subscription$AttendanceList;
+
+  factory CopyWith$Subscription$AttendanceList.stub(TRes res) =
+      _CopyWithStubImpl$Subscription$AttendanceList;
+
+  TRes call({List<Subscription$AttendanceList$attendance>? attendance});
+  TRes attendance(
+      Iterable<Subscription$AttendanceList$attendance> Function(
+              Iterable<
+                  CopyWith$Subscription$AttendanceList$attendance<
+                      Subscription$AttendanceList$attendance>>)
+          _fn);
+}
+
+class _CopyWithImpl$Subscription$AttendanceList<TRes>
+    implements CopyWith$Subscription$AttendanceList<TRes> {
+  _CopyWithImpl$Subscription$AttendanceList(
+    this._instance,
+    this._then,
+  );
+
+  final Subscription$AttendanceList _instance;
+
+  final TRes Function(Subscription$AttendanceList) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({Object? attendance = _undefined}) => _then(
+      Subscription$AttendanceList(
+          attendance: attendance == _undefined || attendance == null
+              ? _instance.attendance
+              : (attendance as List<Subscription$AttendanceList$attendance>)));
+
+  TRes attendance(
+          Iterable<Subscription$AttendanceList$attendance> Function(
+                  Iterable<
+                      CopyWith$Subscription$AttendanceList$attendance<
+                          Subscription$AttendanceList$attendance>>)
+              _fn) =>
+      call(
+          attendance: _fn(_instance.attendance
+              .map((e) => CopyWith$Subscription$AttendanceList$attendance(
+                    e,
+                    (i) => i,
+                  ))).toList());
+}
+
+class _CopyWithStubImpl$Subscription$AttendanceList<TRes>
+    implements CopyWith$Subscription$AttendanceList<TRes> {
+  _CopyWithStubImpl$Subscription$AttendanceList(this._res);
+
+  TRes _res;
+
+  call({List<Subscription$AttendanceList$attendance>? attendance}) => _res;
+
+  attendance(_fn) => _res;
+}
+
+const documentNodeSubscriptionAttendanceList = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.subscription,
+    name: NameNode(value: 'AttendanceList'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'employee_id')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'uuid'),
+          isNonNull: true,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'attendance'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'where'),
+            value: ObjectValueNode(fields: [
+              ObjectFieldNode(
+                name: NameNode(value: 'employee_id'),
+                value: ObjectValueNode(fields: [
+                  ObjectFieldNode(
+                    name: NameNode(value: '_eq'),
+                    value: VariableNode(name: NameNode(value: 'employee_id')),
+                  )
+                ]),
+              )
+            ]),
+          )
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+            name: NameNode(value: 'attendance_state'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'is_late'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'id'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: '__typename'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+            ]),
+          ),
+          FieldNode(
+            name: NameNode(value: 'clock_in_date'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'clock_in_time'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: 'clock_out_time'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+        ]),
+      )
+    ]),
+  ),
+]);
+Subscription$AttendanceList _parserFn$Subscription$AttendanceList(
+        Map<String, dynamic> data) =>
+    Subscription$AttendanceList.fromJson(data);
+
+class Options$Subscription$AttendanceList
+    extends graphql.SubscriptionOptions<Subscription$AttendanceList> {
+  Options$Subscription$AttendanceList({
+    String? operationName,
+    required Variables$Subscription$AttendanceList variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Subscription$AttendanceList? typedOptimisticResult,
+    graphql.Context? context,
+  }) : super(
+          variables: variables.toJson(),
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+          context: context,
+          document: documentNodeSubscriptionAttendanceList,
+          parserFn: _parserFn$Subscription$AttendanceList,
+        );
+}
+
+class WatchOptions$Subscription$AttendanceList
+    extends graphql.WatchQueryOptions<Subscription$AttendanceList> {
+  WatchOptions$Subscription$AttendanceList({
+    String? operationName,
+    required Variables$Subscription$AttendanceList variables,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Subscription$AttendanceList? typedOptimisticResult,
+    graphql.Context? context,
+    Duration? pollInterval,
+    bool? eagerlyFetchResults,
+    bool carryForwardDataOnException = true,
+    bool fetchResults = false,
+  }) : super(
+          variables: variables.toJson(),
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+          context: context,
+          document: documentNodeSubscriptionAttendanceList,
+          pollInterval: pollInterval,
+          eagerlyFetchResults: eagerlyFetchResults,
+          carryForwardDataOnException: carryForwardDataOnException,
+          fetchResults: fetchResults,
+          parserFn: _parserFn$Subscription$AttendanceList,
+        );
+}
+
+class FetchMoreOptions$Subscription$AttendanceList
+    extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Subscription$AttendanceList({
+    required graphql.UpdateQuery updateQuery,
+    required Variables$Subscription$AttendanceList variables,
+  }) : super(
+          updateQuery: updateQuery,
+          variables: variables.toJson(),
+          document: documentNodeSubscriptionAttendanceList,
+        );
+}
+
+extension ClientExtension$Subscription$AttendanceList on graphql.GraphQLClient {
+  Stream<graphql.QueryResult<Subscription$AttendanceList>>
+      subscribe$AttendanceList(Options$Subscription$AttendanceList options) =>
+          this.subscribe(options);
+  graphql.ObservableQuery<Subscription$AttendanceList>
+      watchSubscription$AttendanceList(
+              WatchOptions$Subscription$AttendanceList options) =>
+          this.watchQuery(options);
+}
+
+class Subscription$AttendanceList$attendance {
+  Subscription$AttendanceList$attendance({
+    this.attendance_state,
+    this.clock_in_date,
+    this.clock_in_time,
+    this.clock_out_time,
+    this.$__typename = 'attendance',
+  });
+
+  factory Subscription$AttendanceList$attendance.fromJson(
+      Map<String, dynamic> json) {
+    final l$attendance_state = json['attendance_state'];
+    final l$clock_in_date = json['clock_in_date'];
+    final l$clock_in_time = json['clock_in_time'];
+    final l$clock_out_time = json['clock_out_time'];
+    final l$$__typename = json['__typename'];
+    return Subscription$AttendanceList$attendance(
+      attendance_state: l$attendance_state == null
+          ? null
+          : Subscription$AttendanceList$attendance$attendance_state.fromJson(
+              (l$attendance_state as Map<String, dynamic>)),
+      clock_in_date: (l$clock_in_date as String?),
+      clock_in_time: (l$clock_in_time as String?),
+      clock_out_time: (l$clock_out_time as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Subscription$AttendanceList$attendance$attendance_state?
+      attendance_state;
+
+  final String? clock_in_date;
+
+  final String? clock_in_time;
+
+  final String? clock_out_time;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$attendance_state = attendance_state;
+    _resultData['attendance_state'] = l$attendance_state?.toJson();
+    final l$clock_in_date = clock_in_date;
+    _resultData['clock_in_date'] = l$clock_in_date;
+    final l$clock_in_time = clock_in_time;
+    _resultData['clock_in_time'] = l$clock_in_time;
+    final l$clock_out_time = clock_out_time;
+    _resultData['clock_out_time'] = l$clock_out_time;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$attendance_state = attendance_state;
+    final l$clock_in_date = clock_in_date;
+    final l$clock_in_time = clock_in_time;
+    final l$clock_out_time = clock_out_time;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$attendance_state,
+      l$clock_in_date,
+      l$clock_in_time,
+      l$clock_out_time,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Subscription$AttendanceList$attendance ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$attendance_state = attendance_state;
+    final lOther$attendance_state = other.attendance_state;
+    if (l$attendance_state != lOther$attendance_state) {
+      return false;
+    }
+    final l$clock_in_date = clock_in_date;
+    final lOther$clock_in_date = other.clock_in_date;
+    if (l$clock_in_date != lOther$clock_in_date) {
+      return false;
+    }
+    final l$clock_in_time = clock_in_time;
+    final lOther$clock_in_time = other.clock_in_time;
+    if (l$clock_in_time != lOther$clock_in_time) {
+      return false;
+    }
+    final l$clock_out_time = clock_out_time;
+    final lOther$clock_out_time = other.clock_out_time;
+    if (l$clock_out_time != lOther$clock_out_time) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Subscription$AttendanceList$attendance
+    on Subscription$AttendanceList$attendance {
+  CopyWith$Subscription$AttendanceList$attendance<
+          Subscription$AttendanceList$attendance>
+      get copyWith => CopyWith$Subscription$AttendanceList$attendance(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Subscription$AttendanceList$attendance<TRes> {
+  factory CopyWith$Subscription$AttendanceList$attendance(
+    Subscription$AttendanceList$attendance instance,
+    TRes Function(Subscription$AttendanceList$attendance) then,
+  ) = _CopyWithImpl$Subscription$AttendanceList$attendance;
+
+  factory CopyWith$Subscription$AttendanceList$attendance.stub(TRes res) =
+      _CopyWithStubImpl$Subscription$AttendanceList$attendance;
+
+  TRes call({
+    Subscription$AttendanceList$attendance$attendance_state? attendance_state,
+    String? clock_in_date,
+    String? clock_in_time,
+    String? clock_out_time,
+    String? $__typename,
+  });
+  CopyWith$Subscription$AttendanceList$attendance$attendance_state<TRes>
+      get attendance_state;
+}
+
+class _CopyWithImpl$Subscription$AttendanceList$attendance<TRes>
+    implements CopyWith$Subscription$AttendanceList$attendance<TRes> {
+  _CopyWithImpl$Subscription$AttendanceList$attendance(
+    this._instance,
+    this._then,
+  );
+
+  final Subscription$AttendanceList$attendance _instance;
+
+  final TRes Function(Subscription$AttendanceList$attendance) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? attendance_state = _undefined,
+    Object? clock_in_date = _undefined,
+    Object? clock_in_time = _undefined,
+    Object? clock_out_time = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Subscription$AttendanceList$attendance(
+        attendance_state: attendance_state == _undefined
+            ? _instance.attendance_state
+            : (attendance_state
+                as Subscription$AttendanceList$attendance$attendance_state?),
+        clock_in_date: clock_in_date == _undefined
+            ? _instance.clock_in_date
+            : (clock_in_date as String?),
+        clock_in_time: clock_in_time == _undefined
+            ? _instance.clock_in_time
+            : (clock_in_time as String?),
+        clock_out_time: clock_out_time == _undefined
+            ? _instance.clock_out_time
+            : (clock_out_time as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Subscription$AttendanceList$attendance$attendance_state<TRes>
+      get attendance_state {
+    final local$attendance_state = _instance.attendance_state;
+    return local$attendance_state == null
+        ? CopyWith$Subscription$AttendanceList$attendance$attendance_state.stub(
+            _then(_instance))
+        : CopyWith$Subscription$AttendanceList$attendance$attendance_state(
+            local$attendance_state, (e) => call(attendance_state: e));
+  }
+}
+
+class _CopyWithStubImpl$Subscription$AttendanceList$attendance<TRes>
+    implements CopyWith$Subscription$AttendanceList$attendance<TRes> {
+  _CopyWithStubImpl$Subscription$AttendanceList$attendance(this._res);
+
+  TRes _res;
+
+  call({
+    Subscription$AttendanceList$attendance$attendance_state? attendance_state,
+    String? clock_in_date,
+    String? clock_in_time,
+    String? clock_out_time,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Subscription$AttendanceList$attendance$attendance_state<TRes>
+      get attendance_state =>
+          CopyWith$Subscription$AttendanceList$attendance$attendance_state.stub(
+              _res);
+}
+
+class Subscription$AttendanceList$attendance$attendance_state {
+  Subscription$AttendanceList$attendance$attendance_state({
+    this.is_late,
+    required this.id,
+    this.$__typename = 'attendance_state',
+  });
+
+  factory Subscription$AttendanceList$attendance$attendance_state.fromJson(
+      Map<String, dynamic> json) {
+    final l$is_late = json['is_late'];
+    final l$id = json['id'];
+    final l$$__typename = json['__typename'];
+    return Subscription$AttendanceList$attendance$attendance_state(
+      is_late: (l$is_late as bool?),
+      id: (l$id as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final bool? is_late;
+
+  final String id;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$is_late = is_late;
+    _resultData['is_late'] = l$is_late;
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$is_late = is_late;
+    final l$id = id;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$is_late,
+      l$id,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Subscription$AttendanceList$attendance$attendance_state ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$is_late = is_late;
+    final lOther$is_late = other.is_late;
+    if (l$is_late != lOther$is_late) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Subscription$AttendanceList$attendance$attendance_state
+    on Subscription$AttendanceList$attendance$attendance_state {
+  CopyWith$Subscription$AttendanceList$attendance$attendance_state<
+          Subscription$AttendanceList$attendance$attendance_state>
+      get copyWith =>
+          CopyWith$Subscription$AttendanceList$attendance$attendance_state(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Subscription$AttendanceList$attendance$attendance_state<
+    TRes> {
+  factory CopyWith$Subscription$AttendanceList$attendance$attendance_state(
+    Subscription$AttendanceList$attendance$attendance_state instance,
+    TRes Function(Subscription$AttendanceList$attendance$attendance_state) then,
+  ) = _CopyWithImpl$Subscription$AttendanceList$attendance$attendance_state;
+
+  factory CopyWith$Subscription$AttendanceList$attendance$attendance_state.stub(
+          TRes res) =
+      _CopyWithStubImpl$Subscription$AttendanceList$attendance$attendance_state;
+
+  TRes call({
+    bool? is_late,
+    String? id,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Subscription$AttendanceList$attendance$attendance_state<
+        TRes>
+    implements
+        CopyWith$Subscription$AttendanceList$attendance$attendance_state<TRes> {
+  _CopyWithImpl$Subscription$AttendanceList$attendance$attendance_state(
+    this._instance,
+    this._then,
+  );
+
+  final Subscription$AttendanceList$attendance$attendance_state _instance;
+
+  final TRes Function(Subscription$AttendanceList$attendance$attendance_state)
+      _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? is_late = _undefined,
+    Object? id = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Subscription$AttendanceList$attendance$attendance_state(
+        is_late: is_late == _undefined ? _instance.is_late : (is_late as bool?),
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Subscription$AttendanceList$attendance$attendance_state<
+        TRes>
+    implements
+        CopyWith$Subscription$AttendanceList$attendance$attendance_state<TRes> {
+  _CopyWithStubImpl$Subscription$AttendanceList$attendance$attendance_state(
+      this._res);
+
+  TRes _res;
+
+  call({
+    bool? is_late,
+    String? id,
+    String? $__typename,
+  }) =>
+      _res;
+}

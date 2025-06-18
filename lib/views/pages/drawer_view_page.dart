@@ -12,6 +12,7 @@ import 'package:visitor_pass/Controllers/profile_controller.dart'
     show ProfileController;
 import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:visitor_pass/constants/constants.dart' show AppColor, Images;
+import 'package:visitor_pass/views/pages/attendance/attendance_page.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart'
     show EmployeeDashboardPage;
 import 'package:visitor_pass/views/pages/pre-register/pre_register.dart';
@@ -71,6 +72,7 @@ class _SideBarState extends State<SideBar> {
     profile.getUserProfile();
     attendanceController.getAttendanceList();
     attendanceController.getAttendanceStatus();
+    attendanceController.getAttendanceList();
     // chatController.addContactsGroup();
     // contactPickerController.fetchContacts();
     dashboardController.getDashboard();
@@ -351,7 +353,7 @@ class ExampleSidebarX extends StatelessWidget {
                       width: 16,
                       color: Colors.grey,
                     ),
-              label: 'Visiteurs',
+              label: 'Attendences',
             ),
             SidebarXItem(
               iconWidget: _controller.selectedIndex == 2
@@ -433,7 +435,7 @@ class _ScreensExample extends StatelessWidget {
               case 1:
                 return Row(
                   children: [
-                    Flexible(flex: 6, child: VisitorListPage()),
+                    Flexible(flex: 6, child: AttendancePage()),
                     Flexible(
                       flex: 4,
                       child: ClockPage(),

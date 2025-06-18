@@ -22,3 +22,15 @@ subscription AttendanceStatus($employee_id: uuid!) {
     clock_out_time
   }
 }
+
+subscription AttendanceList($employee_id: uuid!) {
+  attendance(where: {employee_id: {_eq: $employee_id}}) {
+    attendance_state {
+      is_late
+      id
+    }
+    clock_in_date
+    clock_in_time
+    clock_out_time
+  }
+}

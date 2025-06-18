@@ -7,6 +7,10 @@ abstract class AttendanceRepository {
     required String id,
   });
 
+   Stream<List<AttendanceData>?> attendanceList({
+    required String id,
+  });
+
   Future<Either<Failure, String>> clockIn({
     required String id,
     required String buildingId,

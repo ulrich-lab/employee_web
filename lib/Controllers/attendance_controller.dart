@@ -33,7 +33,7 @@ class AttendanceController extends GetxController {
   RxString clockOut = ''.obs;
   RxString workFrom = ''.obs;
   RxBool showClockin = true.obs;
-  var attendenceList = <ScheduleItemModel>[].obs;
+  var attendenceList = <AttendanceData>[].obs;
   // Stream<AttendanceData?>? status;
   var attendance = AttendanceData().obs;
 
@@ -47,7 +47,7 @@ class AttendanceController extends GetxController {
   Future<void>? getAttendanceStatus() async {
     // UserService userService = UserService();
     attendanceRepository
-        .listenToAttendanceStatus(id: prefs.getString("user-id")??"")!
+        .listenToAttendanceStatus(id: prefs.getString("user-id") ?? "")!
         .listen(
       (data) {
         attendance.value = data!;
@@ -57,64 +57,78 @@ class AttendanceController extends GetxController {
     );
   }
 
-  getAttendanceList() {
+  getAttendanceList() async {
+    if (isLoadingGetAttendenceList.value) return;
     isLoadingGetAttendenceList.value = true;
     attendenceList.clear();
-    server.getRequest(endPoint: APIList.attendanceList).then((response) {
-      if (response != null && response.statusCode == 200) {
-        // attendenceList.
-        final jsonResponse = json.decode(response.body);
-        for (var el in jsonResponse['data']['auth_user_attendance']) {
-          attendenceList.add(ScheduleItemModel.fromJson(el));
-        }
+    // server.getRequest(endPoint: APIList.attendanceList).then((response) {
+    //   if (response != null && response.statusCode == 200) {
+    //     // attendenceList.
+    //     final jsonResponse = json.decode(response.body);
+    //     for (var el in jsonResponse['data']['auth_user_attendance']) {
+    //       attendenceList.add(ScheduleItemModel.fromJson(el));
+    //     }
 
-        isLoadingGetAttendenceList.value = false;
-      } else {
-        isLoadingGetAttendenceList.value = false;
-      }
-    });
+    //     isLoadingGetAttendenceList.value = false;
+    //   } else {
+    //     isLoadingGetAttendenceList.value = false;
+    //   }
+    // });
+
+    await attendanceRepository
+        .attendanceList(id: prefs.getString("user-id") ?? "")
+        .listen(
+      (data) {
+        attendenceList.value = data!;
+         isLoadingGetAttendenceList.value = false;
+      },
+      onError: (error) {},
+      onDone: () {},
+    );
+
+   
   }
 
   clockInUpdate(context, String data) async {
     // if (ScreenSize(context).mainWidth>650) {
     // if (ScreenUtil().screenWidth > 640) {
-      loader.value = true;
-      var r = attendanceRepository.clockIn(
-        buildingId: data,
-        id: prefs.getString("user-id")??"",
-        long: "11.5170657",
-        lat: "3.8727566",
+    loader.value = true;
+    var r = attendanceRepository.clockIn(
+      buildingId: data,
+      id: prefs.getString("user-id") ?? "",
+      long: "11.5170657",
+      lat: "3.8727566",
+    );
+    r.then((result) {
+      result.fold(
+        (failure) {
+          // Get.rawSnackbar(
+          //   message: "you can make clock in at your position",
+          //   backgroundColor: Colors.red,
+          //   snackPosition: SnackPosition.TOP,
+          // );
+        },
+        (success) {
+          Get.rawSnackbar(
+            snackPosition: SnackPosition.TOP,
+            title: 'Clock In',
+            message: 'Clocked In Successfully',
+            backgroundColor: AppColor.greenColor.withOpacity(.9),
+            maxWidth: ScreenSize(context!).mainWidth / 1.004,
+            margin: const EdgeInsets.only(
+              bottom: 20,
+              left: 20,
+              right: 20,
+            ),
+          );
+        },
       );
-      r.then((result) {
-        result.fold(
-          (failure) {
-            // Get.rawSnackbar(
-            //   message: "you can make clock in at your position",
-            //   backgroundColor: Colors.red,
-            //   snackPosition: SnackPosition.TOP,
-            // );
-          },
-          (success) {
-            Get.rawSnackbar(
-              snackPosition: SnackPosition.TOP,
-              title: 'Clock In',
-              message: 'Clocked In Successfully',
-              backgroundColor: AppColor.greenColor.withOpacity(.9),
-              maxWidth: ScreenSize(context!).mainWidth / 1.004,
-              margin: const EdgeInsets.only(
-                bottom: 20,
-                left: 20,
-                right: 20,
-              ),
-            );
-          },
-        );
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur inattendue')),
-        );
-      });
-      loader.value = false;
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur inattendue')),
+      );
+    });
+    loader.value = false;
     // } else {
     //   loader.value = true;
     //   Location location = Location();
@@ -182,7 +196,7 @@ class AttendanceController extends GetxController {
 
   clockOutUpdate(context) async {
     // UserService userService = UserService();
-    var r = attendanceRepository.clockOut(id: prefs.getString("user-id")??"");
+    var r = attendanceRepository.clockOut(id: prefs.getString("user-id") ?? "");
     r.then((result) {
       result.fold(
         (failure) {

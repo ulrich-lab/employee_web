@@ -1,7 +1,5 @@
 import 'dart:async';
 // import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -347,10 +345,8 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              if (kDebugMode) {
-                                print('view all visitors ------->>>');
-                              }
-                              Get.to(VisitorListPage());
+                              
+                              Get.to(()=>VisitorListPage());
                             },
                             child: Text(
                               'view_all'.tr,

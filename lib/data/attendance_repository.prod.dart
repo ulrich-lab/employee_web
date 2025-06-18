@@ -25,7 +25,7 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
     final result = await graphQLDatasource.mutate(
       Options$Mutation$ClockIn(
         variables: Variables$Mutation$ClockIn(
-          building_id:buildingId,
+          building_id: buildingId,
           employee_id: id,
           location: '{"type": "Point", "coordinates": [$long,$lat]}',
         ),
@@ -47,15 +47,14 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
     Stream<AttendanceData?>? attendanceStatus = graphQLDatasource
         .subscribe(
       Options$Subscription$AttendanceStatus(
-        variables: Variables$Subscription$AttendanceStatus(employee_id:id),
+        variables: Variables$Subscription$AttendanceStatus(employee_id: id),
       ),
     )
         .map(
       (event) {
-       
         return event.attendance.length > 0
             ? AttendanceData(
-              isLate:event.attendance.first.attendance_state?.is_late,
+                isLate: event.attendance.first.attendance_state?.is_late,
                 currentDate: DateTime.now().toIso8601String(),
                 status: event.attendance.first.clock_in_time == null
                     ? 0
@@ -63,10 +62,9 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
                         ? 2
                         : 1,
                 attendance: Attendance(
-                  checkinTime: event.attendance.first.clock_in_time,
-                  checkoutTime: event.attendance.first.clock_out_time,
-                  isLate:event.attendance.first.attendance_state?.is_late
-                ),
+                    checkinTime: event.attendance.first.clock_in_time,
+                    checkoutTime: event.attendance.first.clock_out_time,
+                    isLate: event.attendance.first.attendance_state?.is_late),
               )
             : null;
       },
@@ -77,5 +75,37 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
     //   await Future.delayed(Duration(seconds: 4));
     //   yield AttendanceData(status: i,);
     // }
+  }
+
+  @override
+  Stream<List<AttendanceData>?> attendanceList({required String id}) {
+    Stream<List<AttendanceData>?> attendanceStatus = graphQLDatasource
+        .subscribe(
+      Options$Subscription$AttendanceList(
+        variables: Variables$Subscription$AttendanceList(employee_id: id),
+      ),
+    )
+        .map(
+      (event) {
+        return event.attendance.length > 0
+            ? event.attendance.map((el) {
+                return AttendanceData(
+                  isLate: el.attendance_state?.is_late,
+                  currentDate: DateTime.now().toIso8601String(),
+                  status: el.clock_in_time == null
+                      ? 0
+                      : el.clock_out_time == null
+                          ? 2
+                          : 1,
+                  attendance: Attendance(
+                      checkinTime: el.clock_in_time,
+                      checkoutTime: el.clock_out_time,
+                      isLate: el.attendance_state?.is_late),
+                );
+              }).toList()
+            : null;
+      },
+    );
+    return attendanceStatus;
   }
 }

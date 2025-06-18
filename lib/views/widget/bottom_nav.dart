@@ -15,6 +15,7 @@ import 'package:visitor_pass/config/locator/locator.dart';
 // import 'package:visitor_pass/config/upgrader/version_checker.dart';
 import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/views/pages/Schedule/schedule_screen.dart';
+import 'package:visitor_pass/views/pages/attendance/attendance_page.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart';
 import 'package:visitor_pass/views/pages/pre-register/pre_register.dart';
 import 'package:visitor_pass/views/pages/visitor/visitor.dart';
@@ -53,7 +54,7 @@ class _BottomNavState extends State<BottomNav>
   final List navigation = [
     EmployeeDashboardPage(),
     ScheduleScreen(),
-    VisitorListPage(),
+    AttendancePage(),
     SizedBox(),
     PreRegisterListPage()
   ];
@@ -68,6 +69,7 @@ class _BottomNavState extends State<BottomNav>
   void initState() {
     super.initState();
     profile.getUserProfile();
+    attendanceController.getAttendanceList();
     attendanceController.getAttendanceList();
     attendanceController.getAttendanceStatus();
     // chatController.addContactsGroup();
@@ -207,7 +209,7 @@ class _BottomNavState extends State<BottomNav>
             ),
             activeIcon: SvgPicture.asset(Images.Nvisitors,
                 height: 24, width: 24, color: AppColor.primaryColor),
-            label: 'Visitors',
+            label: 'Attendance',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
