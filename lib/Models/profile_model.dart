@@ -43,8 +43,7 @@ class Profile {
     _phone = json['phone_number'];
     _address = json['address'];
     _company_id = json['company_id'].toString();
-    _image = json['profile_picture'] ??
-        "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png";
+    _image = json['profile_picture'];
     // _poste = json['poste'] ?? "";
     // _designation = json['designation'] ?? "";
   }

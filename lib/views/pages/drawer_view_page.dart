@@ -117,110 +117,115 @@ class _SideBarState extends State<SideBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        final isSmallScreen = MediaQuery.of(context).size.width < 600;
-        return Scaffold(
-          key: _key,
-          body: Column(
-            children: [
-              Flexible(
-                flex: 075,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  color: AppColor.primaryColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        // onTap: () => Get.to(ProfilePage()),
-                        child: Container(
-                          padding: EdgeInsets.all(2),
-                          margin: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: AppColor.greenC,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: CachedImage(
-                              width: 30,
-                              height: 30,
-                              imageUrl: profile.profileUser.image.toString(),
-                            ),
-                          ),
-                        ),
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+    return Scaffold(
+      key: _key,
+      body: Column(
+        children: [
+          Flexible(
+            flex: 075,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              color: AppColor.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    // onTap: () => Get.to(ProfilePage()),
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: AppColor.greenC,
+                        shape: BoxShape.circle,
                       ),
-                      SizedBox(width: 12),
-                      InkWell(
-                        // onTap: () => Get.to(ProfilePage()),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              profile.profileUser.name.toString(),
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.backgroundCalendar),
-                              overflow: TextOverflow.ellipsis,
+                      child: profile.profileUser.image != null
+                          ? Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: CachedImage(
+                                width: 50,
+                                height: 50,
+                                imageUrl: profile.profileUser.image.toString(),
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.asset(
+                                "./assets/images/profile.png",
+                              ),
                             ),
-                            Text(
-                              "CNPS / NSIF",
-                              // "FODECC /  CCODEF",
-                              style: const TextStyle(
-                                  fontSize: 10,
-                                  color: AppColor.backgroundCalendar),
-                            ),
-                          ],
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  InkWell(
+                    // onTap: () => Get.to(ProfilePage()),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          profile.profileUser.name.toString(),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: AppColor.backgroundCalendar),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      SizedBox(width: 20.w),
-                      SvgPicture.asset('assets/icons/qrcode.svg',
-                          width: 18,
-                          height: 18,
-                          color: AppColor.backgroundCalendar),
-                      SizedBox(width: 12),
-                      SvgPicture.asset('assets/icons/bell.svg',
-                          width: 18,
-                          height: 18,
-                          color: AppColor.backgroundCalendar),
-                      SizedBox(width: 12),
-                    ],
+                        Text(
+                          "CNPS / NSIF",
+                          // "FODECC /  CCODEF",
+                          style: const TextStyle(
+                              fontSize: 10, color: AppColor.backgroundCalendar),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 20.w),
+                  SvgPicture.asset('assets/icons/qrcode.svg',
+                      width: 18,
+                      height: 18,
+                      color: AppColor.backgroundCalendar),
+                  SizedBox(width: 12),
+                  SvgPicture.asset('assets/icons/bell.svg',
+                      width: 18,
+                      height: 18,
+                      color: AppColor.backgroundCalendar),
+                  SizedBox(width: 12),
+                ],
+              ),
+            ),
+            // child: Sizb,
+          ),
+          Flexible(
+            flex: 925,
+            child: Row(
+              children: [
+                if (!isSmallScreen) ExampleSidebarX(controller: _controller),
+                Expanded(
+                  child: Container(
+                    // color: Colors.grey[200],
+                    child: Center(
+                      child: _isLoading
+                          ? Container(
+                              child: LoaderCircle(),
+                            )
+                          : _ScreensExample(
+                              controller: _controller,
+                            ),
+                    ),
                   ),
                 ),
-              ),
-              Flexible(
-                flex: 925,
-                child: Row(
-                  children: [
-                    if (!isSmallScreen)
-                      ExampleSidebarX(controller: _controller),
-                    Expanded(
-                      child: Container(
-                        // color: Colors.grey[200],
-                        child: Center(
-                          child: _isLoading
-                              ? Container(
-                                  child: LoaderCircle(),
-                                )
-                              : _ScreensExample(
-                                  controller: _controller,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
