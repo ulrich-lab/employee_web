@@ -65,17 +65,27 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
                       color: AppColor.greenC,
                       shape: BoxShape.circle,
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: CachedImage(
-                        width: 45,
-                        height: 45,
-                        imageUrl: profile.profileUser.image.toString(),
-                      ),
-                    ),
+                    child: profile.profileUser.image != null
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: CachedImage(
+                              width: 45,
+                              height: 45,
+                              imageUrl: profile.profileUser.image.toString(),
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.asset(
+                              "./assets/images/profile.png",
+                            ),
+                          ),
                   ),
                 ),
                 title: InkWell(
@@ -345,8 +355,7 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              
-                              Get.to(()=>VisitorListPage());
+                              Get.to(() => VisitorListPage());
                             },
                             child: Text(
                               'view_all'.tr,
