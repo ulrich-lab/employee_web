@@ -9,7 +9,7 @@ Map<String, String> french = {
   "visitor_details": "Détails du Visiteur",
   "first_name": "Prénom",
   "last_name": "Nom",
-  "select_gender": "Sélectionnez le Genre",
+  "select_gender": "Sélectionnez le Genre!",
   "male": "Homme",
   "female": "Femme",
   "your_company": "Votre Entreprise",
