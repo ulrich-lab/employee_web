@@ -1,16 +1,4 @@
 {
-  "flutter": {
-    "platforms": {
-      "dart": {
-        "lib/firebase_options.dart": {
-          "projectId": "vvims-fodecc",
-          "configurations": {
-            "web": "1:288426638630:web:c348dc76e55b3d500095e7"
-          }
-        }
-      }
-    }
-  },
   "hosting": {
     "public": "vvims_web_react/out",
     "ignore": [
@@ -20,30 +8,17 @@
     ],
     "rewrites": [
       {
-        "source": "/dashboard",
-        "destination": "/dashboard.html"
+        "source": "/dashboard/**",
+        "destination": "/dashboard/index.html"
       },
       {
-        "source": "/user-type",
-        "destination": "/user-type.html"
+        "source": "/user-type/**",
+        "destination": "/user-type/index.html"
       },
       {
-        "source": "/login",
-        "destination": "/login.html"
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ]
-    }
-  ]
+  }
 }

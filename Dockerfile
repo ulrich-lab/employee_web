@@ -5,7 +5,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copier les fichiers de dépendances
-COPY vvims_web_react/package.json vvims_web_react/package-lock.json ./
+COPY vvims_web_react/package.json ./
 
 # Installer les dépendances
 RUN npm install
