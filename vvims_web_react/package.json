@@ -18,7 +18,8 @@
     "analyze": "node scripts/analyze-bundle.js",
     "analyze:build": "ANALYZE=true npm run build",
     "performance": "npm run analyze && npm run type-check",
-    "export:fodecc": "cross-env NODE_ENV=fodecc next build"
+    "export:fodecc": "cross-env NODE_ENV=fodecc next build",
+    "export:cnps": "cross-env NODE_ENV=cnps next build"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
