@@ -1,26 +1,30 @@
-// import 'package:isar/isar.dart';
+import 'package:hive/hive.dart';
 
-// part 'contact.g.dart';
+part 'contact.g.dart';
 
-// @collection
-// class Contact {
-//   Id id = Isar.autoIncrement;
-// String contactId;
-//   String displayName;
-//   String phoneNumber;
-//   String? avatarUrl;
-//   String? userId;
+@HiveType(typeId: 11)
+class Contact {
+  @HiveField(0)
+  String contactId;
+  @HiveField(1)
+  String displayName;
+  @HiveField(2)
+  String phoneNumber;
+  @HiveField(3)
+  String? avatarUrl;
+  @HiveField(4)
+  String? userId;
 
-//   Contact({
-//     required this.contactId,
-//     required this.displayName,
-//     required this.phoneNumber,
-//     this.avatarUrl,
-//     this.userId,
-//   });
+  Contact({
+    required this.contactId,
+    required this.displayName,
+    required this.phoneNumber,
+    this.avatarUrl,
+    this.userId,
+  });
 
-//   @override
-//   String toString() {
-//     return displayName;
-//   }
-// }
+  @override
+  String toString() {
+    return displayName;
+  }
+}

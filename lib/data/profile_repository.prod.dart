@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/config/graphql/documents/profile.graphql.dart';
 import 'package:visitor_pass/core/datasources/graphql_datasource.dart';
 import 'package:visitor_pass/core/error/failure.dart';
 import 'package:visitor_pass/domain/profile_repository.dart';
 import 'package:visitor_pass/main.dart';
+import 'package:visitor_pass/Models/user_updated_model.dart';
 
 @prod
 @LazySingleton(as: ProfileRepository)

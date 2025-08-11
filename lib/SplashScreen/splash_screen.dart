@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:visitor_pass/Services/server.dart';
+import 'package:visitor_pass/main.dart';
 import 'package:visitor_pass/views/pages/drawer_view_page.dart';
 import 'package:visitor_pass/views/pages/login.dart' show LoginPage;
 import 'package:visitor_pass/views/pages/onbording/omboarding_screen.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   logInCheck() async {
     if (Get.find<GlobalController>().isUser) {
-      Server.initClass(token: "token");
+      Server.initClass(token: prefs.getString("token"));
       Get.put(GlobalController()).initController();
       if (ScreenSize(context).mainWidth > 640) {
         Get.offAllNamed("/SideBar");

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:visitor_pass/Controllers/profile_controller.dart';
 import 'package:visitor_pass/core/error/failure.dart';
+import 'package:visitor_pass/Models/user_updated_model.dart';
 
 abstract class ProfileRepository {
   Future<Either<Failure, UserUpdatedModel>> updateUserProfile(

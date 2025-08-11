@@ -147,7 +147,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                                           FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  "${leave.leaveType?.split(".").last}",
+                                                  leave.leaveType??"",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       color: AppColor

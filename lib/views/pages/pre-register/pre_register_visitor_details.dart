@@ -115,30 +115,40 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: CachedNetworkImage(
-                              imageUrl: "",
-                              imageBuilder: (context, imageProvider) =>
-                                  CircleAvatar(
-                                    radius: 40.0,
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: imageProvider,
-                                  ),
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                    child: const CircleAvatar(radius: 40.0),
-                                    baseColor: Colors.grey[300]!,
-                                    highlightColor: Colors.grey[400]!,
-                                  ),
-                              errorWidget: (context, url, error) =>
-                                  CircleAvatar(
-                                    child: Image.asset(
-                                      'assets/images/visitor.png',
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ))),
+                        width: 100,
+                        height: 100,
+                        // child: CachedNetworkImage(
+                        //   imageUrl: "",
+                        //   imageBuilder: (context, imageProvider) =>
+                        //       CircleAvatar(
+                        //     radius: 40.0,
+                        //     backgroundColor: Colors.transparent,
+                        //     backgroundImage: imageProvider,
+                        //   ),
+                        //   placeholder: (context, url) => Shimmer.fromColors(
+                        //     child: const CircleAvatar(radius: 40.0),
+                        //     baseColor: Colors.grey[300]!,
+                        //     highlightColor: Colors.grey[400]!,
+                        //   ),
+                        //   errorWidget: (context, url, error) => CircleAvatar(
+                        //     child: Image.asset(
+                        //       'assets/images/visitor.png',
+                        //       width: 100,
+                        //       height: 100,
+                        //       fit: BoxFit.cover,
+                        //     ),
+                        //   ),
+                        // ),
+                       child:
+                        CircleAvatar(
+                          child: Image.asset(
+                            'assets/images/visitor.png',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 30,
                       ),
@@ -171,7 +181,7 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                                       height: 4,
                                     ),
                                     Text(
-                                      item.name??"",
+                                      item.name ?? "",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
@@ -253,7 +263,7 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                                       height: 4,
                                     ),
                                     Text(
-                                      item.phone??"",
+                                      item.phone ?? "",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
@@ -461,7 +471,7 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                                       height: 4,
                                     ),
                                     Text(
-                                      item.comment??"",
+                                      item.comment ?? "",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
@@ -502,8 +512,7 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                                       height: 4,
                                     ),
                                     Text(
-                                      item.expectedDate
-                                          .toString(),
+                                      item.expectedDate.toString(),
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,
@@ -544,7 +553,7 @@ class PreRegisterVisitorDetails extends StatelessWidget {
                                       height: 4,
                                     ),
                                     Text(
-                                      item.expectedTime.toString()??"",
+                                      item.expectedTime.toString() ?? "",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w500,

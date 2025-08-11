@@ -3,7 +3,7 @@ import 'package:visitor_pass/Models/permission_model.dart';
 import 'package:visitor_pass/core/error/failure.dart';
 
 abstract class PermissionRepository {
-  Stream<List<Leave>> listenToAllPermissions({
+  Future<Either<Failure, List<Leave>>> getAllPermissions({
     required int offset,
     required String uuid,
   });
@@ -13,6 +13,7 @@ abstract class PermissionRepository {
     required String start_date,
     required String end_date,
     required String leave_type,
+    String? other_description,
     String? file_url,
   });
   Future<Either<Failure, String>> updateLeave({

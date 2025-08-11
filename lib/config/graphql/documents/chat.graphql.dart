@@ -525,7 +525,7 @@ class Query$GetAllContactsList$employees {
     required this.firstname,
     required this.lastname,
     required this.id,
-    this.phone_number,
+    required this.phone_number,
     this.file,
     this.$__typename = 'employees',
   });
@@ -542,7 +542,7 @@ class Query$GetAllContactsList$employees {
       firstname: (l$firstname as String),
       lastname: (l$lastname as String),
       id: (l$id as String),
-      phone_number: (l$phone_number as String?),
+      phone_number: (l$phone_number as String),
       file: l$file == null
           ? null
           : Query$GetAllContactsList$employees$file.fromJson(
@@ -557,7 +557,7 @@ class Query$GetAllContactsList$employees {
 
   final String id;
 
-  final String? phone_number;
+  final String phone_number;
 
   final Query$GetAllContactsList$employees$file? file;
 
@@ -700,9 +700,9 @@ class _CopyWithImpl$Query$GetAllContactsList$employees<TRes>
             ? _instance.lastname
             : (lastname as String),
         id: id == _undefined || id == null ? _instance.id : (id as String),
-        phone_number: phone_number == _undefined
+        phone_number: phone_number == _undefined || phone_number == null
             ? _instance.phone_number
-            : (phone_number as String?),
+            : (phone_number as String),
         file: file == _undefined
             ? _instance.file
             : (file as Query$GetAllContactsList$employees$file?),
@@ -4812,7 +4812,7 @@ class Subscription$GetConversationStreamWithMessage$conversations$messages$attac
     required this.filename,
     this.file_type,
     this.file_size,
-    required this.file_path,
+    this.file_path,
     this.$extension,
     required this.id,
     this.height,
@@ -4845,7 +4845,7 @@ class Subscription$GetConversationStreamWithMessage$conversations$messages$attac
       filename: (l$filename as String),
       file_type: (l$file_type as String?),
       file_size: (l$file_size as String?),
-      file_path: (l$file_path as String),
+      file_path: (l$file_path as String?),
       $extension: (l$$extension as String?),
       id: (l$id as String),
       height: (l$height as String?),
@@ -4865,7 +4865,7 @@ class Subscription$GetConversationStreamWithMessage$conversations$messages$attac
 
   final String? file_size;
 
-  final String file_path;
+  final String? file_path;
 
   final String? $extension;
 
@@ -5127,9 +5127,9 @@ class _CopyWithImpl$Subscription$GetConversationStreamWithMessage$conversations$
         file_size: file_size == _undefined
             ? _instance.file_size
             : (file_size as String?),
-        file_path: file_path == _undefined || file_path == null
+        file_path: file_path == _undefined
             ? _instance.file_path
-            : (file_path as String),
+            : (file_path as String?),
         $extension: $extension == _undefined
             ? _instance.$extension
             : ($extension as String?),

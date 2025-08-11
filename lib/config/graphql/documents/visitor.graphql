@@ -7,8 +7,8 @@ subscription ListenAllVisitor($host_employee: uuid!) {
     visitorByVisitor {
       firstname
       lastname
-      # file {#FODECC
-      fileByPhoto{#CNPS & SED
+      file {#FODECC
+      # fileByPhoto{#CNPS & SED
         file_url
         
       }
@@ -50,8 +50,8 @@ query GetVisitorDetails($id: uuid!) {
       lastname
       firstname
       phone_number
-      # file {#FODECC
-      fileByPhoto{#CNPS & SED
+      file {#FODECC
+      # fileByPhoto{#CNPS & SED
         file_url
         id
       }

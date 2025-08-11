@@ -28,3 +28,114 @@ doc/api/
 
 # FVM Version Cache
 .fvm/
+
+# ============================================================================
+# NEXT.JS PROJECT IGNORE RULES
+# ============================================================================
+
+# Dependencies
+vvims_web_react/node_modules/
+vvims_web_react/.pnp
+vvims_web_react/.pnp.js
+
+# Testing
+vvims_web_react/coverage/
+
+# Next.js
+vvims_web_react/.next/
+vvims_web_react/out/
+vvims_web_react/build/
+
+# Production
+vvims_web_react/dist/
+
+# Misc
+vvims_web_react/.DS_Store
+vvims_web_react/*.tsbuildinfo
+vvims_web_react/next-env.d.ts
+
+# Debug
+vvims_web_react/npm-debug.log*
+vvims_web_react/yarn-debug.log*
+vvims_web_react/yarn-error.log*
+
+# Local env files
+vvims_web_react/.env*.local
+vvims_web_react/.env
+
+# Vercel
+vvims_web_react/.vercel
+
+# TypeScript
+vvims_web_react/*.tsbuildinfo
+vvims_web_react/next-env.d.ts
+
+# ============================================================================
+# DOCKER & KUBERNETES
+# ============================================================================
+
+# Docker
+*.env
+.dockerignore
+
+# Kubernetes
+k8s/*.yaml.bak
+k8s/*.yml.bak
+
+# ============================================================================
+# FIREBASE
+# ============================================================================
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+firebase-debug.log.*
+firebase-debug.log.*.log
+
+# ============================================================================
+# IDE & EDITORS
+# ============================================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================================================
+# OS GENERATED FILES
+# ============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

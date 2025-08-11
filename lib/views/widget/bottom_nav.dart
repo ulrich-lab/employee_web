@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart'; // Import du package
 import 'package:visitor_pass/Controllers/attendance_controller.dart';
+import 'package:visitor_pass/Controllers/chat_controller.dart';
+import 'package:visitor_pass/Controllers/contacts_controller.dart';
 import 'package:visitor_pass/Controllers/dashboard_controller.dart';
 import 'package:visitor_pass/Controllers/notification_controller.dart';
 import 'package:visitor_pass/Controllers/permission_controller.dart';
@@ -16,6 +18,7 @@ import 'package:visitor_pass/config/locator/locator.dart';
 import 'package:visitor_pass/constants/constants.dart';
 import 'package:visitor_pass/views/pages/Schedule/schedule_screen.dart';
 import 'package:visitor_pass/views/pages/attendance/attendance_page.dart';
+import 'package:visitor_pass/views/pages/chat/base_chat.dart';
 import 'package:visitor_pass/views/pages/dashboard/employee_dashboard_page.dart';
 import 'package:visitor_pass/views/pages/pre-register/pre_register.dart';
 import 'package:visitor_pass/views/pages/visitor/visitor.dart';
@@ -31,16 +34,16 @@ class _BottomNavState extends State<BottomNav>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   final ProfileController profile = Get.put(locator<ProfileController>());
 
-  // final ChatController chatController = Get.put(locator<ChatController>());
+  final ChatController chatController = Get.put(locator<ChatController>());
 
-  // final NotificationController _notificationController =
-  //     Get.put(locator<NotificationController>());
+  final NotificationController _notificationController =
+      Get.put(locator<NotificationController>());
 
   AttendanceController attendanceController =
       Get.put(locator<AttendanceController>());
 
-  // ContactPickerController contactPickerController =
-  //     Get.put(locator<ContactPickerController>());
+  ContactPickerController contactPickerController =
+      Get.put(locator<ContactPickerController>());
 
   DashboardController dashboardController =
       Get.put(locator<DashboardController>());
@@ -55,7 +58,7 @@ class _BottomNavState extends State<BottomNav>
     EmployeeDashboardPage(),
     ScheduleScreen(),
     AttendancePage(),
-    SizedBox(),
+    HomePageChat(),
     PreRegisterListPage()
   ];
 
@@ -72,8 +75,8 @@ class _BottomNavState extends State<BottomNav>
     attendanceController.getAttendanceList();
     attendanceController.getAttendanceList();
     attendanceController.getAttendanceStatus();
-    // chatController.addContactsGroup();
-    // contactPickerController.fetchContacts();
+      chatController.addContactsGroup();
+      contactPickerController.fetchContacts();
     dashboardController.getDashboard();
     // _notificationController.initNotif();
     preRegisterController.getPreVisitors();
@@ -81,7 +84,7 @@ class _BottomNavState extends State<BottomNav>
     permissionController.getReasonList();
     // _requestPermissions().then((isGranted) {
     //   if (isGranted) {
-    //     chatController.getStreamChat();
+        chatController.getStreamChat();
     //     chatController.getAllEmployeeByDepartAndServices();
     //     getConnectivity();
     //   }

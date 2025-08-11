@@ -7,6 +7,7 @@ class Leave {
   final DateTime? endDate;
   final String? leaveType;
   final String? comment;
+  final String? otherDescription;
   final Employee? employee;
 
   Leave({
@@ -17,29 +18,8 @@ class Leave {
     this.leaveType,
     this.comment,
     this.employee,
+    this.otherDescription,
   });
-
-  factory Leave.fromJson(Map<String, dynamic> json) {
-    return Leave(
-      id: json['id'] as String?,
-      status: json['status'] as String?,
-      startDate: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
-      endDate: json['end_date'] != null ? DateTime.parse(json['end_date']) : null,
-      leaveType: json['leave_type'] as String?,
-      comment: json['comment'] as String?,
-      employee: json['employee'] != null ? Employee.fromJson(json['employee']) : null,
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'status': status,
-        'start_date': startDate?.toIso8601String(),
-        'end_date': endDate?.toIso8601String(),
-        'leave_type': leaveType,
-        'comment': comment,
-        'employee': employee?.toJson(),
-      };
 }
 
 class Employee {

@@ -17,11 +17,11 @@ class VisitorsRepositoryImpl implements VisitorsRepository {
     this.graphQLDatasource,
   );
 
-  String formatDateString(String dateString) {
-    DateTime time = DateFormat("HH:mm:ss.SSSSSS").parse(dateString);
-    String formattedTime = DateFormat("HH:mm").format(time);
-    return formattedTime;
-  } //CNPS & SED
+  // String formatDateString(String dateString) {
+  //   DateTime time = DateFormat("HH:mm:ss.SSSSSS").parse(dateString);
+  //   String formattedTime = DateFormat("HH:mm").format(time);
+  //   return formattedTime;
+  // } //CNPS & SED
 
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
@@ -30,12 +30,12 @@ class VisitorsRepositoryImpl implements VisitorsRepository {
     return formattedDate;
   }
 
-  // String formatDateString(String dateString) {
-  //   DateTime dateTime = DateTime.parse(dateString);
-  //   DateFormat formatter = DateFormat("HH'h'mm", 'fr_FR');
-  //   String formattedTime = formatter.format(dateTime);
-  //   return formattedTime;
-  // } //FODECC
+  String formatDateString(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+    DateFormat formatter = DateFormat("HH'h'mm", 'fr_FR');
+    String formattedTime = formatter.format(dateTime);
+    return formattedTime;
+  } //FODECC
 
   @override
   Stream<List<DashboardVisitor>?>? listenToAllVisitors({required String id}) {
@@ -56,7 +56,7 @@ class VisitorsRepositoryImpl implements VisitorsRepository {
                       checkOutAt: el.check_out_at != null
                           ? formatDateString(el.check_out_at!)
                           : null,
-                      image: el.visitorByVisitor?.fileByPhoto?.file_url,
+                      image: el.visitorByVisitor?.file?.file_url,
                       status: el.status.toString(),
                       name:
                           "${el.visitorByVisitor?.firstname} ${el.visitorByVisitor?.lastname}",
@@ -105,7 +105,7 @@ class VisitorsRepositoryImpl implements VisitorsRepository {
       return VisitorDetails(
         name:
             "${r.visits_by_pk?.visitorByVisitor?.firstname} ${r.visits_by_pk?.visitorByVisitor?.lastname}",
-        image: r.visits_by_pk?.visitorByVisitor?.fileByPhoto?.file_url,
+        image: r.visits_by_pk?.visitorByVisitor?.file?.file_url,
         companyName: r.visits_by_pk?.department?.text_content.toString(),
         phone: r.visits_by_pk?.visitorByVisitor?.phone_number,
         purpose: r.visits_by_pk?.reason,

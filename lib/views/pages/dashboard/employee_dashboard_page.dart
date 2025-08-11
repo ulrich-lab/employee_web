@@ -1,5 +1,5 @@
 import 'dart:async';
-// import 'dart:io';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -106,8 +106,8 @@ class _EmployeeDashboardPageState extends State<EmployeeDashboardPage> {
                         ),
                       ),
                       Text(
-                        "CNPS / NSIF",
-                        // "FODECC /  CCODEF",
+                        // "CNPS / NSIF",
+                        "FODECC /  CCODEF",
                         style: const TextStyle(
                             fontSize: 12, color: AppColor.textPrimaryColor),
                       ),

@@ -10,6 +10,7 @@
 // import 'package:visitor_pass/constants/constants.dart';
 
 // import 'package:visitor_pass/domain/chat_repository.dart';
+// import 'package:visitor_pass/main.dart';
 // import 'package:visitor_pass/services/user-service.dart';
 // import 'package:visitor_pass/utils/abc.dart';
 
@@ -199,7 +200,7 @@
 //     if (messages.isEmpty) return null;
 
 //     messages.forEach((message) {
-//       final clientIsSender = message.senderId == box.read("user-id");
+//       final clientIsSender = message.senderId == prefs.getString("user-id");
 //       if (clientIsSender || message.status == MessageStatus.seen) {
 //       } else {
 //         updateMessage(message.messageId, status: MessageStatus.seen);
@@ -207,14 +208,15 @@
 //     });
 //   }
 
-//   Stream<List<RecentChat>> getRecentChatStream() {
-//     var userId = box.read("user-id");
+// Stream<List<RecentChat>> getRecentChatStream() {
+//   var userId = prefs.getString("user-id");
 
-//     return isar.storedMessages
-//         .where()
-//         .sortByTimestampDesc()
-//         .watch(fireImmediately: true)
-//         .asyncMap((event) async {
+//   return isar.storedMessages
+//       .where()
+//       .sortByTimestampDesc()
+//       .watch(fireImmediately: true)
+//       .asyncMap(
+//     (event) async {
 //       final Map<String, int> visitedChats = {};
 //       final recentChats = <RecentChat>[];
 
@@ -289,14 +291,15 @@
 //               getChatId(chat.message.senderId, chat.message.receiverId!)]!;
 //         }
 //       }
-     
+
 //       return recentChats;
-//     });
-//   }
+//     },
+//   );
+// }
 
 //   Future<void> addContacts() async {
 //     var contactsRes =
-//         await chatRepository.getContactList(company_id: box.read('company_id'));
+//         await chatRepository.getContactList(company_id: prefs.getString('company_id'));
 //     contactsRes.fold((l) {}, (contacts) async {
 //       List<Contact> updatedContacts = [];
 //       List<User> updatedUser = [];
@@ -309,7 +312,7 @@
 //           displayName: contact.displayName,
 //           phoneNumber: contact.phoneNumber,
 //         );
-//         if (contact.contactId != box.read("user-id")) {
+//         if (contact.contactId != prefs.getString("user-id")) {
 //           updatedContacts.add(updatedContact);
 
 //           updatedUser.add(

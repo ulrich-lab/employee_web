@@ -1,11 +1,13 @@
 import 'dart:convert';
-// import 'dart:io';
+import 'dart:typed_data';
+ 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '/Services/api-list.dart';
+import 'package:visitor_pass/main.dart';
 
 class Server {
   static String? bearerToken;
@@ -200,7 +202,7 @@ class Server {
 
   Future<dynamic> multipartRequest({endPoint, String? filepath}) async {
     Map<String, String> headers = {
-      'Authorization': bearerToken!,
+      'Authorization': prefs.getString("token")!,
       'Content-Type': 'multipart/form-data',
     };
 
@@ -219,6 +221,33 @@ class Server {
       return null;
     } finally {
       // client.close();
+    }
+  }
+
+  Future<dynamic> multipartRequestWithBytes({endPoint, required Uint8List bytes, required String fileName}) async {
+    
+    Map<String, String> headers = {
+      'Authorization': prefs.getString("token")!,
+      'Content-Type': 'multipart/form-data',
+    };
+ 
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(endPoint!))
+        ..headers.addAll(headers)
+        ..files.add(http.MultipartFile.fromBytes(
+          'face',
+          bytes,
+          filename: fileName,
+        ));
+      
+      final res = await request.send();
+      
+      var response = await http.Response.fromStream(res);
+     print("==============response  ${response.statusCode}==${response.body}");
+      return response;
+    } catch (error) {
+      print(error);
+      return null;
     }
   }
 

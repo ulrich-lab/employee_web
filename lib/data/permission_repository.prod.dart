@@ -35,6 +35,7 @@ class PermissionRepositoryImpl implements PermissionRepository {
     required String start_date,
     required String end_date,
     required String leave_type,
+    String? other_description,
     String? file_url,
   }) async {
     // UserService userService = UserService();
@@ -44,60 +45,109 @@ class PermissionRepositoryImpl implements PermissionRepository {
           end_date: end_date,
           start_date: start_date,
           comment: comment,
-          employee_id: prefs.getString("user-id")??"",
-          leave_type: Enum$leave_type_enum.fromJson(leave_type),
-          file: file_url,
+          other_description: other_description,
+          employee_id: prefs.getString("user-id") ?? "",
+          leave_type: "OTHER",
+          // file: file_url,
         ),
       ),
     );
     return result.map((r) => r.insert_leaves_one?.id ?? "");
   }
 
+  // @override
+  // Stream<List<Leave>> listenToAllPermissions(
+  //     {required int offset, required String uuid}) {
+  //   print("object=====09999");
+  //   Stream<List<Leave>> leaves = graphQLDatasource
+  //       .subscribe(
+  //     Options$Subscription$GetEmployeeLeaves(
+  //       variables: Variables$Subscription$GetEmployeeLeaves(
+  //         limit: 10,
+  //         offset: ((offset - 1) * 10),
+  //         employee: uuid,
+  //       ),
+  //     ),
+  //   )
+  //       .map(
+  //     (event) {
+  //       return [
+  //         ...event.leaves.map((el) {
+
+  //           return Leave(
+  //               id: el.id,
+  //               status: el.status.toString(),
+  //               startDate: DateTime.parse(el.start_date),
+  //               endDate: DateTime.parse(el.end_date),
+  //               leaveType: el.leave_type,
+  //               comment: el.comment,
+  //               otherDescription:el.other_description,
+  //               employee: el.employee != null
+  //                   ? Employee(
+  //                       id: el.employee!.id,
+  //                       lastname: el.employee!.lastname,
+  //                       firstname: el.employee!.firstname,
+  //                       function: el.employee!.function,
+  //                       file: el.employee!.file != null
+  //                           ? File(
+  //                               id: el.employee!.file!.id,
+  //                               fileUrl: el.employee!.file!.file_url,
+  //                             )
+  //                           : null,
+  //                     )
+  //                   : null,
+  //               );
+  //         }).toList(),
+  //       ];
+  //     },
+  //   );
+  //   return leaves;
+  // }
+
   @override
-  Stream<List<Leave>> listenToAllPermissions(
-      {required int offset, required String uuid}) {
-    Stream<List<Leave>> leaves = graphQLDatasource
-        .subscribe(
-      Options$Subscription$GetLeaves(
-        variables: Variables$Subscription$GetLeaves(
+  Future<Either<Failure, List<Leave>>> getAllPermissions({
+    required int offset,
+    required String uuid,
+  }) async {
+    final result = await graphQLDatasource.query(
+      Options$Query$GetEmployeeLeaves(
+        variables: Variables$Query$GetEmployeeLeaves(
           limit: 10,
           offset: ((offset - 1) * 10),
-          $_eq: uuid,
+          employee: uuid,
         ),
       ),
-    )
-        .map(
-      (event) {
-        return [
-          ...event.leaves.map((el) {
-            return Leave(
-              id: el.id,
-              status: el.status.toString(),
-              startDate: DateTime.parse(el.start_date),
-              endDate: DateTime.parse(el.end_date),
-              leaveType: el.leave_type.toString(),
-              comment: el.comment,
-              employee: el.employee != null
-                  ? Employee(
-                      id: el.employee!.id,
-                      lastname: el.employee!.lastname,
-                      firstname: el.employee!.firstname,
-                      function: el.employee!.function,
-                      file: el.employee!.file != null
-                          ? File(
-                              id: el.employee!.file!.id,
-                              fileUrl: el.employee!.file!.file_url,
-                            )
-                          : null,
-                    )
-                  : null,
-            );
-          }).toList(),
-        ];
-      },
     );
-    return leaves;
+
+    return result.map((event) {
+      return event.leaves.map((el) {
+        return Leave(
+          id: el.id,
+          status: el.status.toString(),
+          startDate: DateTime.parse(el.start_date),
+          endDate: DateTime.parse(el.end_date),
+          leaveType: el.leave_type,
+          comment: el.comment,
+          otherDescription: el.other_description,
+          employee: el.employee != null
+              ? Employee(
+                  id: el.employee!.id,
+                  lastname: el.employee!.lastname,
+                  firstname: el.employee!.firstname,
+                  function: el.employee!.function,
+                  file: el.employee!.file != null
+                      ? File(
+                          id: el.employee!.file!.id,
+                          fileUrl: el.employee!.file!.file_url,
+                        )
+                      : null,
+                )
+              : null,
+        );
+      }).toList();
+    });
   }
+
 
   @override
   Future<Either<Failure, String>> deleteLeave({required String id}) async {
@@ -124,7 +174,7 @@ class PermissionRepositoryImpl implements PermissionRepository {
           start_date: start_date,
           comment: comment,
           id: leave_id,
-          leave_type: Enum$leave_type_enum.fromJson(leave_type),
+          leave_type: "OTHER",
           file: file_url,
         ),
       ),

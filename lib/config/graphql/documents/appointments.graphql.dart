@@ -1049,7 +1049,7 @@ class Subscription$GetAllAppointments$appointments$visitor {
     required this.id,
     this.lastname,
     this.phone_number,
-    this.firstname,
+    required this.firstname,
     this.$__typename = 'visitors',
   });
 
@@ -1064,7 +1064,7 @@ class Subscription$GetAllAppointments$appointments$visitor {
       id: (l$id as String),
       lastname: (l$lastname as String?),
       phone_number: (l$phone_number as String?),
-      firstname: (l$firstname as String?),
+      firstname: (l$firstname as String),
       $__typename: (l$$__typename as String),
     );
   }
@@ -1075,7 +1075,7 @@ class Subscription$GetAllAppointments$appointments$visitor {
 
   final String? phone_number;
 
-  final String? firstname;
+  final String firstname;
 
   final String $__typename;
 
@@ -1208,9 +1208,9 @@ class _CopyWithImpl$Subscription$GetAllAppointments$appointments$visitor<TRes>
         phone_number: phone_number == _undefined
             ? _instance.phone_number
             : (phone_number as String?),
-        firstname: firstname == _undefined
+        firstname: firstname == _undefined || firstname == null
             ? _instance.firstname
-            : (firstname as String?),
+            : (firstname as String),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),

@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-// import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,8 @@ class ProfileUpdatePage extends StatefulWidget {
 
 class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   String? imagePath;
-  // File? file;
+  Uint8List? imageBytes;
+  String? imageFileName;
   String get routeName => 'update_page';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -74,39 +75,57 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               clipBehavior: Clip.none,
                               children: [
                                 SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: imagePath == null
-                                      ? CachedNetworkImage(
-                                          imageUrl: profile.profileUser.image
-                                              .toString(),
-                                          imageBuilder: (context,
-                                                  imageProvider) =>
-                                              CircleAvatar(
+                                    width: 100,
+                                    height: 100,
+                                    child: imagePath == null &&
+                                            imageBytes == null
+                                            ?ClipRRect(
+                                              borderRadius: BorderRadius.circular(50),
+                                              child: Image.network(
+                                                 profile.profileUser.image??"",
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )
+                                        // ? CachedNetworkImage(
+                                        //     imageUrl: profile.profileUser.image
+                                        //         .toString(),
+                                        //     imageBuilder:
+                                        //         (context, imageProvider) =>
+                                        //             CircleAvatar(
+                                        //       radius: 40.0,
+                                        //       backgroundColor:
+                                        //           Colors.transparent,
+                                        //       backgroundImage: imageProvider,
+                                        //     ),
+                                        //     placeholder: (context, url) =>
+                                        //         Shimmer.fromColors(
+                                        //       child: const CircleAvatar(
+                                        //           radius: 40.0),
+                                        //       baseColor: Colors.grey[300]!,
+                                        //       highlightColor: Colors.grey[400]!,
+                                        //     ),
+                                        //     errorWidget:
+                                        //         (context, url, error) =>
+                                        //             CircleAvatar(
+                                        //       child: Image.asset(
+                                        //         'assets/images/visitor.png',
+                                        //         width: 100,
+                                        //         height: 100,
+                                        //         fit: BoxFit.cover,
+                                        //       ),
+                                        //     ),
+                                        //   )
+                                        : imageBytes != null
+                                            ? CircleAvatar(
                                                 radius: 40.0,
                                                 backgroundColor:
                                                     Colors.transparent,
-                                                backgroundImage: imageProvider,
-                                              ),
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                                child: const CircleAvatar(
-                                                    radius: 40.0),
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[400]!,
-                                              ),
-                                          errorWidget: (context, url, error) =>
-                                              CircleAvatar(
-                                                child: Image.asset(
-                                                  'assets/images/visitor.png',
-                                                  width: 100,
-                                                  height: 100,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ))
-                                      :SizedBox()
-                                ), //Center
+                                                backgroundImage:
+                                                    MemoryImage(imageBytes!),
+                                              )
+                                            : SizedBox()), //Center
                                 Positioned(
                                   top: 70,
                                   right: 0,
@@ -118,7 +137,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                       child: Container(
                                         child: TextButton(
                                           onPressed: () {
-                                            // getImage();
+                                            getImage();
                                           },
                                           child: CircleAvatar(
                                             backgroundColor: Colors.white,
@@ -563,12 +582,13 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                               final FormState? form =
                                                   _formKey.currentState;
                                               if (form!.validate()) {
-                                                if (imagePath == null) {
+                                                if (imageBytes == null) {
                                                   profile.updateUserProfile(
                                                       '', false, context);
                                                 } else {
+                                                  // Pass imageBytes for cross-platform compatibility
                                                   profile.updateUserProfile(
-                                                    imagePath!,
+                                                    imageBytes!,
                                                     true,
                                                     context,
                                                   );
@@ -622,22 +642,37 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
     );
   }
 
-  // Future getImage() async {
-  //   final ImagePicker _picker = ImagePicker();
-  //   final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  //   double imageSize = await ImageSize.getImageSize(image!);
-  //   file = File(image.path);
-  //   if (imageSize > 2) {
-  //     Get.rawSnackbar(
-  //         message: "IMAGE_SHOULD_BE_LESS_THAN_2MB".tr,
-  //         backgroundColor: Colors.red,
-  //         snackPosition: SnackPosition.BOTTOM);
-  //   } else {
-  //     //updateUserProfile(image.path, true);
-  //     setState(() {
-  //       file = File(image.path);
-  //       imagePath = image.path;
-  //     });
-  //   }
-  // }
+  Future getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) return;
+
+    try {
+      // Read image as bytes for cross-platform compatibility
+      final Uint8List bytes = await image.readAsBytes();
+      final String fileName = image.name;
+
+      // Check image size (approximate check using bytes length)
+      final double imageSizeInMB = bytes.length / (1024 * 1024);
+
+      if (imageSizeInMB > 2) {
+        Get.rawSnackbar(
+            message: "IMAGE_SHOULD_BE_LESS_THAN_2MB".tr,
+            backgroundColor: Colors.red,
+            snackPosition: SnackPosition.BOTTOM);
+      } else {
+        setState(() {
+          imageBytes = bytes;
+          imageFileName = fileName;
+          imagePath = null; // Clear old path-based approach
+        });
+      }
+    } catch (e) {
+      Get.rawSnackbar(
+          message: "Error loading image: $e",
+          backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
 }

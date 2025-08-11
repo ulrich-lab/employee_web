@@ -137,63 +137,77 @@ class _VisitorCardState extends State<VisitorCard> {
                   Row(
                     children: [
                       widget.image != ""
-                          ? CachedNetworkImage(
-                              imageUrl: widget.image,
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 18,
-                                  horizontal: 14,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                height: 60,
-                                width: 60,
-                              ),
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 18, horizontal: 14),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: Colors.white,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/visitor.png',
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  height: 60,
-                                  width: 60,
-                                ),
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[400]!,
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 18, horizontal: 14),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/visitor.png',
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                height: 60,
-                                width: 60,
-                              ),
-                            )
-                          : SizedBox(),
+                      ? Image.network(
+                        widget.image,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ):
+                      CircleAvatar(
+                        child: Image.asset(
+                          'assets/images/visitor.png',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                          // ? CachedNetworkImage(
+                          //     imageUrl: widget.image,
+                          //     imageBuilder: (context, imageProvider) =>
+                          //         Container(
+                          //       margin: const EdgeInsets.symmetric(
+                          //         vertical: 18,
+                          //         horizontal: 14,
+                          //       ),
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //         color: Colors.white,
+                          //         image: DecorationImage(
+                          //           image: imageProvider,
+                          //           fit: BoxFit.cover,
+                          //         ),
+                          //       ),
+                          //       height: 60,
+                          //       width: 60,
+                          //     ),
+                          //     placeholder: (context, url) => Shimmer.fromColors(
+                          //       child: Container(
+                          //         margin: const EdgeInsets.symmetric(
+                          //             vertical: 18, horizontal: 14),
+                          //         decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(50),
+                          //           color: Colors.white,
+                          //           image: DecorationImage(
+                          //             image: AssetImage(
+                          //               'assets/images/visitor.png',
+                          //             ),
+                          //             fit: BoxFit.cover,
+                          //           ),
+                          //         ),
+                          //         height: 60,
+                          //         width: 60,
+                          //       ),
+                          //       baseColor: Colors.grey[300]!,
+                          //       highlightColor: Colors.grey[400]!,
+                          //     ),
+                          //     errorWidget: (context, url, error) => Container(
+                          //       margin: const EdgeInsets.symmetric(
+                          //           vertical: 18, horizontal: 14),
+                          //       decoration: BoxDecoration(
+                          //         borderRadius: BorderRadius.circular(50),
+                          //         color: Colors.white,
+                          //         image: DecorationImage(
+                          //           image: AssetImage(
+                          //             'assets/images/visitor.png',
+                          //           ),
+                          //           fit: BoxFit.cover,
+                          //         ),
+                          //       ),
+                          //       height: 60,
+                          //       width: 60,
+                          //     ),
+                          //   )
+                          // : SizedBox(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

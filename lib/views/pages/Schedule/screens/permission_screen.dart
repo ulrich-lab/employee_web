@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-// import 'dart:io';
+ 
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +132,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
   //     'Authorization': token,
   //     'Content-Type': 'multipart/form-data',
   //   };
-  //   final url = "${APIList.server}/api/v1/upload-file?upload_type=local";
+  //   final url = "${APIList.server}/api/v1/upload-file?upload_type=online";
 
   //   final httpClient = getHttpClient();
 
@@ -524,6 +524,8 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                             : () {
                                                 permissionController
                                                     .insertLeave(
+                                                      other_description: permissionController
+                                                          .currentReason.value,
                                                   comment: _descriptionText,
                                                   start_date:
                                                       _startDate.toString(),
@@ -831,6 +833,8 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                       ? null
                                       : () {
                                           permissionController.insertLeave(
+                                            other_description: permissionController
+                                                    .currentReason.value,
                                             comment: _descriptionText,
                                             start_date: _startDate.toString(),
                                             end_date: _endDate.toString(),

@@ -1,4 +1,3 @@
-import '../schema.graphqls.dart';
 import 'dart:async';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
@@ -447,91 +446,109 @@ class _CopyWithStubImpl$Query$GetAllReason$leave_type<TRes>
 
 class Variables$Mutation$InsertLeave {
   factory Variables$Mutation$InsertLeave({
-    required String employee_id,
-    required String end_date,
-    String? file,
-    String? comment,
-    required Enum$leave_type_enum leave_type,
+    String? start_date,
+    String? start_time,
     String? other_description,
-    required String start_date,
+    required String leave_type,
+    String? end_date,
+    String? end_time,
+    String? comment,
+    required String employee_id,
   }) =>
       Variables$Mutation$InsertLeave._({
-        r'employee_id': employee_id,
-        r'end_date': end_date,
-        if (file != null) r'file': file,
-        if (comment != null) r'comment': comment,
-        r'leave_type': leave_type,
+        if (start_date != null) r'start_date': start_date,
+        if (start_time != null) r'start_time': start_time,
         if (other_description != null) r'other_description': other_description,
-        r'start_date': start_date,
+        r'leave_type': leave_type,
+        if (end_date != null) r'end_date': end_date,
+        if (end_time != null) r'end_time': end_time,
+        if (comment != null) r'comment': comment,
+        r'employee_id': employee_id,
       });
 
   Variables$Mutation$InsertLeave._(this._$data);
 
   factory Variables$Mutation$InsertLeave.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$employee_id = data['employee_id'];
-    result$data['employee_id'] = (l$employee_id as String);
-    final l$end_date = data['end_date'];
-    result$data['end_date'] = (l$end_date as String);
-    if (data.containsKey('file')) {
-      final l$file = data['file'];
-      result$data['file'] = (l$file as String?);
+    if (data.containsKey('start_date')) {
+      final l$start_date = data['start_date'];
+      result$data['start_date'] = (l$start_date as String?);
+    }
+    if (data.containsKey('start_time')) {
+      final l$start_time = data['start_time'];
+      result$data['start_time'] = (l$start_time as String?);
+    }
+    if (data.containsKey('other_description')) {
+      final l$other_description = data['other_description'];
+      result$data['other_description'] = (l$other_description as String?);
+    }
+    final l$leave_type = data['leave_type'];
+    result$data['leave_type'] = (l$leave_type as String);
+    if (data.containsKey('end_date')) {
+      final l$end_date = data['end_date'];
+      result$data['end_date'] = (l$end_date as String?);
+    }
+    if (data.containsKey('end_time')) {
+      final l$end_time = data['end_time'];
+      result$data['end_time'] = (l$end_time as String?);
     }
     if (data.containsKey('comment')) {
       final l$comment = data['comment'];
       result$data['comment'] = (l$comment as String?);
     }
-    final l$leave_type = data['leave_type'];
-    result$data['leave_type'] =
-        fromJson$Enum$leave_type_enum((l$leave_type as String));
-    if (data.containsKey('other_description')) {
-      final l$other_description = data['other_description'];
-      result$data['other_description'] = (l$other_description as String?);
-    }
-    final l$start_date = data['start_date'];
-    result$data['start_date'] = (l$start_date as String);
+    final l$employee_id = data['employee_id'];
+    result$data['employee_id'] = (l$employee_id as String);
     return Variables$Mutation$InsertLeave._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  String get employee_id => (_$data['employee_id'] as String);
+  String? get start_date => (_$data['start_date'] as String?);
 
-  String get end_date => (_$data['end_date'] as String);
-
-  String? get file => (_$data['file'] as String?);
-
-  String? get comment => (_$data['comment'] as String?);
-
-  Enum$leave_type_enum get leave_type =>
-      (_$data['leave_type'] as Enum$leave_type_enum);
+  String? get start_time => (_$data['start_time'] as String?);
 
   String? get other_description => (_$data['other_description'] as String?);
 
-  String get start_date => (_$data['start_date'] as String);
+  String get leave_type => (_$data['leave_type'] as String);
+
+  String? get end_date => (_$data['end_date'] as String?);
+
+  String? get end_time => (_$data['end_time'] as String?);
+
+  String? get comment => (_$data['comment'] as String?);
+
+  String get employee_id => (_$data['employee_id'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$employee_id = employee_id;
-    result$data['employee_id'] = l$employee_id;
-    final l$end_date = end_date;
-    result$data['end_date'] = l$end_date;
-    if (_$data.containsKey('file')) {
-      final l$file = file;
-      result$data['file'] = l$file;
+    if (_$data.containsKey('start_date')) {
+      final l$start_date = start_date;
+      result$data['start_date'] = l$start_date;
+    }
+    if (_$data.containsKey('start_time')) {
+      final l$start_time = start_time;
+      result$data['start_time'] = l$start_time;
+    }
+    if (_$data.containsKey('other_description')) {
+      final l$other_description = other_description;
+      result$data['other_description'] = l$other_description;
+    }
+    final l$leave_type = leave_type;
+    result$data['leave_type'] = l$leave_type;
+    if (_$data.containsKey('end_date')) {
+      final l$end_date = end_date;
+      result$data['end_date'] = l$end_date;
+    }
+    if (_$data.containsKey('end_time')) {
+      final l$end_time = end_time;
+      result$data['end_time'] = l$end_time;
     }
     if (_$data.containsKey('comment')) {
       final l$comment = comment;
       result$data['comment'] = l$comment;
     }
-    final l$leave_type = leave_type;
-    result$data['leave_type'] = toJson$Enum$leave_type_enum(l$leave_type);
-    if (_$data.containsKey('other_description')) {
-      final l$other_description = other_description;
-      result$data['other_description'] = l$other_description;
-    }
-    final l$start_date = start_date;
-    result$data['start_date'] = l$start_date;
+    final l$employee_id = employee_id;
+    result$data['employee_id'] = l$employee_id;
     return result$data;
   }
 
@@ -550,35 +567,22 @@ class Variables$Mutation$InsertLeave {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$employee_id = employee_id;
-    final lOther$employee_id = other.employee_id;
-    if (l$employee_id != lOther$employee_id) {
+    final l$start_date = start_date;
+    final lOther$start_date = other.start_date;
+    if (_$data.containsKey('start_date') !=
+        other._$data.containsKey('start_date')) {
       return false;
     }
-    final l$end_date = end_date;
-    final lOther$end_date = other.end_date;
-    if (l$end_date != lOther$end_date) {
+    if (l$start_date != lOther$start_date) {
       return false;
     }
-    final l$file = file;
-    final lOther$file = other.file;
-    if (_$data.containsKey('file') != other._$data.containsKey('file')) {
+    final l$start_time = start_time;
+    final lOther$start_time = other.start_time;
+    if (_$data.containsKey('start_time') !=
+        other._$data.containsKey('start_time')) {
       return false;
     }
-    if (l$file != lOther$file) {
-      return false;
-    }
-    final l$comment = comment;
-    final lOther$comment = other.comment;
-    if (_$data.containsKey('comment') != other._$data.containsKey('comment')) {
-      return false;
-    }
-    if (l$comment != lOther$comment) {
-      return false;
-    }
-    final l$leave_type = leave_type;
-    final lOther$leave_type = other.leave_type;
-    if (l$leave_type != lOther$leave_type) {
+    if (l$start_time != lOther$start_time) {
       return false;
     }
     final l$other_description = other_description;
@@ -590,9 +594,40 @@ class Variables$Mutation$InsertLeave {
     if (l$other_description != lOther$other_description) {
       return false;
     }
-    final l$start_date = start_date;
-    final lOther$start_date = other.start_date;
-    if (l$start_date != lOther$start_date) {
+    final l$leave_type = leave_type;
+    final lOther$leave_type = other.leave_type;
+    if (l$leave_type != lOther$leave_type) {
+      return false;
+    }
+    final l$end_date = end_date;
+    final lOther$end_date = other.end_date;
+    if (_$data.containsKey('end_date') !=
+        other._$data.containsKey('end_date')) {
+      return false;
+    }
+    if (l$end_date != lOther$end_date) {
+      return false;
+    }
+    final l$end_time = end_time;
+    final lOther$end_time = other.end_time;
+    if (_$data.containsKey('end_time') !=
+        other._$data.containsKey('end_time')) {
+      return false;
+    }
+    if (l$end_time != lOther$end_time) {
+      return false;
+    }
+    final l$comment = comment;
+    final lOther$comment = other.comment;
+    if (_$data.containsKey('comment') != other._$data.containsKey('comment')) {
+      return false;
+    }
+    if (l$comment != lOther$comment) {
+      return false;
+    }
+    final l$employee_id = employee_id;
+    final lOther$employee_id = other.employee_id;
+    if (l$employee_id != lOther$employee_id) {
       return false;
     }
     return true;
@@ -600,21 +635,23 @@ class Variables$Mutation$InsertLeave {
 
   @override
   int get hashCode {
-    final l$employee_id = employee_id;
-    final l$end_date = end_date;
-    final l$file = file;
-    final l$comment = comment;
-    final l$leave_type = leave_type;
-    final l$other_description = other_description;
     final l$start_date = start_date;
+    final l$start_time = start_time;
+    final l$other_description = other_description;
+    final l$leave_type = leave_type;
+    final l$end_date = end_date;
+    final l$end_time = end_time;
+    final l$comment = comment;
+    final l$employee_id = employee_id;
     return Object.hashAll([
-      l$employee_id,
-      l$end_date,
-      _$data.containsKey('file') ? l$file : const {},
-      _$data.containsKey('comment') ? l$comment : const {},
-      l$leave_type,
+      _$data.containsKey('start_date') ? l$start_date : const {},
+      _$data.containsKey('start_time') ? l$start_time : const {},
       _$data.containsKey('other_description') ? l$other_description : const {},
-      l$start_date,
+      l$leave_type,
+      _$data.containsKey('end_date') ? l$end_date : const {},
+      _$data.containsKey('end_time') ? l$end_time : const {},
+      _$data.containsKey('comment') ? l$comment : const {},
+      l$employee_id,
     ]);
   }
 }
@@ -629,13 +666,14 @@ abstract class CopyWith$Variables$Mutation$InsertLeave<TRes> {
       _CopyWithStubImpl$Variables$Mutation$InsertLeave;
 
   TRes call({
-    String? employee_id,
-    String? end_date,
-    String? file,
-    String? comment,
-    Enum$leave_type_enum? leave_type,
-    String? other_description,
     String? start_date,
+    String? start_time,
+    String? other_description,
+    String? leave_type,
+    String? end_date,
+    String? end_time,
+    String? comment,
+    String? employee_id,
   });
 }
 
@@ -653,28 +691,28 @@ class _CopyWithImpl$Variables$Mutation$InsertLeave<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? employee_id = _undefined,
-    Object? end_date = _undefined,
-    Object? file = _undefined,
-    Object? comment = _undefined,
-    Object? leave_type = _undefined,
-    Object? other_description = _undefined,
     Object? start_date = _undefined,
+    Object? start_time = _undefined,
+    Object? other_description = _undefined,
+    Object? leave_type = _undefined,
+    Object? end_date = _undefined,
+    Object? end_time = _undefined,
+    Object? comment = _undefined,
+    Object? employee_id = _undefined,
   }) =>
       _then(Variables$Mutation$InsertLeave._({
         ..._instance._$data,
-        if (employee_id != _undefined && employee_id != null)
-          'employee_id': (employee_id as String),
-        if (end_date != _undefined && end_date != null)
-          'end_date': (end_date as String),
-        if (file != _undefined) 'file': (file as String?),
-        if (comment != _undefined) 'comment': (comment as String?),
-        if (leave_type != _undefined && leave_type != null)
-          'leave_type': (leave_type as Enum$leave_type_enum),
+        if (start_date != _undefined) 'start_date': (start_date as String?),
+        if (start_time != _undefined) 'start_time': (start_time as String?),
         if (other_description != _undefined)
           'other_description': (other_description as String?),
-        if (start_date != _undefined && start_date != null)
-          'start_date': (start_date as String),
+        if (leave_type != _undefined && leave_type != null)
+          'leave_type': (leave_type as String),
+        if (end_date != _undefined) 'end_date': (end_date as String?),
+        if (end_time != _undefined) 'end_time': (end_time as String?),
+        if (comment != _undefined) 'comment': (comment as String?),
+        if (employee_id != _undefined && employee_id != null)
+          'employee_id': (employee_id as String),
       }));
 }
 
@@ -685,13 +723,14 @@ class _CopyWithStubImpl$Variables$Mutation$InsertLeave<TRes>
   TRes _res;
 
   call({
-    String? employee_id,
-    String? end_date,
-    String? file,
-    String? comment,
-    Enum$leave_type_enum? leave_type,
-    String? other_description,
     String? start_date,
+    String? start_time,
+    String? other_description,
+    String? leave_type,
+    String? end_date,
+    String? end_time,
+    String? comment,
+    String? employee_id,
   }) =>
       _res;
 }
@@ -840,9 +879,36 @@ const documentNodeMutationInsertLeave = DocumentNode(definitions: [
     name: NameNode(value: 'InsertLeave'),
     variableDefinitions: [
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'employee_id')),
+        variable: VariableNode(name: NameNode(value: 'start_date')),
         type: NamedTypeNode(
-          name: NameNode(value: 'uuid'),
+          name: NameNode(value: 'date'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: NullValueNode()),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'start_time')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'time'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: NullValueNode()),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'other_description')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: NullValueNode()),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'leave_type')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),
@@ -852,15 +918,15 @@ const documentNodeMutationInsertLeave = DocumentNode(definitions: [
         variable: VariableNode(name: NameNode(value: 'end_date')),
         type: NamedTypeNode(
           name: NameNode(value: 'date'),
-          isNonNull: true,
+          isNonNull: false,
         ),
-        defaultValue: DefaultValueNode(value: null),
+        defaultValue: DefaultValueNode(value: NullValueNode()),
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'file')),
+        variable: VariableNode(name: NameNode(value: 'end_time')),
         type: NamedTypeNode(
-          name: NameNode(value: 'String'),
+          name: NameNode(value: 'time'),
           isNonNull: false,
         ),
         defaultValue: DefaultValueNode(value: NullValueNode()),
@@ -876,27 +942,9 @@ const documentNodeMutationInsertLeave = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'leave_type')),
+        variable: VariableNode(name: NameNode(value: 'employee_id')),
         type: NamedTypeNode(
-          name: NameNode(value: 'leave_type_enum'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'other_description')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: NullValueNode()),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'start_date')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'date'),
+          name: NameNode(value: 'uuid'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),
@@ -913,36 +961,43 @@ const documentNodeMutationInsertLeave = DocumentNode(definitions: [
             name: NameNode(value: 'object'),
             value: ObjectValueNode(fields: [
               ObjectFieldNode(
-                name: NameNode(value: 'employee_id'),
-                value: VariableNode(name: NameNode(value: 'employee_id')),
-              ),
-              ObjectFieldNode(
-                name: NameNode(value: 'end_date'),
-                value: VariableNode(name: NameNode(value: 'end_date')),
-              ),
-              ObjectFieldNode(
-                name: NameNode(value: 'file'),
-                value: VariableNode(name: NameNode(value: 'file')),
-              ),
-              ObjectFieldNode(
-                name: NameNode(value: 'comment'),
-                value: VariableNode(name: NameNode(value: 'comment')),
-              ),
-              ObjectFieldNode(
-                name: NameNode(value: 'leave_type'),
-                value: VariableNode(name: NameNode(value: 'leave_type')),
-              ),
-              ObjectFieldNode(
-                name: NameNode(value: 'other_description'),
-                value: VariableNode(name: NameNode(value: 'other_description')),
+                name: NameNode(value: 'status'),
+                value: StringValueNode(
+                  value: 'PENDING',
+                  isBlock: false,
+                ),
               ),
               ObjectFieldNode(
                 name: NameNode(value: 'start_date'),
                 value: VariableNode(name: NameNode(value: 'start_date')),
               ),
               ObjectFieldNode(
-                name: NameNode(value: 'status'),
-                value: EnumValueNode(name: NameNode(value: 'PENDING')),
+                name: NameNode(value: 'start_time'),
+                value: VariableNode(name: NameNode(value: 'start_time')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'other_description'),
+                value: VariableNode(name: NameNode(value: 'other_description')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'leave_type'),
+                value: VariableNode(name: NameNode(value: 'leave_type')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'end_date'),
+                value: VariableNode(name: NameNode(value: 'end_date')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'end_time'),
+                value: VariableNode(name: NameNode(value: 'end_time')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'comment'),
+                value: VariableNode(name: NameNode(value: 'comment')),
+              ),
+              ObjectFieldNode(
+                name: NameNode(value: 'employee_id'),
+                value: VariableNode(name: NameNode(value: 'employee_id')),
               ),
             ]),
           )
@@ -1198,7 +1253,7 @@ class _CopyWithStubImpl$Mutation$InsertLeave$insert_leaves_one<TRes>
 class Variables$Mutation$UpdateLeave {
   factory Variables$Mutation$UpdateLeave({
     required String id,
-    Enum$leave_type_enum? leave_type,
+    String? leave_type,
     String? end_date,
     String? start_date,
     String? other_description,
@@ -1223,9 +1278,7 @@ class Variables$Mutation$UpdateLeave {
     result$data['id'] = (l$id as String);
     if (data.containsKey('leave_type')) {
       final l$leave_type = data['leave_type'];
-      result$data['leave_type'] = l$leave_type == null
-          ? null
-          : fromJson$Enum$leave_type_enum((l$leave_type as String));
+      result$data['leave_type'] = (l$leave_type as String?);
     }
     if (data.containsKey('end_date')) {
       final l$end_date = data['end_date'];
@@ -1254,8 +1307,7 @@ class Variables$Mutation$UpdateLeave {
 
   String get id => (_$data['id'] as String);
 
-  Enum$leave_type_enum? get leave_type =>
-      (_$data['leave_type'] as Enum$leave_type_enum?);
+  String? get leave_type => (_$data['leave_type'] as String?);
 
   String? get end_date => (_$data['end_date'] as String?);
 
@@ -1273,9 +1325,7 @@ class Variables$Mutation$UpdateLeave {
     result$data['id'] = l$id;
     if (_$data.containsKey('leave_type')) {
       final l$leave_type = leave_type;
-      result$data['leave_type'] = l$leave_type == null
-          ? null
-          : toJson$Enum$leave_type_enum(l$leave_type);
+      result$data['leave_type'] = l$leave_type;
     }
     if (_$data.containsKey('end_date')) {
       final l$end_date = end_date;
@@ -1407,7 +1457,7 @@ abstract class CopyWith$Variables$Mutation$UpdateLeave<TRes> {
 
   TRes call({
     String? id,
-    Enum$leave_type_enum? leave_type,
+    String? leave_type,
     String? end_date,
     String? start_date,
     String? other_description,
@@ -1441,8 +1491,7 @@ class _CopyWithImpl$Variables$Mutation$UpdateLeave<TRes>
       _then(Variables$Mutation$UpdateLeave._({
         ..._instance._$data,
         if (id != _undefined && id != null) 'id': (id as String),
-        if (leave_type != _undefined)
-          'leave_type': (leave_type as Enum$leave_type_enum?),
+        if (leave_type != _undefined) 'leave_type': (leave_type as String?),
         if (end_date != _undefined) 'end_date': (end_date as String?),
         if (start_date != _undefined) 'start_date': (start_date as String?),
         if (other_description != _undefined)
@@ -1460,7 +1509,7 @@ class _CopyWithStubImpl$Variables$Mutation$UpdateLeave<TRes>
 
   call({
     String? id,
-    Enum$leave_type_enum? leave_type,
+    String? leave_type,
     String? end_date,
     String? start_date,
     String? other_description,
@@ -1630,7 +1679,7 @@ const documentNodeMutationUpdateLeave = DocumentNode(definitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'leave_type')),
         type: NamedTypeNode(
-          name: NameNode(value: 'leave_type_enum'),
+          name: NameNode(value: 'String'),
           isNonNull: false,
         ),
         defaultValue: DefaultValueNode(value: null),
@@ -2489,29 +2538,32 @@ class _CopyWithStubImpl$Mutation$DeleteLeave$delete_leaves_by_pk<TRes>
       _res;
 }
 
-class Variables$Subscription$GetLeaves {
-  factory Variables$Subscription$GetLeaves({
+class Variables$Query$GetEmployeeLeaves {
+  factory Variables$Query$GetEmployeeLeaves({
     required int limit,
     required int offset,
-    required String $_eq,
+    String? employee,
   }) =>
-      Variables$Subscription$GetLeaves._({
+      Variables$Query$GetEmployeeLeaves._({
         r'limit': limit,
         r'offset': offset,
-        r'_eq': $_eq,
+        if (employee != null) r'employee': employee,
       });
 
-  Variables$Subscription$GetLeaves._(this._$data);
+  Variables$Query$GetEmployeeLeaves._(this._$data);
 
-  factory Variables$Subscription$GetLeaves.fromJson(Map<String, dynamic> data) {
+  factory Variables$Query$GetEmployeeLeaves.fromJson(
+      Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     final l$limit = data['limit'];
     result$data['limit'] = (l$limit as int);
     final l$offset = data['offset'];
     result$data['offset'] = (l$offset as int);
-    final l$$_eq = data['_eq'];
-    result$data['_eq'] = (l$$_eq as String);
-    return Variables$Subscription$GetLeaves._(result$data);
+    if (data.containsKey('employee')) {
+      final l$employee = data['employee'];
+      result$data['employee'] = (l$employee as String?);
+    }
+    return Variables$Query$GetEmployeeLeaves._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -2520,7 +2572,7 @@ class Variables$Subscription$GetLeaves {
 
   int get offset => (_$data['offset'] as int);
 
-  String get $_eq => (_$data['_eq'] as String);
+  String? get employee => (_$data['employee'] as String?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
@@ -2528,13 +2580,15 @@ class Variables$Subscription$GetLeaves {
     result$data['limit'] = l$limit;
     final l$offset = offset;
     result$data['offset'] = l$offset;
-    final l$$_eq = $_eq;
-    result$data['_eq'] = l$$_eq;
+    if (_$data.containsKey('employee')) {
+      final l$employee = employee;
+      result$data['employee'] = l$employee;
+    }
     return result$data;
   }
 
-  CopyWith$Variables$Subscription$GetLeaves<Variables$Subscription$GetLeaves>
-      get copyWith => CopyWith$Variables$Subscription$GetLeaves(
+  CopyWith$Variables$Query$GetEmployeeLeaves<Variables$Query$GetEmployeeLeaves>
+      get copyWith => CopyWith$Variables$Query$GetEmployeeLeaves(
             this,
             (i) => i,
           );
@@ -2544,7 +2598,7 @@ class Variables$Subscription$GetLeaves {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Subscription$GetLeaves ||
+    if (other is! Variables$Query$GetEmployeeLeaves ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -2558,9 +2612,13 @@ class Variables$Subscription$GetLeaves {
     if (l$offset != lOther$offset) {
       return false;
     }
-    final l$$_eq = $_eq;
-    final lOther$$_eq = other.$_eq;
-    if (l$$_eq != lOther$$_eq) {
+    final l$employee = employee;
+    final lOther$employee = other.employee;
+    if (_$data.containsKey('employee') !=
+        other._$data.containsKey('employee')) {
+      return false;
+    }
+    if (l$employee != lOther$employee) {
       return false;
     }
     return true;
@@ -2570,96 +2628,110 @@ class Variables$Subscription$GetLeaves {
   int get hashCode {
     final l$limit = limit;
     final l$offset = offset;
-    final l$$_eq = $_eq;
+    final l$employee = employee;
     return Object.hashAll([
       l$limit,
       l$offset,
-      l$$_eq,
+      _$data.containsKey('employee') ? l$employee : const {},
     ]);
   }
 }
 
-abstract class CopyWith$Variables$Subscription$GetLeaves<TRes> {
-  factory CopyWith$Variables$Subscription$GetLeaves(
-    Variables$Subscription$GetLeaves instance,
-    TRes Function(Variables$Subscription$GetLeaves) then,
-  ) = _CopyWithImpl$Variables$Subscription$GetLeaves;
+abstract class CopyWith$Variables$Query$GetEmployeeLeaves<TRes> {
+  factory CopyWith$Variables$Query$GetEmployeeLeaves(
+    Variables$Query$GetEmployeeLeaves instance,
+    TRes Function(Variables$Query$GetEmployeeLeaves) then,
+  ) = _CopyWithImpl$Variables$Query$GetEmployeeLeaves;
 
-  factory CopyWith$Variables$Subscription$GetLeaves.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Subscription$GetLeaves;
+  factory CopyWith$Variables$Query$GetEmployeeLeaves.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$GetEmployeeLeaves;
 
   TRes call({
     int? limit,
     int? offset,
-    String? $_eq,
+    String? employee,
   });
 }
 
-class _CopyWithImpl$Variables$Subscription$GetLeaves<TRes>
-    implements CopyWith$Variables$Subscription$GetLeaves<TRes> {
-  _CopyWithImpl$Variables$Subscription$GetLeaves(
+class _CopyWithImpl$Variables$Query$GetEmployeeLeaves<TRes>
+    implements CopyWith$Variables$Query$GetEmployeeLeaves<TRes> {
+  _CopyWithImpl$Variables$Query$GetEmployeeLeaves(
     this._instance,
     this._then,
   );
 
-  final Variables$Subscription$GetLeaves _instance;
+  final Variables$Query$GetEmployeeLeaves _instance;
 
-  final TRes Function(Variables$Subscription$GetLeaves) _then;
+  final TRes Function(Variables$Query$GetEmployeeLeaves) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
     Object? limit = _undefined,
     Object? offset = _undefined,
-    Object? $_eq = _undefined,
+    Object? employee = _undefined,
   }) =>
-      _then(Variables$Subscription$GetLeaves._({
+      _then(Variables$Query$GetEmployeeLeaves._({
         ..._instance._$data,
         if (limit != _undefined && limit != null) 'limit': (limit as int),
         if (offset != _undefined && offset != null) 'offset': (offset as int),
-        if ($_eq != _undefined && $_eq != null) '_eq': ($_eq as String),
+        if (employee != _undefined) 'employee': (employee as String?),
       }));
 }
 
-class _CopyWithStubImpl$Variables$Subscription$GetLeaves<TRes>
-    implements CopyWith$Variables$Subscription$GetLeaves<TRes> {
-  _CopyWithStubImpl$Variables$Subscription$GetLeaves(this._res);
+class _CopyWithStubImpl$Variables$Query$GetEmployeeLeaves<TRes>
+    implements CopyWith$Variables$Query$GetEmployeeLeaves<TRes> {
+  _CopyWithStubImpl$Variables$Query$GetEmployeeLeaves(this._res);
 
   TRes _res;
 
   call({
     int? limit,
     int? offset,
-    String? $_eq,
+    String? employee,
   }) =>
       _res;
 }
 
-class Subscription$GetLeaves {
-  Subscription$GetLeaves({required this.leaves});
+class Query$GetEmployeeLeaves {
+  Query$GetEmployeeLeaves({
+    required this.leaves,
+    this.$__typename = 'query_root',
+  });
 
-  factory Subscription$GetLeaves.fromJson(Map<String, dynamic> json) {
+  factory Query$GetEmployeeLeaves.fromJson(Map<String, dynamic> json) {
     final l$leaves = json['leaves'];
-    return Subscription$GetLeaves(
-        leaves: (l$leaves as List<dynamic>)
-            .map((e) => Subscription$GetLeaves$leaves.fromJson(
-                (e as Map<String, dynamic>)))
-            .toList());
+    final l$$__typename = json['__typename'];
+    return Query$GetEmployeeLeaves(
+      leaves: (l$leaves as List<dynamic>)
+          .map((e) => Query$GetEmployeeLeaves$leaves.fromJson(
+              (e as Map<String, dynamic>)))
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
   }
 
-  final List<Subscription$GetLeaves$leaves> leaves;
+  final List<Query$GetEmployeeLeaves$leaves> leaves;
+
+  final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
     final l$leaves = leaves;
     _resultData['leaves'] = l$leaves.map((e) => e.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
     return _resultData;
   }
 
   @override
   int get hashCode {
     final l$leaves = leaves;
-    return Object.hashAll([Object.hashAll(l$leaves.map((v) => v))]);
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$leaves.map((v) => v)),
+      l$$__typename,
+    ]);
   }
 
   @override
@@ -2667,7 +2739,7 @@ class Subscription$GetLeaves {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Subscription$GetLeaves || runtimeType != other.runtimeType) {
+    if (other is! Query$GetEmployeeLeaves || runtimeType != other.runtimeType) {
       return false;
     }
     final l$leaves = leaves;
@@ -2682,83 +2754,103 @@ class Subscription$GetLeaves {
         return false;
       }
     }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
     return true;
   }
 }
 
-extension UtilityExtension$Subscription$GetLeaves on Subscription$GetLeaves {
-  CopyWith$Subscription$GetLeaves<Subscription$GetLeaves> get copyWith =>
-      CopyWith$Subscription$GetLeaves(
+extension UtilityExtension$Query$GetEmployeeLeaves on Query$GetEmployeeLeaves {
+  CopyWith$Query$GetEmployeeLeaves<Query$GetEmployeeLeaves> get copyWith =>
+      CopyWith$Query$GetEmployeeLeaves(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Subscription$GetLeaves<TRes> {
-  factory CopyWith$Subscription$GetLeaves(
-    Subscription$GetLeaves instance,
-    TRes Function(Subscription$GetLeaves) then,
-  ) = _CopyWithImpl$Subscription$GetLeaves;
+abstract class CopyWith$Query$GetEmployeeLeaves<TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves(
+    Query$GetEmployeeLeaves instance,
+    TRes Function(Query$GetEmployeeLeaves) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves;
 
-  factory CopyWith$Subscription$GetLeaves.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$GetLeaves;
+  factory CopyWith$Query$GetEmployeeLeaves.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves;
 
-  TRes call({List<Subscription$GetLeaves$leaves>? leaves});
+  TRes call({
+    List<Query$GetEmployeeLeaves$leaves>? leaves,
+    String? $__typename,
+  });
   TRes leaves(
-      Iterable<Subscription$GetLeaves$leaves> Function(
+      Iterable<Query$GetEmployeeLeaves$leaves> Function(
               Iterable<
-                  CopyWith$Subscription$GetLeaves$leaves<
-                      Subscription$GetLeaves$leaves>>)
+                  CopyWith$Query$GetEmployeeLeaves$leaves<
+                      Query$GetEmployeeLeaves$leaves>>)
           _fn);
 }
 
-class _CopyWithImpl$Subscription$GetLeaves<TRes>
-    implements CopyWith$Subscription$GetLeaves<TRes> {
-  _CopyWithImpl$Subscription$GetLeaves(
+class _CopyWithImpl$Query$GetEmployeeLeaves<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves(
     this._instance,
     this._then,
   );
 
-  final Subscription$GetLeaves _instance;
+  final Query$GetEmployeeLeaves _instance;
 
-  final TRes Function(Subscription$GetLeaves) _then;
+  final TRes Function(Query$GetEmployeeLeaves) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? leaves = _undefined}) => _then(Subscription$GetLeaves(
-      leaves: leaves == _undefined || leaves == null
-          ? _instance.leaves
-          : (leaves as List<Subscription$GetLeaves$leaves>)));
+  TRes call({
+    Object? leaves = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetEmployeeLeaves(
+        leaves: leaves == _undefined || leaves == null
+            ? _instance.leaves
+            : (leaves as List<Query$GetEmployeeLeaves$leaves>),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 
   TRes leaves(
-          Iterable<Subscription$GetLeaves$leaves> Function(
+          Iterable<Query$GetEmployeeLeaves$leaves> Function(
                   Iterable<
-                      CopyWith$Subscription$GetLeaves$leaves<
-                          Subscription$GetLeaves$leaves>>)
+                      CopyWith$Query$GetEmployeeLeaves$leaves<
+                          Query$GetEmployeeLeaves$leaves>>)
               _fn) =>
       call(
           leaves: _fn(_instance.leaves
-              .map((e) => CopyWith$Subscription$GetLeaves$leaves(
+              .map((e) => CopyWith$Query$GetEmployeeLeaves$leaves(
                     e,
                     (i) => i,
                   ))).toList());
 }
 
-class _CopyWithStubImpl$Subscription$GetLeaves<TRes>
-    implements CopyWith$Subscription$GetLeaves<TRes> {
-  _CopyWithStubImpl$Subscription$GetLeaves(this._res);
+class _CopyWithStubImpl$Query$GetEmployeeLeaves<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves(this._res);
 
   TRes _res;
 
-  call({List<Subscription$GetLeaves$leaves>? leaves}) => _res;
+  call({
+    List<Query$GetEmployeeLeaves$leaves>? leaves,
+    String? $__typename,
+  }) =>
+      _res;
 
   leaves(_fn) => _res;
 }
 
-const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
+const documentNodeQueryGetEmployeeLeaves = DocumentNode(definitions: [
   OperationDefinitionNode(
-    type: OperationType.subscription,
-    name: NameNode(value: 'GetLeaves'),
+    type: OperationType.query,
+    name: NameNode(value: 'GetEmployeeLeaves'),
     variableDefinitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'limit')),
@@ -2779,12 +2871,16 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: '_eq')),
+        variable: VariableNode(name: NameNode(value: 'employee')),
         type: NamedTypeNode(
           name: NameNode(value: 'uuid'),
-          isNonNull: true,
+          isNonNull: false,
         ),
-        defaultValue: DefaultValueNode(value: null),
+        defaultValue: DefaultValueNode(
+            value: StringValueNode(
+          value: '',
+          isBlock: false,
+        )),
         directives: [],
       ),
     ],
@@ -2819,7 +2915,7 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
                 value: ObjectValueNode(fields: [
                   ObjectFieldNode(
                     name: NameNode(value: '_eq'),
-                    value: VariableNode(name: NameNode(value: '_eq')),
+                    value: VariableNode(name: NameNode(value: 'employee')),
                   )
                 ]),
               )
@@ -2871,6 +2967,13 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
             selectionSet: null,
           ),
           FieldNode(
+            name: NameNode(value: 'other_description'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
             name: NameNode(value: 'employee'),
             alias: null,
             arguments: [],
@@ -2878,6 +2981,13 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
             selectionSet: SelectionSetNode(selections: [
               FieldNode(
                 name: NameNode(value: 'id'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'license'),
                 alias: null,
                 arguments: [],
                 directives: [],
@@ -2934,6 +3044,80 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
                 ]),
               ),
               FieldNode(
+                name: NameNode(value: 'department'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FieldNode(
+                    name: NameNode(value: 'text_content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'content'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
+                    name: NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ]),
+              ),
+              FieldNode(
+                name: NameNode(value: 'service'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FieldNode(
+                    name: NameNode(value: 'text_content'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: SelectionSetNode(selections: [
+                      FieldNode(
+                        name: NameNode(value: 'content'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                      FieldNode(
+                        name: NameNode(value: '__typename'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null,
+                      ),
+                    ]),
+                  ),
+                  FieldNode(
+                    name: NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ]),
+              ),
+              FieldNode(
                 name: NameNode(value: '__typename'),
                 alias: null,
                 arguments: [],
@@ -2950,48 +3134,83 @@ const documentNodeSubscriptionGetLeaves = DocumentNode(definitions: [
             selectionSet: null,
           ),
         ]),
-      )
+      ),
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
     ]),
   ),
 ]);
-Subscription$GetLeaves _parserFn$Subscription$GetLeaves(
+Query$GetEmployeeLeaves _parserFn$Query$GetEmployeeLeaves(
         Map<String, dynamic> data) =>
-    Subscription$GetLeaves.fromJson(data);
+    Query$GetEmployeeLeaves.fromJson(data);
+typedef OnQueryComplete$Query$GetEmployeeLeaves = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$GetEmployeeLeaves?,
+);
 
-class Options$Subscription$GetLeaves
-    extends graphql.SubscriptionOptions<Subscription$GetLeaves> {
-  Options$Subscription$GetLeaves({
+class Options$Query$GetEmployeeLeaves
+    extends graphql.QueryOptions<Query$GetEmployeeLeaves> {
+  Options$Query$GetEmployeeLeaves({
     String? operationName,
-    required Variables$Subscription$GetLeaves variables,
+    required Variables$Query$GetEmployeeLeaves variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Subscription$GetLeaves? typedOptimisticResult,
+    Query$GetEmployeeLeaves? typedOptimisticResult,
+    Duration? pollInterval,
     graphql.Context? context,
-  }) : super(
+    OnQueryComplete$Query$GetEmployeeLeaves? onComplete,
+    graphql.OnQueryError? onError,
+  })  : onCompleteWithParsed = onComplete,
+        super(
           variables: variables.toJson(),
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+          pollInterval: pollInterval,
           context: context,
-          document: documentNodeSubscriptionGetLeaves,
-          parserFn: _parserFn$Subscription$GetLeaves,
+          onComplete: onComplete == null
+              ? null
+              : (data) => onComplete(
+                    data,
+                    data == null
+                        ? null
+                        : _parserFn$Query$GetEmployeeLeaves(data),
+                  ),
+          onError: onError,
+          document: documentNodeQueryGetEmployeeLeaves,
+          parserFn: _parserFn$Query$GetEmployeeLeaves,
         );
+
+  final OnQueryComplete$Query$GetEmployeeLeaves? onCompleteWithParsed;
+
+  @override
+  List<Object?> get properties => [
+        ...super.onComplete == null
+            ? super.properties
+            : super.properties.where((property) => property != onComplete),
+        onCompleteWithParsed,
+      ];
 }
 
-class WatchOptions$Subscription$GetLeaves
-    extends graphql.WatchQueryOptions<Subscription$GetLeaves> {
-  WatchOptions$Subscription$GetLeaves({
+class WatchOptions$Query$GetEmployeeLeaves
+    extends graphql.WatchQueryOptions<Query$GetEmployeeLeaves> {
+  WatchOptions$Query$GetEmployeeLeaves({
     String? operationName,
-    required Variables$Subscription$GetLeaves variables,
+    required Variables$Query$GetEmployeeLeaves variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Subscription$GetLeaves? typedOptimisticResult,
+    Query$GetEmployeeLeaves? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -3005,70 +3224,98 @@ class WatchOptions$Subscription$GetLeaves
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeSubscriptionGetLeaves,
+          document: documentNodeQueryGetEmployeeLeaves,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Subscription$GetLeaves,
+          parserFn: _parserFn$Query$GetEmployeeLeaves,
         );
 }
 
-class FetchMoreOptions$Subscription$GetLeaves extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Subscription$GetLeaves({
+class FetchMoreOptions$Query$GetEmployeeLeaves
+    extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$GetEmployeeLeaves({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Subscription$GetLeaves variables,
+    required Variables$Query$GetEmployeeLeaves variables,
   }) : super(
           updateQuery: updateQuery,
           variables: variables.toJson(),
-          document: documentNodeSubscriptionGetLeaves,
+          document: documentNodeQueryGetEmployeeLeaves,
         );
 }
 
-extension ClientExtension$Subscription$GetLeaves on graphql.GraphQLClient {
-  Stream<graphql.QueryResult<Subscription$GetLeaves>> subscribe$GetLeaves(
-          Options$Subscription$GetLeaves options) =>
-      this.subscribe(options);
-  graphql.ObservableQuery<Subscription$GetLeaves> watchSubscription$GetLeaves(
-          WatchOptions$Subscription$GetLeaves options) =>
+extension ClientExtension$Query$GetEmployeeLeaves on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$GetEmployeeLeaves>> query$GetEmployeeLeaves(
+          Options$Query$GetEmployeeLeaves options) async =>
+      await this.query(options);
+  graphql.ObservableQuery<Query$GetEmployeeLeaves> watchQuery$GetEmployeeLeaves(
+          WatchOptions$Query$GetEmployeeLeaves options) =>
       this.watchQuery(options);
+  void writeQuery$GetEmployeeLeaves({
+    required Query$GetEmployeeLeaves data,
+    required Variables$Query$GetEmployeeLeaves variables,
+    bool broadcast = true,
+  }) =>
+      this.writeQuery(
+        graphql.Request(
+          operation:
+              graphql.Operation(document: documentNodeQueryGetEmployeeLeaves),
+          variables: variables.toJson(),
+        ),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Query$GetEmployeeLeaves? readQuery$GetEmployeeLeaves({
+    required Variables$Query$GetEmployeeLeaves variables,
+    bool optimistic = true,
+  }) {
+    final result = this.readQuery(
+      graphql.Request(
+        operation:
+            graphql.Operation(document: documentNodeQueryGetEmployeeLeaves),
+        variables: variables.toJson(),
+      ),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Query$GetEmployeeLeaves.fromJson(result);
+  }
 }
 
-class Subscription$GetLeaves$leaves {
-  Subscription$GetLeaves$leaves({
+class Query$GetEmployeeLeaves$leaves {
+  Query$GetEmployeeLeaves$leaves({
     required this.id,
     this.status,
     required this.start_date,
     this.leave_type,
     required this.end_date,
     this.comment,
+    this.other_description,
     this.employee,
     this.$__typename = 'leaves',
   });
 
-  factory Subscription$GetLeaves$leaves.fromJson(Map<String, dynamic> json) {
+  factory Query$GetEmployeeLeaves$leaves.fromJson(Map<String, dynamic> json) {
     final l$id = json['id'];
     final l$status = json['status'];
     final l$start_date = json['start_date'];
     final l$leave_type = json['leave_type'];
     final l$end_date = json['end_date'];
     final l$comment = json['comment'];
+    final l$other_description = json['other_description'];
     final l$employee = json['employee'];
     final l$$__typename = json['__typename'];
-    return Subscription$GetLeaves$leaves(
+    return Query$GetEmployeeLeaves$leaves(
       id: (l$id as String),
-      status: l$status == null
-          ? null
-          : fromJson$Enum$leave_status_enum((l$status as String)),
+      status: (l$status as String?),
       start_date: (l$start_date as String),
-      leave_type: l$leave_type == null
-          ? null
-          : fromJson$Enum$leave_type_enum((l$leave_type as String)),
+      leave_type: (l$leave_type as String?),
       end_date: (l$end_date as String),
       comment: (l$comment as String?),
+      other_description: (l$other_description as String?),
       employee: l$employee == null
           ? null
-          : Subscription$GetLeaves$leaves$employee.fromJson(
+          : Query$GetEmployeeLeaves$leaves$employee.fromJson(
               (l$employee as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
@@ -3076,17 +3323,19 @@ class Subscription$GetLeaves$leaves {
 
   final String id;
 
-  final Enum$leave_status_enum? status;
+  final String? status;
 
   final String start_date;
 
-  final Enum$leave_type_enum? leave_type;
+  final String? leave_type;
 
   final String end_date;
 
   final String? comment;
 
-  final Subscription$GetLeaves$leaves$employee? employee;
+  final String? other_description;
+
+  final Query$GetEmployeeLeaves$leaves$employee? employee;
 
   final String $__typename;
 
@@ -3095,17 +3344,17 @@ class Subscription$GetLeaves$leaves {
     final l$id = id;
     _resultData['id'] = l$id;
     final l$status = status;
-    _resultData['status'] =
-        l$status == null ? null : toJson$Enum$leave_status_enum(l$status);
+    _resultData['status'] = l$status;
     final l$start_date = start_date;
     _resultData['start_date'] = l$start_date;
     final l$leave_type = leave_type;
-    _resultData['leave_type'] =
-        l$leave_type == null ? null : toJson$Enum$leave_type_enum(l$leave_type);
+    _resultData['leave_type'] = l$leave_type;
     final l$end_date = end_date;
     _resultData['end_date'] = l$end_date;
     final l$comment = comment;
     _resultData['comment'] = l$comment;
+    final l$other_description = other_description;
+    _resultData['other_description'] = l$other_description;
     final l$employee = employee;
     _resultData['employee'] = l$employee?.toJson();
     final l$$__typename = $__typename;
@@ -3121,6 +3370,7 @@ class Subscription$GetLeaves$leaves {
     final l$leave_type = leave_type;
     final l$end_date = end_date;
     final l$comment = comment;
+    final l$other_description = other_description;
     final l$employee = employee;
     final l$$__typename = $__typename;
     return Object.hashAll([
@@ -3130,6 +3380,7 @@ class Subscription$GetLeaves$leaves {
       l$leave_type,
       l$end_date,
       l$comment,
+      l$other_description,
       l$employee,
       l$$__typename,
     ]);
@@ -3140,7 +3391,7 @@ class Subscription$GetLeaves$leaves {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Subscription$GetLeaves$leaves ||
+    if (other is! Query$GetEmployeeLeaves$leaves ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3174,6 +3425,11 @@ class Subscription$GetLeaves$leaves {
     if (l$comment != lOther$comment) {
       return false;
     }
+    final l$other_description = other_description;
+    final lOther$other_description = other.other_description;
+    if (l$other_description != lOther$other_description) {
+      return false;
+    }
     final l$employee = employee;
     final lOther$employee = other.employee;
     if (l$employee != lOther$employee) {
@@ -3188,47 +3444,48 @@ class Subscription$GetLeaves$leaves {
   }
 }
 
-extension UtilityExtension$Subscription$GetLeaves$leaves
-    on Subscription$GetLeaves$leaves {
-  CopyWith$Subscription$GetLeaves$leaves<Subscription$GetLeaves$leaves>
-      get copyWith => CopyWith$Subscription$GetLeaves$leaves(
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves
+    on Query$GetEmployeeLeaves$leaves {
+  CopyWith$Query$GetEmployeeLeaves$leaves<Query$GetEmployeeLeaves$leaves>
+      get copyWith => CopyWith$Query$GetEmployeeLeaves$leaves(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Subscription$GetLeaves$leaves<TRes> {
-  factory CopyWith$Subscription$GetLeaves$leaves(
-    Subscription$GetLeaves$leaves instance,
-    TRes Function(Subscription$GetLeaves$leaves) then,
-  ) = _CopyWithImpl$Subscription$GetLeaves$leaves;
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves<TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves(
+    Query$GetEmployeeLeaves$leaves instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves;
 
-  factory CopyWith$Subscription$GetLeaves$leaves.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$GetLeaves$leaves;
+  factory CopyWith$Query$GetEmployeeLeaves$leaves.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves;
 
   TRes call({
     String? id,
-    Enum$leave_status_enum? status,
+    String? status,
     String? start_date,
-    Enum$leave_type_enum? leave_type,
+    String? leave_type,
     String? end_date,
     String? comment,
-    Subscription$GetLeaves$leaves$employee? employee,
+    String? other_description,
+    Query$GetEmployeeLeaves$leaves$employee? employee,
     String? $__typename,
   });
-  CopyWith$Subscription$GetLeaves$leaves$employee<TRes> get employee;
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> get employee;
 }
 
-class _CopyWithImpl$Subscription$GetLeaves$leaves<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves<TRes> {
-  _CopyWithImpl$Subscription$GetLeaves$leaves(
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves(
     this._instance,
     this._then,
   );
 
-  final Subscription$GetLeaves$leaves _instance;
+  final Query$GetEmployeeLeaves$leaves _instance;
 
-  final TRes Function(Subscription$GetLeaves$leaves) _then;
+  final TRes Function(Query$GetEmployeeLeaves$leaves) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -3239,96 +3496,115 @@ class _CopyWithImpl$Subscription$GetLeaves$leaves<TRes>
     Object? leave_type = _undefined,
     Object? end_date = _undefined,
     Object? comment = _undefined,
+    Object? other_description = _undefined,
     Object? employee = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Subscription$GetLeaves$leaves(
+      _then(Query$GetEmployeeLeaves$leaves(
         id: id == _undefined || id == null ? _instance.id : (id as String),
-        status: status == _undefined
-            ? _instance.status
-            : (status as Enum$leave_status_enum?),
+        status: status == _undefined ? _instance.status : (status as String?),
         start_date: start_date == _undefined || start_date == null
             ? _instance.start_date
             : (start_date as String),
         leave_type: leave_type == _undefined
             ? _instance.leave_type
-            : (leave_type as Enum$leave_type_enum?),
+            : (leave_type as String?),
         end_date: end_date == _undefined || end_date == null
             ? _instance.end_date
             : (end_date as String),
         comment:
             comment == _undefined ? _instance.comment : (comment as String?),
+        other_description: other_description == _undefined
+            ? _instance.other_description
+            : (other_description as String?),
         employee: employee == _undefined
             ? _instance.employee
-            : (employee as Subscription$GetLeaves$leaves$employee?),
+            : (employee as Query$GetEmployeeLeaves$leaves$employee?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  CopyWith$Subscription$GetLeaves$leaves$employee<TRes> get employee {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> get employee {
     final local$employee = _instance.employee;
     return local$employee == null
-        ? CopyWith$Subscription$GetLeaves$leaves$employee.stub(_then(_instance))
-        : CopyWith$Subscription$GetLeaves$leaves$employee(
+        ? CopyWith$Query$GetEmployeeLeaves$leaves$employee.stub(
+            _then(_instance))
+        : CopyWith$Query$GetEmployeeLeaves$leaves$employee(
             local$employee, (e) => call(employee: e));
   }
 }
 
-class _CopyWithStubImpl$Subscription$GetLeaves$leaves<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves<TRes> {
-  _CopyWithStubImpl$Subscription$GetLeaves$leaves(this._res);
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves(this._res);
 
   TRes _res;
 
   call({
     String? id,
-    Enum$leave_status_enum? status,
+    String? status,
     String? start_date,
-    Enum$leave_type_enum? leave_type,
+    String? leave_type,
     String? end_date,
     String? comment,
-    Subscription$GetLeaves$leaves$employee? employee,
+    String? other_description,
+    Query$GetEmployeeLeaves$leaves$employee? employee,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Subscription$GetLeaves$leaves$employee<TRes> get employee =>
-      CopyWith$Subscription$GetLeaves$leaves$employee.stub(_res);
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> get employee =>
+      CopyWith$Query$GetEmployeeLeaves$leaves$employee.stub(_res);
 }
 
-class Subscription$GetLeaves$leaves$employee {
-  Subscription$GetLeaves$leaves$employee({
+class Query$GetEmployeeLeaves$leaves$employee {
+  Query$GetEmployeeLeaves$leaves$employee({
     required this.id,
+    this.license,
     required this.lastname,
     required this.firstname,
     required this.function,
     this.file,
+    required this.department,
+    this.service,
     this.$__typename = 'employees',
   });
 
-  factory Subscription$GetLeaves$leaves$employee.fromJson(
+  factory Query$GetEmployeeLeaves$leaves$employee.fromJson(
       Map<String, dynamic> json) {
     final l$id = json['id'];
+    final l$license = json['license'];
     final l$lastname = json['lastname'];
     final l$firstname = json['firstname'];
     final l$function = json['function'];
     final l$file = json['file'];
+    final l$department = json['department'];
+    final l$service = json['service'];
     final l$$__typename = json['__typename'];
-    return Subscription$GetLeaves$leaves$employee(
+    return Query$GetEmployeeLeaves$leaves$employee(
       id: (l$id as String),
+      license: (l$license as String?),
       lastname: (l$lastname as String),
       firstname: (l$firstname as String),
       function: (l$function as String),
       file: l$file == null
           ? null
-          : Subscription$GetLeaves$leaves$employee$file.fromJson(
+          : Query$GetEmployeeLeaves$leaves$employee$file.fromJson(
               (l$file as Map<String, dynamic>)),
+      department: Query$GetEmployeeLeaves$leaves$employee$department.fromJson(
+          (l$department as Map<String, dynamic>)),
+      service: l$service == null
+          ? null
+          : Query$GetEmployeeLeaves$leaves$employee$service.fromJson(
+              (l$service as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String id;
+
+  final String? license;
 
   final String lastname;
 
@@ -3336,7 +3612,11 @@ class Subscription$GetLeaves$leaves$employee {
 
   final String function;
 
-  final Subscription$GetLeaves$leaves$employee$file? file;
+  final Query$GetEmployeeLeaves$leaves$employee$file? file;
+
+  final Query$GetEmployeeLeaves$leaves$employee$department department;
+
+  final Query$GetEmployeeLeaves$leaves$employee$service? service;
 
   final String $__typename;
 
@@ -3344,6 +3624,8 @@ class Subscription$GetLeaves$leaves$employee {
     final _resultData = <String, dynamic>{};
     final l$id = id;
     _resultData['id'] = l$id;
+    final l$license = license;
+    _resultData['license'] = l$license;
     final l$lastname = lastname;
     _resultData['lastname'] = l$lastname;
     final l$firstname = firstname;
@@ -3352,6 +3634,10 @@ class Subscription$GetLeaves$leaves$employee {
     _resultData['function'] = l$function;
     final l$file = file;
     _resultData['file'] = l$file?.toJson();
+    final l$department = department;
+    _resultData['department'] = l$department.toJson();
+    final l$service = service;
+    _resultData['service'] = l$service?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3360,17 +3646,23 @@ class Subscription$GetLeaves$leaves$employee {
   @override
   int get hashCode {
     final l$id = id;
+    final l$license = license;
     final l$lastname = lastname;
     final l$firstname = firstname;
     final l$function = function;
     final l$file = file;
+    final l$department = department;
+    final l$service = service;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
+      l$license,
       l$lastname,
       l$firstname,
       l$function,
       l$file,
+      l$department,
+      l$service,
       l$$__typename,
     ]);
   }
@@ -3380,13 +3672,18 @@ class Subscription$GetLeaves$leaves$employee {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Subscription$GetLeaves$leaves$employee ||
+    if (other is! Query$GetEmployeeLeaves$leaves$employee ||
         runtimeType != other.runtimeType) {
       return false;
     }
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) {
+      return false;
+    }
+    final l$license = license;
+    final lOther$license = other.license;
+    if (l$license != lOther$license) {
       return false;
     }
     final l$lastname = lastname;
@@ -3409,6 +3706,16 @@ class Subscription$GetLeaves$leaves$employee {
     if (l$file != lOther$file) {
       return false;
     }
+    final l$department = department;
+    final lOther$department = other.department;
+    if (l$department != lOther$department) {
+      return false;
+    }
+    final l$service = service;
+    final lOther$service = other.service;
+    if (l$service != lOther$service) {
+      return false;
+    }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) {
@@ -3418,59 +3725,70 @@ class Subscription$GetLeaves$leaves$employee {
   }
 }
 
-extension UtilityExtension$Subscription$GetLeaves$leaves$employee
-    on Subscription$GetLeaves$leaves$employee {
-  CopyWith$Subscription$GetLeaves$leaves$employee<
-          Subscription$GetLeaves$leaves$employee>
-      get copyWith => CopyWith$Subscription$GetLeaves$leaves$employee(
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee
+    on Query$GetEmployeeLeaves$leaves$employee {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee<
+          Query$GetEmployeeLeaves$leaves$employee>
+      get copyWith => CopyWith$Query$GetEmployeeLeaves$leaves$employee(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Subscription$GetLeaves$leaves$employee<TRes> {
-  factory CopyWith$Subscription$GetLeaves$leaves$employee(
-    Subscription$GetLeaves$leaves$employee instance,
-    TRes Function(Subscription$GetLeaves$leaves$employee) then,
-  ) = _CopyWithImpl$Subscription$GetLeaves$leaves$employee;
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee(
+    Query$GetEmployeeLeaves$leaves$employee instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves$employee) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee;
 
-  factory CopyWith$Subscription$GetLeaves$leaves$employee.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee;
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee;
 
   TRes call({
     String? id,
+    String? license,
     String? lastname,
     String? firstname,
     String? function,
-    Subscription$GetLeaves$leaves$employee$file? file,
+    Query$GetEmployeeLeaves$leaves$employee$file? file,
+    Query$GetEmployeeLeaves$leaves$employee$department? department,
+    Query$GetEmployeeLeaves$leaves$employee$service? service,
     String? $__typename,
   });
-  CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> get file;
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> get file;
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<TRes>
+      get department;
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> get service;
 }
 
-class _CopyWithImpl$Subscription$GetLeaves$leaves$employee<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves$employee<TRes> {
-  _CopyWithImpl$Subscription$GetLeaves$leaves$employee(
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee(
     this._instance,
     this._then,
   );
 
-  final Subscription$GetLeaves$leaves$employee _instance;
+  final Query$GetEmployeeLeaves$leaves$employee _instance;
 
-  final TRes Function(Subscription$GetLeaves$leaves$employee) _then;
+  final TRes Function(Query$GetEmployeeLeaves$leaves$employee) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
     Object? id = _undefined,
+    Object? license = _undefined,
     Object? lastname = _undefined,
     Object? firstname = _undefined,
     Object? function = _undefined,
     Object? file = _undefined,
+    Object? department = _undefined,
+    Object? service = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Subscription$GetLeaves$leaves$employee(
+      _then(Query$GetEmployeeLeaves$leaves$employee(
         id: id == _undefined || id == null ? _instance.id : (id as String),
+        license:
+            license == _undefined ? _instance.license : (license as String?),
         lastname: lastname == _undefined || lastname == null
             ? _instance.lastname
             : (lastname as String),
@@ -3482,55 +3800,89 @@ class _CopyWithImpl$Subscription$GetLeaves$leaves$employee<TRes>
             : (function as String),
         file: file == _undefined
             ? _instance.file
-            : (file as Subscription$GetLeaves$leaves$employee$file?),
+            : (file as Query$GetEmployeeLeaves$leaves$employee$file?),
+        department: department == _undefined || department == null
+            ? _instance.department
+            : (department
+                as Query$GetEmployeeLeaves$leaves$employee$department),
+        service: service == _undefined
+            ? _instance.service
+            : (service as Query$GetEmployeeLeaves$leaves$employee$service?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> get file {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> get file {
     final local$file = _instance.file;
     return local$file == null
-        ? CopyWith$Subscription$GetLeaves$leaves$employee$file.stub(
+        ? CopyWith$Query$GetEmployeeLeaves$leaves$employee$file.stub(
             _then(_instance))
-        : CopyWith$Subscription$GetLeaves$leaves$employee$file(
+        : CopyWith$Query$GetEmployeeLeaves$leaves$employee$file(
             local$file, (e) => call(file: e));
+  }
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<TRes>
+      get department {
+    final local$department = _instance.department;
+    return CopyWith$Query$GetEmployeeLeaves$leaves$employee$department(
+        local$department, (e) => call(department: e));
+  }
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> get service {
+    final local$service = _instance.service;
+    return local$service == null
+        ? CopyWith$Query$GetEmployeeLeaves$leaves$employee$service.stub(
+            _then(_instance))
+        : CopyWith$Query$GetEmployeeLeaves$leaves$employee$service(
+            local$service, (e) => call(service: e));
   }
 }
 
-class _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves$employee<TRes> {
-  _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee(this._res);
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee(this._res);
 
   TRes _res;
 
   call({
     String? id,
+    String? license,
     String? lastname,
     String? firstname,
     String? function,
-    Subscription$GetLeaves$leaves$employee$file? file,
+    Query$GetEmployeeLeaves$leaves$employee$file? file,
+    Query$GetEmployeeLeaves$leaves$employee$department? department,
+    Query$GetEmployeeLeaves$leaves$employee$service? service,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> get file =>
-      CopyWith$Subscription$GetLeaves$leaves$employee$file.stub(_res);
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> get file =>
+      CopyWith$Query$GetEmployeeLeaves$leaves$employee$file.stub(_res);
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<TRes>
+      get department =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$department.stub(
+              _res);
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> get service =>
+      CopyWith$Query$GetEmployeeLeaves$leaves$employee$service.stub(_res);
 }
 
-class Subscription$GetLeaves$leaves$employee$file {
-  Subscription$GetLeaves$leaves$employee$file({
+class Query$GetEmployeeLeaves$leaves$employee$file {
+  Query$GetEmployeeLeaves$leaves$employee$file({
     required this.id,
     this.file_url,
     this.$__typename = 'files',
   });
 
-  factory Subscription$GetLeaves$leaves$employee$file.fromJson(
+  factory Query$GetEmployeeLeaves$leaves$employee$file.fromJson(
       Map<String, dynamic> json) {
     final l$id = json['id'];
     final l$file_url = json['file_url'];
     final l$$__typename = json['__typename'];
-    return Subscription$GetLeaves$leaves$employee$file(
+    return Query$GetEmployeeLeaves$leaves$employee$file(
       id: (l$id as String),
       file_url: (l$file_url as String?),
       $__typename: (l$$__typename as String),
@@ -3571,7 +3923,7 @@ class Subscription$GetLeaves$leaves$employee$file {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Subscription$GetLeaves$leaves$employee$file ||
+    if (other is! Query$GetEmployeeLeaves$leaves$employee$file ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3594,24 +3946,24 @@ class Subscription$GetLeaves$leaves$employee$file {
   }
 }
 
-extension UtilityExtension$Subscription$GetLeaves$leaves$employee$file
-    on Subscription$GetLeaves$leaves$employee$file {
-  CopyWith$Subscription$GetLeaves$leaves$employee$file<
-          Subscription$GetLeaves$leaves$employee$file>
-      get copyWith => CopyWith$Subscription$GetLeaves$leaves$employee$file(
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee$file
+    on Query$GetEmployeeLeaves$leaves$employee$file {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<
+          Query$GetEmployeeLeaves$leaves$employee$file>
+      get copyWith => CopyWith$Query$GetEmployeeLeaves$leaves$employee$file(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> {
-  factory CopyWith$Subscription$GetLeaves$leaves$employee$file(
-    Subscription$GetLeaves$leaves$employee$file instance,
-    TRes Function(Subscription$GetLeaves$leaves$employee$file) then,
-  ) = _CopyWithImpl$Subscription$GetLeaves$leaves$employee$file;
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$file(
+    Query$GetEmployeeLeaves$leaves$employee$file instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves$employee$file) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$file;
 
-  factory CopyWith$Subscription$GetLeaves$leaves$employee$file.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee$file;
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$file.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$file;
 
   TRes call({
     String? id,
@@ -3620,16 +3972,16 @@ abstract class CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> {
   });
 }
 
-class _CopyWithImpl$Subscription$GetLeaves$leaves$employee$file<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> {
-  _CopyWithImpl$Subscription$GetLeaves$leaves$employee$file(
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$file<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$file(
     this._instance,
     this._then,
   );
 
-  final Subscription$GetLeaves$leaves$employee$file _instance;
+  final Query$GetEmployeeLeaves$leaves$employee$file _instance;
 
-  final TRes Function(Subscription$GetLeaves$leaves$employee$file) _then;
+  final TRes Function(Query$GetEmployeeLeaves$leaves$employee$file) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -3638,7 +3990,7 @@ class _CopyWithImpl$Subscription$GetLeaves$leaves$employee$file<TRes>
     Object? file_url = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Subscription$GetLeaves$leaves$employee$file(
+      _then(Query$GetEmployeeLeaves$leaves$employee$file(
         id: id == _undefined || id == null ? _instance.id : (id as String),
         file_url:
             file_url == _undefined ? _instance.file_url : (file_url as String?),
@@ -3648,15 +4000,604 @@ class _CopyWithImpl$Subscription$GetLeaves$leaves$employee$file<TRes>
       ));
 }
 
-class _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee$file<TRes>
-    implements CopyWith$Subscription$GetLeaves$leaves$employee$file<TRes> {
-  _CopyWithStubImpl$Subscription$GetLeaves$leaves$employee$file(this._res);
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$file<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee$file<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$file(this._res);
 
   TRes _res;
 
   call({
     String? id,
     String? file_url,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$GetEmployeeLeaves$leaves$employee$department {
+  Query$GetEmployeeLeaves$leaves$employee$department({
+    this.text_content,
+    this.$__typename = 'departments',
+  });
+
+  factory Query$GetEmployeeLeaves$leaves$employee$department.fromJson(
+      Map<String, dynamic> json) {
+    final l$text_content = json['text_content'];
+    final l$$__typename = json['__typename'];
+    return Query$GetEmployeeLeaves$leaves$employee$department(
+      text_content: l$text_content == null
+          ? null
+          : Query$GetEmployeeLeaves$leaves$employee$department$text_content
+              .fromJson((l$text_content as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Query$GetEmployeeLeaves$leaves$employee$department$text_content?
+      text_content;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$text_content = text_content;
+    _resultData['text_content'] = l$text_content?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$text_content = text_content;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$text_content,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$GetEmployeeLeaves$leaves$employee$department ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$text_content = text_content;
+    final lOther$text_content = other.text_content;
+    if (l$text_content != lOther$text_content) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee$department
+    on Query$GetEmployeeLeaves$leaves$employee$department {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<
+          Query$GetEmployeeLeaves$leaves$employee$department>
+      get copyWith =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$department(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<
+    TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$department(
+    Query$GetEmployeeLeaves$leaves$employee$department instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves$employee$department) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department;
+
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$department.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department;
+
+  TRes call({
+    Query$GetEmployeeLeaves$leaves$employee$department$text_content?
+        text_content,
+    String? $__typename,
+  });
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<TRes>
+      get text_content;
+}
+
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department<TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetEmployeeLeaves$leaves$employee$department _instance;
+
+  final TRes Function(Query$GetEmployeeLeaves$leaves$employee$department) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? text_content = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetEmployeeLeaves$leaves$employee$department(
+        text_content: text_content == _undefined
+            ? _instance.text_content
+            : (text_content
+                as Query$GetEmployeeLeaves$leaves$employee$department$text_content?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<TRes>
+      get text_content {
+    final local$text_content = _instance.text_content;
+    return local$text_content == null
+        ? CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content
+            .stub(_then(_instance))
+        : CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+            local$text_content, (e) => call(text_content: e));
+  }
+}
+
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department<TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$department<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department(
+      this._res);
+
+  TRes _res;
+
+  call({
+    Query$GetEmployeeLeaves$leaves$employee$department$text_content?
+        text_content,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<TRes>
+      get text_content =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content
+              .stub(_res);
+}
+
+class Query$GetEmployeeLeaves$leaves$employee$department$text_content {
+  Query$GetEmployeeLeaves$leaves$employee$department$text_content({
+    required this.content,
+    this.$__typename = 'text_content',
+  });
+
+  factory Query$GetEmployeeLeaves$leaves$employee$department$text_content.fromJson(
+      Map<String, dynamic> json) {
+    final l$content = json['content'];
+    final l$$__typename = json['__typename'];
+    return Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+      content: (l$content as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String content;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$content = content;
+    _resultData['content'] = l$content;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$content = content;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$content,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$GetEmployeeLeaves$leaves$employee$department$text_content ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$content = content;
+    final lOther$content = other.content;
+    if (l$content != lOther$content) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee$department$text_content
+    on Query$GetEmployeeLeaves$leaves$employee$department$text_content {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+          Query$GetEmployeeLeaves$leaves$employee$department$text_content>
+      get copyWith =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+    TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+    Query$GetEmployeeLeaves$leaves$employee$department$text_content instance,
+    TRes Function(
+            Query$GetEmployeeLeaves$leaves$employee$department$text_content)
+        then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content;
+
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content;
+
+  TRes call({
+    String? content,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+        TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+            TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetEmployeeLeaves$leaves$employee$department$text_content
+      _instance;
+
+  final TRes Function(
+      Query$GetEmployeeLeaves$leaves$employee$department$text_content) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? content = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+        content: content == _undefined || content == null
+            ? _instance.content
+            : (content as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+        TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$department$text_content<
+            TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$department$text_content(
+      this._res);
+
+  TRes _res;
+
+  call({
+    String? content,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
+class Query$GetEmployeeLeaves$leaves$employee$service {
+  Query$GetEmployeeLeaves$leaves$employee$service({
+    this.text_content,
+    this.$__typename = 'services',
+  });
+
+  factory Query$GetEmployeeLeaves$leaves$employee$service.fromJson(
+      Map<String, dynamic> json) {
+    final l$text_content = json['text_content'];
+    final l$$__typename = json['__typename'];
+    return Query$GetEmployeeLeaves$leaves$employee$service(
+      text_content: l$text_content == null
+          ? null
+          : Query$GetEmployeeLeaves$leaves$employee$service$text_content
+              .fromJson((l$text_content as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Query$GetEmployeeLeaves$leaves$employee$service$text_content?
+      text_content;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$text_content = text_content;
+    _resultData['text_content'] = l$text_content?.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$text_content = text_content;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$text_content,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Query$GetEmployeeLeaves$leaves$employee$service ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$text_content = text_content;
+    final lOther$text_content = other.text_content;
+    if (l$text_content != lOther$text_content) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee$service
+    on Query$GetEmployeeLeaves$leaves$employee$service {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<
+          Query$GetEmployeeLeaves$leaves$employee$service>
+      get copyWith => CopyWith$Query$GetEmployeeLeaves$leaves$employee$service(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$service(
+    Query$GetEmployeeLeaves$leaves$employee$service instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves$employee$service) then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service;
+
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$service.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service;
+
+  TRes call({
+    Query$GetEmployeeLeaves$leaves$employee$service$text_content? text_content,
+    String? $__typename,
+  });
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<TRes>
+      get text_content;
+}
+
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetEmployeeLeaves$leaves$employee$service _instance;
+
+  final TRes Function(Query$GetEmployeeLeaves$leaves$employee$service) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? text_content = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetEmployeeLeaves$leaves$employee$service(
+        text_content: text_content == _undefined
+            ? _instance.text_content
+            : (text_content
+                as Query$GetEmployeeLeaves$leaves$employee$service$text_content?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<TRes>
+      get text_content {
+    final local$text_content = _instance.text_content;
+    return local$text_content == null
+        ? CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content
+            .stub(_then(_instance))
+        : CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+            local$text_content, (e) => call(text_content: e));
+  }
+}
+
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service<TRes>
+    implements CopyWith$Query$GetEmployeeLeaves$leaves$employee$service<TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service(this._res);
+
+  TRes _res;
+
+  call({
+    Query$GetEmployeeLeaves$leaves$employee$service$text_content? text_content,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<TRes>
+      get text_content =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content
+              .stub(_res);
+}
+
+class Query$GetEmployeeLeaves$leaves$employee$service$text_content {
+  Query$GetEmployeeLeaves$leaves$employee$service$text_content({
+    required this.content,
+    this.$__typename = 'text_content',
+  });
+
+  factory Query$GetEmployeeLeaves$leaves$employee$service$text_content.fromJson(
+      Map<String, dynamic> json) {
+    final l$content = json['content'];
+    final l$$__typename = json['__typename'];
+    return Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+      content: (l$content as String),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String content;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$content = content;
+    _resultData['content'] = l$content;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$content = content;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$content,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other
+            is! Query$GetEmployeeLeaves$leaves$employee$service$text_content ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$content = content;
+    final lOther$content = other.content;
+    if (l$content != lOther$content) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetEmployeeLeaves$leaves$employee$service$text_content
+    on Query$GetEmployeeLeaves$leaves$employee$service$text_content {
+  CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+          Query$GetEmployeeLeaves$leaves$employee$service$text_content>
+      get copyWith =>
+          CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+    TRes> {
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+    Query$GetEmployeeLeaves$leaves$employee$service$text_content instance,
+    TRes Function(Query$GetEmployeeLeaves$leaves$employee$service$text_content)
+        then,
+  ) = _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content;
+
+  factory CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content;
+
+  TRes call({
+    String? content,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+        TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+            TRes> {
+  _CopyWithImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetEmployeeLeaves$leaves$employee$service$text_content _instance;
+
+  final TRes Function(
+      Query$GetEmployeeLeaves$leaves$employee$service$text_content) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? content = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+        content: content == _undefined || content == null
+            ? _instance.content
+            : (content as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+        TRes>
+    implements
+        CopyWith$Query$GetEmployeeLeaves$leaves$employee$service$text_content<
+            TRes> {
+  _CopyWithStubImpl$Query$GetEmployeeLeaves$leaves$employee$service$text_content(
+      this._res);
+
+  TRes _res;
+
+  call({
+    String? content,
     String? $__typename,
   }) =>
       _res;

@@ -50,7 +50,6 @@ class AuthController extends GetxController {
       (response) {
         if ((response['employee'] != null)) {
           final jsonResponse = response;
-          print("===========${jsonResponse}");
           var profile = Profile.fromJson(jsonResponse['employee']);
           prefs.setString('profile', jsonEncode(profile.toJson()));
           prefs.setString('company_id', jsonResponse['employee']['company_id']);
@@ -59,6 +58,8 @@ class AuthController extends GetxController {
 
           var bearerToken = 'Bearer ' + "${loginData.token}";
           prefs.setString('is-user', "true");
+
+          print("loginData.employee?.profilePicture:==================="+loginData.employee!.profilePicture.toString()!);
 
           prefs.setString('token', bearerToken);
           prefs.setString('user-id', loginData.employee?.id.toString()??"");

@@ -1,6 +1,6 @@
 class APIList {
-  // static String? server = "https://ntchinda-giscard-vvims-backend.hf.space";//FODECC
-  static String? server = "http://172.17.15.28:30000";//CNPS
+  static String? server = "https://giscardntchinda-vvim-backend.hf.space";//FODECC
+  // static String? server = "http://172.17.15.28:30000";//CNPS
   
 
   static String? apiUrl = "demo.quickpass.xyz";

@@ -82,52 +82,12 @@ class AttendanceController extends GetxController {
   }
 
   clockInUpdate(context, String data) async {
-    loader.value = true;
-    var r = attendanceRepository.clockIn(
-      buildingId: data,
-      id: prefs.getString("user-id") ?? "",
-      long: "11.5170657",
-      lat: "3.8727566",
-    );
-    r.then((result) {
-      result.fold(
-        (failure) {
-          // Get.rawSnackbar(
-          //   message: "you can make clock in at your position",
-          //   backgroundColor: Colors.red,
-          //   snackPosition: SnackPosition.TOP,
-          // );
-        },
-        (success) {
-          Get.rawSnackbar(
-            snackPosition: SnackPosition.TOP,
-            title: 'Clock In',
-            message: 'Clocked In Successfully',
-            backgroundColor: AppColor.greenColor.withOpacity(.9),
-            maxWidth: ScreenSize(context!).mainWidth / 1.004,
-            margin: const EdgeInsets.only(
-              bottom: 20,
-              left: 20,
-              right: 20,
-            ),
-          );
-        },
-      );
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur inattendue')),
-      );
-    });
-    loader.value = false;
-
     // loader.value = true;
-    // Position position =await _determinePosition();
-    // // UserService userService = UserService();
     // var r = attendanceRepository.clockIn(
     //   buildingId: data,
     //   id: prefs.getString("user-id") ?? "",
-    //   long: position.longitude.toString(),
-    //   lat: position.latitude.toString(),
+    //   long: "11.5170657",
+    //   lat: "3.8727566",
     // );
     // r.then((result) {
     //   result.fold(
@@ -159,7 +119,46 @@ class AttendanceController extends GetxController {
     //   );
     // });
     // loader.value = false;
-    // }
+
+    loader.value = true;
+    Position position =await _determinePosition();
+    // UserService userService = UserService();
+    var r = attendanceRepository.clockIn(
+      buildingId: data,
+      id: prefs.getString("user-id") ?? "",
+      long: position.longitude.toString(),
+      lat: position.latitude.toString(),
+    );
+    r.then((result) {
+      result.fold(
+        (failure) {
+          // Get.rawSnackbar(
+          //   message: "you can make clock in at your position",
+          //   backgroundColor: Colors.red,
+          //   snackPosition: SnackPosition.TOP,
+          // );
+        },
+        (success) {
+          Get.rawSnackbar(
+            snackPosition: SnackPosition.TOP,
+            title: 'Clock In',
+            message: 'Clocked In Successfully',
+            backgroundColor: AppColor.greenColor.withOpacity(.9),
+            maxWidth: ScreenSize(context!).mainWidth / 1.004,
+            margin: const EdgeInsets.only(
+              bottom: 20,
+              left: 20,
+              right: 20,
+            ),
+          );
+        },
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur inattendue')),
+      );
+    });
+    loader.value = false;
   }
 
   clockOutUpdate(context) async {

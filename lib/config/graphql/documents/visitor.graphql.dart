@@ -307,7 +307,7 @@ const documentNodeSubscriptionListenAllVisitor = DocumentNode(definitions: [
                 selectionSet: null,
               ),
               FieldNode(
-                name: NameNode(value: 'fileByPhoto'),
+                name: NameNode(value: 'file'),
                 alias: null,
                 arguments: [],
                 directives: [],
@@ -480,7 +480,7 @@ class Subscription$ListenAllVisitor$visits {
     required this.id,
     this.reg_no,
     this.reason,
-    required this.visitorByVisitor,
+    this.visitorByVisitor,
     this.status,
     this.check_in_at,
     this.check_out_at,
@@ -503,8 +503,9 @@ class Subscription$ListenAllVisitor$visits {
       id: (l$id as String),
       reg_no: (l$reg_no as String?),
       reason: (l$reason as String?),
-      visitorByVisitor:
-          Subscription$ListenAllVisitor$visits$visitorByVisitor.fromJson(
+      visitorByVisitor: l$visitorByVisitor == null
+          ? null
+          : Subscription$ListenAllVisitor$visits$visitorByVisitor.fromJson(
               (l$visitorByVisitor as Map<String, dynamic>)),
       status: l$status == null
           ? null
@@ -522,7 +523,7 @@ class Subscription$ListenAllVisitor$visits {
 
   final String? reason;
 
-  final Subscription$ListenAllVisitor$visits$visitorByVisitor visitorByVisitor;
+  final Subscription$ListenAllVisitor$visits$visitorByVisitor? visitorByVisitor;
 
   final Enum$visit_status_enum? status;
 
@@ -543,7 +544,7 @@ class Subscription$ListenAllVisitor$visits {
     final l$reason = reason;
     _resultData['reason'] = l$reason;
     final l$visitorByVisitor = visitorByVisitor;
-    _resultData['visitorByVisitor'] = l$visitorByVisitor.toJson();
+    _resultData['visitorByVisitor'] = l$visitorByVisitor?.toJson();
     final l$status = status;
     _resultData['status'] =
         l$status == null ? null : toJson$Enum$visit_status_enum(l$status);
@@ -702,11 +703,10 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits<TRes>
         id: id == _undefined || id == null ? _instance.id : (id as String),
         reg_no: reg_no == _undefined ? _instance.reg_no : (reg_no as String?),
         reason: reason == _undefined ? _instance.reason : (reason as String?),
-        visitorByVisitor:
-            visitorByVisitor == _undefined || visitorByVisitor == null
-                ? _instance.visitorByVisitor
-                : (visitorByVisitor
-                    as Subscription$ListenAllVisitor$visits$visitorByVisitor),
+        visitorByVisitor: visitorByVisitor == _undefined
+            ? _instance.visitorByVisitor
+            : (visitorByVisitor
+                as Subscription$ListenAllVisitor$visits$visitorByVisitor?),
         status: status == _undefined
             ? _instance.status
             : (status as Enum$visit_status_enum?),
@@ -725,8 +725,11 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits<TRes>
   CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor<TRes>
       get visitorByVisitor {
     final local$visitorByVisitor = _instance.visitorByVisitor;
-    return CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor(
-        local$visitorByVisitor, (e) => call(visitorByVisitor: e));
+    return local$visitorByVisitor == null
+        ? CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor.stub(
+            _then(_instance))
+        : CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor(
+            local$visitorByVisitor, (e) => call(visitorByVisitor: e));
   }
 }
 
@@ -757,9 +760,9 @@ class _CopyWithStubImpl$Subscription$ListenAllVisitor$visits<TRes>
 
 class Subscription$ListenAllVisitor$visits$visitorByVisitor {
   Subscription$ListenAllVisitor$visits$visitorByVisitor({
-    this.firstname,
+    required this.firstname,
     this.lastname,
-    this.fileByPhoto,
+    this.file,
     this.phone_number,
     this.id_number,
     this.$__typename = 'visitors',
@@ -769,29 +772,28 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor {
       Map<String, dynamic> json) {
     final l$firstname = json['firstname'];
     final l$lastname = json['lastname'];
-    final l$fileByPhoto = json['fileByPhoto'];
+    final l$file = json['file'];
     final l$phone_number = json['phone_number'];
     final l$id_number = json['id_number'];
     final l$$__typename = json['__typename'];
     return Subscription$ListenAllVisitor$visits$visitorByVisitor(
-      firstname: (l$firstname as String?),
+      firstname: (l$firstname as String),
       lastname: (l$lastname as String?),
-      fileByPhoto: l$fileByPhoto == null
+      file: l$file == null
           ? null
-          : Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto
-              .fromJson((l$fileByPhoto as Map<String, dynamic>)),
+          : Subscription$ListenAllVisitor$visits$visitorByVisitor$file.fromJson(
+              (l$file as Map<String, dynamic>)),
       phone_number: (l$phone_number as String?),
       id_number: (l$id_number as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? firstname;
+  final String firstname;
 
   final String? lastname;
 
-  final Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto?
-      fileByPhoto;
+  final Subscription$ListenAllVisitor$visits$visitorByVisitor$file? file;
 
   final String? phone_number;
 
@@ -805,8 +807,8 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor {
     _resultData['firstname'] = l$firstname;
     final l$lastname = lastname;
     _resultData['lastname'] = l$lastname;
-    final l$fileByPhoto = fileByPhoto;
-    _resultData['fileByPhoto'] = l$fileByPhoto?.toJson();
+    final l$file = file;
+    _resultData['file'] = l$file?.toJson();
     final l$phone_number = phone_number;
     _resultData['phone_number'] = l$phone_number;
     final l$id_number = id_number;
@@ -820,14 +822,14 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor {
   int get hashCode {
     final l$firstname = firstname;
     final l$lastname = lastname;
-    final l$fileByPhoto = fileByPhoto;
+    final l$file = file;
     final l$phone_number = phone_number;
     final l$id_number = id_number;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$firstname,
       l$lastname,
-      l$fileByPhoto,
+      l$file,
       l$phone_number,
       l$id_number,
       l$$__typename,
@@ -853,9 +855,9 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor {
     if (l$lastname != lOther$lastname) {
       return false;
     }
-    final l$fileByPhoto = fileByPhoto;
-    final lOther$fileByPhoto = other.fileByPhoto;
-    if (l$fileByPhoto != lOther$fileByPhoto) {
+    final l$file = file;
+    final lOther$file = other.file;
+    if (l$file != lOther$file) {
       return false;
     }
     final l$phone_number = phone_number;
@@ -902,14 +904,13 @@ abstract class CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor<
   TRes call({
     String? firstname,
     String? lastname,
-    Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto?
-        fileByPhoto,
+    Subscription$ListenAllVisitor$visits$visitorByVisitor$file? file,
     String? phone_number,
     String? id_number,
     String? $__typename,
   });
-  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
-      TRes> get fileByPhoto;
+  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<TRes>
+      get file;
 }
 
 class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor<TRes>
@@ -930,21 +931,21 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor<TRes>
   TRes call({
     Object? firstname = _undefined,
     Object? lastname = _undefined,
-    Object? fileByPhoto = _undefined,
+    Object? file = _undefined,
     Object? phone_number = _undefined,
     Object? id_number = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Subscription$ListenAllVisitor$visits$visitorByVisitor(
-        firstname: firstname == _undefined
+        firstname: firstname == _undefined || firstname == null
             ? _instance.firstname
-            : (firstname as String?),
+            : (firstname as String),
         lastname:
             lastname == _undefined ? _instance.lastname : (lastname as String?),
-        fileByPhoto: fileByPhoto == _undefined
-            ? _instance.fileByPhoto
-            : (fileByPhoto
-                as Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto?),
+        file: file == _undefined
+            ? _instance.file
+            : (file
+                as Subscription$ListenAllVisitor$visits$visitorByVisitor$file?),
         phone_number: phone_number == _undefined
             ? _instance.phone_number
             : (phone_number as String?),
@@ -956,14 +957,14 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor<TRes>
             : ($__typename as String),
       ));
 
-  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
-      TRes> get fileByPhoto {
-    final local$fileByPhoto = _instance.fileByPhoto;
-    return local$fileByPhoto == null
-        ? CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto
+  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<TRes>
+      get file {
+    final local$file = _instance.file;
+    return local$file == null
+        ? CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file
             .stub(_then(_instance))
-        : CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
-            local$fileByPhoto, (e) => call(fileByPhoto: e));
+        : CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
+            local$file, (e) => call(file: e));
   }
 }
 
@@ -979,32 +980,30 @@ class _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor<
   call({
     String? firstname,
     String? lastname,
-    Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto?
-        fileByPhoto,
+    Subscription$ListenAllVisitor$visits$visitorByVisitor$file? file,
     String? phone_number,
     String? id_number,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
-          TRes>
-      get fileByPhoto =>
-          CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto
+  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<TRes>
+      get file =>
+          CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file
               .stub(_res);
 }
 
-class Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto {
-  Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto({
+class Subscription$ListenAllVisitor$visits$visitorByVisitor$file {
+  Subscription$ListenAllVisitor$visits$visitorByVisitor$file({
     this.file_url,
     this.$__typename = 'files',
   });
 
-  factory Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto.fromJson(
+  factory Subscription$ListenAllVisitor$visits$visitorByVisitor$file.fromJson(
       Map<String, dynamic> json) {
     final l$file_url = json['file_url'];
     final l$$__typename = json['__typename'];
-    return Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
+    return Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
       file_url: (l$file_url as String?),
       $__typename: (l$$__typename as String),
     );
@@ -1038,8 +1037,7 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto {
     if (identical(this, other)) {
       return true;
     }
-    if (other
-            is! Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto ||
+    if (other is! Subscription$ListenAllVisitor$visits$visitorByVisitor$file ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -1057,29 +1055,28 @@ class Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto {
   }
 }
 
-extension UtilityExtension$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto
-    on Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto {
-  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
-          Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto>
+extension UtilityExtension$Subscription$ListenAllVisitor$visits$visitorByVisitor$file
+    on Subscription$ListenAllVisitor$visits$visitorByVisitor$file {
+  CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
+          Subscription$ListenAllVisitor$visits$visitorByVisitor$file>
       get copyWith =>
-          CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
+          CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
+abstract class CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
     TRes> {
-  factory CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
-    Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto instance,
-    TRes Function(
-            Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto)
+  factory CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
+    Subscription$ListenAllVisitor$visits$visitorByVisitor$file instance,
+    TRes Function(Subscription$ListenAllVisitor$visits$visitorByVisitor$file)
         then,
-  ) = _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto;
+  ) = _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file;
 
-  factory CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto.stub(
+  factory CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file.stub(
           TRes res) =
-      _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto;
+      _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file;
 
   TRes call({
     String? file_url,
@@ -1087,21 +1084,20 @@ abstract class CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fi
   });
 }
 
-class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
+class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
         TRes>
     implements
-        CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
+        CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
             TRes> {
-  _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
+  _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
     this._instance,
     this._then,
   );
 
-  final Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto
-      _instance;
+  final Subscription$ListenAllVisitor$visits$visitorByVisitor$file _instance;
 
   final TRes Function(
-      Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto) _then;
+      Subscription$ListenAllVisitor$visits$visitorByVisitor$file) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -1109,7 +1105,7 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileBy
     Object? file_url = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
+      _then(Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
         file_url:
             file_url == _undefined ? _instance.file_url : (file_url as String?),
         $__typename: $__typename == _undefined || $__typename == null
@@ -1118,12 +1114,12 @@ class _CopyWithImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileBy
       ));
 }
 
-class _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
+class _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
         TRes>
     implements
-        CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto<
+        CopyWith$Subscription$ListenAllVisitor$visits$visitorByVisitor$file<
             TRes> {
-  _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$fileByPhoto(
+  _CopyWithStubImpl$Subscription$ListenAllVisitor$visits$visitorByVisitor$file(
       this._res);
 
   TRes _res;
@@ -1586,7 +1582,7 @@ const documentNodeQueryGetVisitorDetails = DocumentNode(definitions: [
                 selectionSet: null,
               ),
               FieldNode(
-                name: NameNode(value: 'fileByPhoto'),
+                name: NameNode(value: 'file'),
                 alias: null,
                 arguments: [],
                 directives: [],
@@ -1828,7 +1824,7 @@ class Query$GetVisitorDetails$visits_by_pk {
     this.service,
     this.vehicle,
     this.status,
-    required this.visitorByVisitor,
+    this.visitorByVisitor,
     this.reason,
     required this.id,
     this.reg_no,
@@ -1870,8 +1866,9 @@ class Query$GetVisitorDetails$visits_by_pk {
       status: l$status == null
           ? null
           : fromJson$Enum$visit_status_enum((l$status as String)),
-      visitorByVisitor:
-          Query$GetVisitorDetails$visits_by_pk$visitorByVisitor.fromJson(
+      visitorByVisitor: l$visitorByVisitor == null
+          ? null
+          : Query$GetVisitorDetails$visits_by_pk$visitorByVisitor.fromJson(
               (l$visitorByVisitor as Map<String, dynamic>)),
       reason: (l$reason as String?),
       id: (l$id as String),
@@ -1893,7 +1890,7 @@ class Query$GetVisitorDetails$visits_by_pk {
 
   final Enum$visit_status_enum? status;
 
-  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor visitorByVisitor;
+  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor? visitorByVisitor;
 
   final String? reason;
 
@@ -1923,7 +1920,7 @@ class Query$GetVisitorDetails$visits_by_pk {
     _resultData['status'] =
         l$status == null ? null : toJson$Enum$visit_status_enum(l$status);
     final l$visitorByVisitor = visitorByVisitor;
-    _resultData['visitorByVisitor'] = l$visitorByVisitor.toJson();
+    _resultData['visitorByVisitor'] = l$visitorByVisitor?.toJson();
     final l$reason = reason;
     _resultData['reason'] = l$reason;
     final l$id = id;
@@ -2135,11 +2132,10 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk<TRes>
         status: status == _undefined
             ? _instance.status
             : (status as Enum$visit_status_enum?),
-        visitorByVisitor:
-            visitorByVisitor == _undefined || visitorByVisitor == null
-                ? _instance.visitorByVisitor
-                : (visitorByVisitor
-                    as Query$GetVisitorDetails$visits_by_pk$visitorByVisitor),
+        visitorByVisitor: visitorByVisitor == _undefined
+            ? _instance.visitorByVisitor
+            : (visitorByVisitor
+                as Query$GetVisitorDetails$visits_by_pk$visitorByVisitor?),
         reason: reason == _undefined ? _instance.reason : (reason as String?),
         id: id == _undefined || id == null ? _instance.id : (id as String),
         reg_no: reg_no == _undefined ? _instance.reg_no : (reg_no as String?),
@@ -2186,8 +2182,11 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk<TRes>
   CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<TRes>
       get visitorByVisitor {
     final local$visitorByVisitor = _instance.visitorByVisitor;
-    return CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor(
-        local$visitorByVisitor, (e) => call(visitorByVisitor: e));
+    return local$visitorByVisitor == null
+        ? CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor.stub(
+            _then(_instance))
+        : CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor(
+            local$visitorByVisitor, (e) => call(visitorByVisitor: e));
   }
 }
 
@@ -3034,9 +3033,9 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
     required this.id,
     this.id_number,
     this.lastname,
-    this.firstname,
+    required this.firstname,
     this.phone_number,
-    this.fileByPhoto,
+    this.file,
     this.$__typename = 'visitors',
   });
 
@@ -3047,18 +3046,18 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
     final l$lastname = json['lastname'];
     final l$firstname = json['firstname'];
     final l$phone_number = json['phone_number'];
-    final l$fileByPhoto = json['fileByPhoto'];
+    final l$file = json['file'];
     final l$$__typename = json['__typename'];
     return Query$GetVisitorDetails$visits_by_pk$visitorByVisitor(
       id: (l$id as String),
       id_number: (l$id_number as String?),
       lastname: (l$lastname as String?),
-      firstname: (l$firstname as String?),
+      firstname: (l$firstname as String),
       phone_number: (l$phone_number as String?),
-      fileByPhoto: l$fileByPhoto == null
+      file: l$file == null
           ? null
-          : Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto
-              .fromJson((l$fileByPhoto as Map<String, dynamic>)),
+          : Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file.fromJson(
+              (l$file as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
@@ -3069,12 +3068,11 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
 
   final String? lastname;
 
-  final String? firstname;
+  final String firstname;
 
   final String? phone_number;
 
-  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto?
-      fileByPhoto;
+  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file? file;
 
   final String $__typename;
 
@@ -3090,8 +3088,8 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
     _resultData['firstname'] = l$firstname;
     final l$phone_number = phone_number;
     _resultData['phone_number'] = l$phone_number;
-    final l$fileByPhoto = fileByPhoto;
-    _resultData['fileByPhoto'] = l$fileByPhoto?.toJson();
+    final l$file = file;
+    _resultData['file'] = l$file?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -3104,7 +3102,7 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
     final l$lastname = lastname;
     final l$firstname = firstname;
     final l$phone_number = phone_number;
-    final l$fileByPhoto = fileByPhoto;
+    final l$file = file;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
@@ -3112,7 +3110,7 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
       l$lastname,
       l$firstname,
       l$phone_number,
-      l$fileByPhoto,
+      l$file,
       l$$__typename,
     ]);
   }
@@ -3151,9 +3149,9 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor {
     if (l$phone_number != lOther$phone_number) {
       return false;
     }
-    final l$fileByPhoto = fileByPhoto;
-    final lOther$fileByPhoto = other.fileByPhoto;
-    if (l$fileByPhoto != lOther$fileByPhoto) {
+    final l$file = file;
+    final lOther$file = other.file;
+    if (l$file != lOther$file) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -3193,12 +3191,11 @@ abstract class CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<
     String? lastname,
     String? firstname,
     String? phone_number,
-    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto?
-        fileByPhoto,
+    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file? file,
     String? $__typename,
   });
-  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
-      TRes> get fileByPhoto;
+  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<TRes>
+      get file;
 }
 
 class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<TRes>
@@ -3222,7 +3219,7 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<TRes>
     Object? lastname = _undefined,
     Object? firstname = _undefined,
     Object? phone_number = _undefined,
-    Object? fileByPhoto = _undefined,
+    Object? file = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$GetVisitorDetails$visits_by_pk$visitorByVisitor(
@@ -3232,29 +3229,29 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<TRes>
             : (id_number as String?),
         lastname:
             lastname == _undefined ? _instance.lastname : (lastname as String?),
-        firstname: firstname == _undefined
+        firstname: firstname == _undefined || firstname == null
             ? _instance.firstname
-            : (firstname as String?),
+            : (firstname as String),
         phone_number: phone_number == _undefined
             ? _instance.phone_number
             : (phone_number as String?),
-        fileByPhoto: fileByPhoto == _undefined
-            ? _instance.fileByPhoto
-            : (fileByPhoto
-                as Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto?),
+        file: file == _undefined
+            ? _instance.file
+            : (file
+                as Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
-      TRes> get fileByPhoto {
-    final local$fileByPhoto = _instance.fileByPhoto;
-    return local$fileByPhoto == null
-        ? CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto
+  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<TRes>
+      get file {
+    final local$file = _instance.file;
+    return local$file == null
+        ? CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file
             .stub(_then(_instance))
-        : CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
-            local$fileByPhoto, (e) => call(fileByPhoto: e));
+        : CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
+            local$file, (e) => call(file: e));
   }
 }
 
@@ -3273,32 +3270,30 @@ class _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor<
     String? lastname,
     String? firstname,
     String? phone_number,
-    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto?
-        fileByPhoto,
+    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file? file,
     String? $__typename,
   }) =>
       _res;
 
-  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
-          TRes>
-      get fileByPhoto =>
-          CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto
+  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<TRes>
+      get file =>
+          CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file
               .stub(_res);
 }
 
-class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto {
-  Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto({
+class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file {
+  Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file({
     this.file_url,
     required this.id,
     this.$__typename = 'files',
   });
 
-  factory Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto.fromJson(
+  factory Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file.fromJson(
       Map<String, dynamic> json) {
     final l$file_url = json['file_url'];
     final l$id = json['id'];
     final l$$__typename = json['__typename'];
-    return Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
+    return Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
       file_url: (l$file_url as String?),
       id: (l$id as String),
       $__typename: (l$$__typename as String),
@@ -3339,8 +3334,7 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto {
     if (identical(this, other)) {
       return true;
     }
-    if (other
-            is! Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto ||
+    if (other is! Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -3363,29 +3357,28 @@ class Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto {
   }
 }
 
-extension UtilityExtension$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto
-    on Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto {
-  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
-          Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto>
+extension UtilityExtension$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file
+    on Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file {
+  CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
+          Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file>
       get copyWith =>
-          CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
+          CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
+abstract class CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
     TRes> {
-  factory CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
-    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto instance,
-    TRes Function(
-            Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto)
+  factory CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
+    Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file instance,
+    TRes Function(Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file)
         then,
-  ) = _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto;
+  ) = _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file;
 
-  factory CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto.stub(
+  factory CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file.stub(
           TRes res) =
-      _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto;
+      _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file;
 
   TRes call({
     String? file_url,
@@ -3394,21 +3387,20 @@ abstract class CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fi
   });
 }
 
-class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
+class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
         TRes>
     implements
-        CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
+        CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
             TRes> {
-  _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
+  _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
     this._instance,
     this._then,
   );
 
-  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto
-      _instance;
+  final Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file _instance;
 
   final TRes Function(
-      Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto) _then;
+      Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -3417,7 +3409,7 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileBy
     Object? id = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
+      _then(Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
         file_url:
             file_url == _undefined ? _instance.file_url : (file_url as String?),
         id: id == _undefined || id == null ? _instance.id : (id as String),
@@ -3427,12 +3419,12 @@ class _CopyWithImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileBy
       ));
 }
 
-class _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
+class _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
         TRes>
     implements
-        CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto<
+        CopyWith$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file<
             TRes> {
-  _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$fileByPhoto(
+  _CopyWithStubImpl$Query$GetVisitorDetails$visits_by_pk$visitorByVisitor$file(
       this._res);
 
   TRes _res;

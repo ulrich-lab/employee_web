@@ -1,96 +1,39 @@
-// // import 'dart:io';
-// import 'dart:math';
+import 'dart:math';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show compute, kIsWeb;
+import 'package:image/image.dart' as img;
+import 'package:mime/mime.dart';
 
-// import 'package:flutter/foundation.dart' show compute;
-// import 'package:flutter/services.dart';
-// import 'package:image/image.dart';
-// import 'package:mime/mime.dart';
-// import 'package:path_provider/path_provider.dart';
+class CompressionService {
+  static final CompressionService instance = CompressionService();
 
-// typedef ImageDecodingFunction = Future<Image?> Function(String);
-// typedef CompressorFunction = Future<File> Function(File);
+  // Compresse une image (Uint8List) et retourne le résultat compressé (Uint8List)
+  Future<Uint8List> compressImageBytes(Uint8List bytes, {String? extension}) async {
+    // Décodage de l'image
+    final image = img.decodeImage(bytes);
+    if (image == null) return bytes;
 
-// class CompressionService {
-//   static final CompressionService instance = CompressionService();
+    final aspectRatio = image.width / image.height;
+    double width, height;
+    if (image.height > image.width) {
+      height = min(1280, image.height * 1.0);
+      width = aspectRatio * height;
+    } else {
+      width = min(1280, image.width * 1.0);
+      height = width / aspectRatio;
+    }
+    final resized = img.copyResize(
+      image,
+      width: width.round(),
+      height: height.round(),
+      interpolation: img.Interpolation.linear,
+    );
+    // Encodage en JPEG compressé
+    return Uint8List.fromList(img.encodeJpg(resized, quality: 50));
+  }
 
-//   CompressorFunction? _getCompressorFuncByType(String fileType) {
-//     return {
-//       "image": compressImage,
-//     }[fileType];
-//   }
-
-//   ImageDecodingFunction? _getImgDecodingFuncByExt(String extension) {
-//     return {
-//       "jpg": decodeJpgFile,
-//       "jpeg": decodeJpgFile,
-//       "png": decodePngFile,
-//       "gif": decodeGifFile,
-//       "tiff": decodeTiffFile,
-//       "bmp": decodeBmpFile,
-//     }[extension];
-//   }
-
-//   static Future<List<File>> compressFiles(List<File> files) async {
-//     return await Future.wait(
-//       files.map((file) {
-//         return instance
-//                 ._getCompressorFuncByType(
-//                   lookupMimeType(file.path)?.split("/").first ?? "",
-//                 )
-//                 ?.call(file) ??
-//             Future.value(file);
-//       }),
-//     );
-//   }
-
-//   static Future<File> compressImage(File file) async {
-//     final decodingFunc = instance._getImgDecodingFuncByExt(
-//       file.path.split('.').last,
-//     );
-//     if (decodingFunc == null) return file;
-//     return await compute(_compressImageInBackground,
-//         [file, decodingFunc, RootIsolateToken.instance!]);
-//   }
-// }
-
-// Future<File> _compressImageInBackground(List<dynamic> data) async {
-//   final file = data[0] as File;
-//   final decodingFunc = data[1] as ImageDecodingFunction;
-//   final rootIsolateToken = data[2] as RootIsolateToken;
-
-//   BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
-//   var image = await decodingFunc(file.path);
-//   if (image == null) return file;
-
-//   final aspectRatio = image.width / image.height;
-//   double width, height;
-
-//   if (image.height > image.width) {
-//     height = min(1280, image.height * 1.0);
-//     width = aspectRatio * height;
-//   } else {
-//     width = min(1280, image.width * 1.0);
-//     height = width / aspectRatio;
-//   }
-
-//   image = copyResize(
-//     image,
-//     width: width.round(),
-//     height: height.round(),
-//     interpolation: Interpolation.linear,
-//   );
-
-//   final newPath =
-//       '${(await getTemporaryDirectory()).path}/${file.path.split("/").last}';
-//   final didConvert = await encodeJpgFile(
-//     newPath,
-//     image,
-//     quality: 50,
-//   );
-
-//   if (!didConvert) {
-//     return file;
-//   }
-
-//   return File(newPath);
-// }
+  // Compresse une liste d'images (Uint8List)
+  Future<List<Uint8List>> compressImages(List<Uint8List> images, {String? extension}) async {
+    return Future.wait(images.map((bytes) => compressImageBytes(bytes, extension: extension)));
+  }
+}

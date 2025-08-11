@@ -168,33 +168,50 @@ class _VisitorInformationPageState extends State<VisitorInformationPage> {
                           child: Column(
                             children: [
                               SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: CachedNetworkImage(
-                                      imageUrl: controller.visitorDetails.image
-                                          .toString(),
-                                      imageBuilder: (context, imageProvider) =>
-                                          CircleAvatar(
-                                            radius: 40.0,
-                                            backgroundColor: Colors.transparent,
-                                            backgroundImage: imageProvider,
-                                          ),
-                                      placeholder: (context, url) =>
-                                          Shimmer.fromColors(
-                                            child: const CircleAvatar(
-                                                radius: 40.0),
-                                            baseColor: Colors.grey[300]!,
-                                            highlightColor: Colors.grey[400]!,
-                                          ),
-                                      errorWidget: (context, url, error) =>
-                                          CircleAvatar(
-                                            child: Image.asset(
-                                              'assets/images/visitor.png',
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ))),
+                                width: 100,
+                                height: 100,
+                                // child: CachedNetworkImage(
+                                //   imageUrl: controller.visitorDetails.image
+                                //       .toString(),
+                                //   imageBuilder: (context, imageProvider) =>
+                                //       CircleAvatar(
+                                //     radius: 40.0,
+                                //     backgroundColor: Colors.transparent,
+                                //     backgroundImage: imageProvider,
+                                //   ),
+                                //   placeholder: (context, url) =>
+                                //       Shimmer.fromColors(
+                                //     child: const CircleAvatar(radius: 40.0),
+                                //     baseColor: Colors.grey[300]!,
+                                //     highlightColor: Colors.grey[400]!,
+                                //   ),
+                                //   errorWidget: (context, url, error) =>
+                                //       CircleAvatar(
+                                //     child: Image.asset(
+                                //       'assets/images/visitor.png',
+                                //       width: 100,
+                                //       height: 100,
+                                //       fit: BoxFit.cover,
+                                //     ),
+                                //   ),
+                                // ),
+                                child:controller.visitorDetails.image != null ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.network(
+                                    controller.visitorDetails.image??"",
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ):CircleAvatar(
+                                  child: Image.asset(
+                                    'assets/images/visitor.png',
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 height: 15,
                               ),

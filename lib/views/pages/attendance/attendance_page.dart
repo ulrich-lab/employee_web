@@ -93,32 +93,51 @@ class _AttendancePageState extends State<AttendancePage> {
                                 SizedBox(
                                   width: 50,
                                   height: 50,
-                                  child: CachedNetworkImage(
-                                    imageUrl: attendance
-                                        .profileUsers.value.image
-                                        .toString(),
-                                    imageBuilder: (context, imageProvider) =>
-                                        CircleAvatar(
-                                      radius: 40.0,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: imageProvider,
-                                    ),
-                                    placeholder: (context, url) =>
-                                        Shimmer.fromColors(
-                                      child: const CircleAvatar(radius: 40.0),
-                                      baseColor: Colors.grey[300]!,
-                                      highlightColor: Colors.grey[400]!,
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        CircleAvatar(
-                                      child: Image.asset(
-                                        'assets/images/visitor.png',
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
+                                  // child: CachedNetworkImage(
+                                  //   imageUrl: attendance
+                                  //       .profileUsers.value.image
+                                  //       .toString(),
+                                  //   imageBuilder: (context, imageProvider) =>
+                                  //       CircleAvatar(
+                                  //     radius: 40.0,
+                                  //     backgroundColor: Colors.transparent,
+                                  //     backgroundImage: imageProvider,
+                                  //   ),
+                                  //   placeholder: (context, url) =>
+                                  //       Shimmer.fromColors(
+                                  //     child: const CircleAvatar(radius: 40.0),
+                                  //     baseColor: Colors.grey[300]!,
+                                  //     highlightColor: Colors.grey[400]!,
+                                  //   ),
+                                  //   errorWidget: (context, url, error) =>
+                                  //       CircleAvatar(
+                                  //     child: Image.asset(
+                                  //       'assets/images/visitor.png',
+                                  //       width: 100,
+                                  //       height: 100,
+                                  //       fit: BoxFit.cover,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  child: profile.profileUser.image != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.network(
+                                            profile.profileUser.image ?? "",
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : CircleAvatar(
+                                          child: Image.asset(
+                                            'assets/images/visitor.png',
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                 ),
                               ],
                             ),
@@ -179,7 +198,9 @@ class _AttendancePageState extends State<AttendancePage> {
                                         shimmerHeight: double.infinity,
                                       )
                                     : Column(
-                                        children: attendance.attendenceList.reversed.map(
+                                        children: attendance
+                                            .attendenceList.reversed
+                                            .map(
                                           (element) {
                                             return Column(
                                               children: [

@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Models/permission_model.dart';
@@ -51,11 +50,13 @@ class PermissionController extends GetxController {
     required String start_date,
     required String end_date,
     required String leave_type,
+    String? other_description,
     String? file_url,
   }) async {
     if (isLoadingInsertLeave.value) return;
     isLoadingInsertLeave.value = true;
     final r = permissionRepository.insertLeave(
+        other_description: other_description,
         comment: comment,
         start_date: start_date,
         end_date: end_date,
@@ -65,7 +66,6 @@ class PermissionController extends GetxController {
     r.then((result) {
       result.fold(
         (failure) {
-          print("failure=======$failure");
           isLoadingInsertLeave.value = false;
           if (onFail != null) onFail();
         },
@@ -73,6 +73,7 @@ class PermissionController extends GetxController {
           Get.back();
           isLoadingInsertLeave.value = false;
           if (onSuccess != null) onSuccess();
+          getLeavesList();
         },
       );
     }).catchError((error) {
@@ -113,6 +114,7 @@ class PermissionController extends GetxController {
           // Get.back();
           isLoadingUpdateLeave.value = false;
           if (onSuccess != null) onSuccess();
+          getLeavesList();
         },
       );
     }).catchError((error) {
@@ -141,6 +143,7 @@ class PermissionController extends GetxController {
           Get.back();
           isLoadingDeleteLeave.value = false;
           if (onSuccess != null) onSuccess();
+          getLeavesList();
         },
       );
     }).catchError((error) {
@@ -153,19 +156,28 @@ class PermissionController extends GetxController {
     loader.value = true;
     // UserService userService = UserService();
 
-    permissionRepository
-        .listenToAllPermissions(
-      uuid: prefs.getString("user-id")??"",
+    // permissionRepository
+    //     .listenToAllPermissions(
+    //   uuid: prefs.getString("user-id") ?? "",
+    //   offset: page,
+    // )
+    //     .listeFn(
+    //   (data) {
+    //     leaveList.value = data;
+    //   },
+    //   onError: (error) {},
+    //   onDone: () {},
+    // );
+    var rusult = await permissionRepository.getAllPermissions(
+      uuid: prefs.getString("user-id") ?? "",
       offset: page,
-    )
-        .listen(
-      (data) {
-        leaveList.value = data;
-      },
-      onError: (error) {},
-      onDone: () {},
     );
-    ;
+    rusult.fold(
+      (failure) {},
+      (success) {
+        leaveList.value = success;
+      },
+    );
 
     loader.value = false;
   }

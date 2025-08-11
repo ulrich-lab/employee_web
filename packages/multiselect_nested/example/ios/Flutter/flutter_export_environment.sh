@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\flutter"
-export "FLUTTER_APPLICATION_PATH=D:\Dev\vvims_hub\employee\packages\multiselect_nested\example"
+export "FLUTTER_ROOT=C:\Users\indrick\fvm\versions\3.27.0"
+export "FLUTTER_APPLICATION_PATH=D:\Dev\vvims_hub\employee_web_fodecc\packages\multiselect_nested\example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"

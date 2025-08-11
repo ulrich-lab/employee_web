@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,9 @@ import 'package:injectable/injectable.dart';
 import 'package:visitor_pass/Services/api-list.dart';
 import 'package:visitor_pass/domain/profile_repository.dart';
 import 'package:visitor_pass/main.dart';
-import '/services/server.dart';
+import '../Services/server.dart';
 import '../Models/profile_model.dart';
+import '../Models/user_updated_model.dart';
 
 @lazySingleton
 class ProfileController extends GetxController {
@@ -73,7 +75,7 @@ class ProfileController extends GetxController {
     // });
   }
 
-  updateUserProfile(filepath, type, context) async {
+  updateUserProfile(dynamic fileData, bool type, BuildContext context, {String? fileName}) async {
     // UserService userService = UserService();
 
     if (phoneController.text.isNotEmpty &&
@@ -84,162 +86,150 @@ class ProfileController extends GetxController {
       }
     }
     profileUpdateLoader = true;
-    Future.delayed(const Duration(milliseconds: 10), () {
-      update();
-    });
+    update();
 
-    if (type) {
-      server
-          .multipartRequest(
-        endPoint: "${APIList.server}/api/v1/profile?upload_type=local",
-        filepath: filepath,
-      )
-          .then((response) async {
-        if (response != null && response.statusCode == 200) {
-          if (prefs.getString("profile") != "") {
-            var profileData =
-                Profile.fromJson(jsonDecode(prefs.getString("profile") ?? ""));
-            Profile newp = profileData.copyWith(
-                image: json.decode(response.body)['file_url']);
-            await prefs.setString('profile', jsonEncode(newp.toJson()));
-            profileUpdateLoader = false;
-
-            Future.delayed(const Duration(milliseconds: 10), () {
-              update();
+    try {
+      if (type) {
+       
+        try {
+          if (fileData is String) {
+            print("1==============fileData:");
+            // Original mobile approach with filepath
+            server.multipartRequest(
+              endPoint: "${APIList.server}/api/v1/profile?upload_type=online",//CNPS
+              filepath: fileData,
+            ).then((response) {
+              if (response != null) {
+                _handleProfileUpdateResponse(response);
+              }
             });
-
-            Get.back();
+          } else if (fileData is Uint8List) {
+              // Web approach with bytes
+            server.multipartRequestWithBytes(
+              endPoint: "${APIList.server}/api/v1/profile?upload_type=online",//CNPS
+              bytes: fileData,
+              fileName: fileName ?? "profile_image${prefs.getString("user-id")}_${DateTime.now().millisecondsSinceEpoch}.jpg",
+            ).then((response) {
+              if (response != null) {
+                _handleProfileUpdateResponse(response);
+              }
+            });
           }
-        } else {
-          profileUpdateLoader = false;
-
-          Future.delayed(const Duration(milliseconds: 10), () {
-            update();
-          });
-          Get.back();
+        } catch (e) {
+          print('Error uploading file: $e');
         }
-        getUserProfile();
-      });
-    }
+      }
 
-    if (addressController.text != "" ||
-        firstNameController.text != "" ||
-        lastNameController.text != "" ||
-        phoneController.text != "") {
-      final r = profileRepository.updateUserProfile(
-        address: addressController.text,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        phoneNumber: phoneController.text,
-      );
+      if (addressController.text.isNotEmpty ||
+          firstNameController.text.isNotEmpty ||
+          lastNameController.text.isNotEmpty ||
+          phoneController.text.isNotEmpty) {
+        
+        final result = await profileRepository.updateUserProfile(
+          address: addressController.text,
+          firstName: firstNameController.text,
+          lastName: lastNameController.text,
+          phoneNumber: phoneController.text,
+        );
 
-      r.then((result) {
         result.fold(
-          (failure) {},
-          (success) async {
-            // UserService userService = UserService();
+          (failure) {
+            // Handle failure
+            print('Profile update failed: $failure');
+          },
+          (UserUpdatedModel success) async {
             if (phoneController.text.isNotEmpty &&
                 phoneController.text != prefs.getString("phone")) {
-              // emailController.clear();
-              // firstNameController.clear();
-              // lastNameController.clear();
-              // addressController.clear();
-              // phoneController.clear();
-
-              // Phoenix.rebirth(context);
-              // Get.find<GlobalController>().userLogout();
-              // await userService.removeSharedPreferenceData();
               await prefs.clear();
-
               return;
             }
+            
             if (prefs.getString("profile") != "") {
               var profileData = Profile.fromJson(
                   jsonDecode(prefs.getString("profile") ?? ""));
               Profile newp = profileData.copyWith(
-                last_name: success.lastName,
-                first_name: success.firstName,
-                address: success.address,
-                phone: success.phoneNumber,
+                last_name: success.lastName ?? profileData.last_name,
+                first_name: success.firstName ?? profileData.first_name,
+                address: success.address ?? profileData.address,
+                phone: success.phoneNumber ?? profileData.phone,
               );
 
               await prefs.setString(
                 'profile',
                 jsonEncode(newp.toJson()),
               );
-
-              getUserProfile();
             }
-            // Get.rawSnackbar(
-            //   snackPosition: SnackPosition.TOP,
-            //   title: 'Success',
-            //   message: 'Mis a jour du profile reussie',
-            //   backgroundColor: AppColor.greenColor.withOpacity(.9),
-            //   maxWidth: ScreenSize(context!).mainWidth / 1.004,
-            //   margin: const EdgeInsets.only(
-            //     bottom: 20,
-            //     left: 20,
-            //     right: 20,
-            //   ),
-            // );
+            
             profileUpdateLoader = false;
-
-            Future.delayed(const Duration(milliseconds: 10), () {
-              update();
-            });
-            getUserProfile();
-
+            update();
             Get.back();
           },
         );
-      }).catchError((error) {
+      } else {
         profileUpdateLoader = false;
+        update();
+        Get.back();
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      profileUpdateLoader = false;
+      update();
+      Get.back();
+    }
+  }
+
+  void _handleProfileUpdateResponse(dynamic response) async {
+    if (response != null && response.statusCode == 200) {
+      if (prefs.getString("profile") != "") {
+        var profileData =
+            Profile.fromJson(jsonDecode(prefs.getString("profile") ?? ""));
+        Profile newp = profileData.copyWith(
+            image: json.decode(response.body)['file_url']);
+        await prefs.setString('profile', jsonEncode(newp.toJson()));
+        profileUpdateLoader = false;
+
         Future.delayed(const Duration(milliseconds: 10), () {
           update();
         });
-        Get.rawSnackbar(message: 'Please enter valid input');
+
+        Get.back();
+      }
+    } else {
+      profileUpdateLoader = false;
+
+      Future.delayed(const Duration(milliseconds: 10), () {
+        update();
       });
+      Get.back();
     }
+    getUserProfile();
   }
-}
 
-Future<bool> _showPhoneChangeDialog(BuildContext context) async {
-  return await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Attention!'),
-            content: Text(
-                'Changer votre numéro de téléphone vous déconnectera immédiatement. Voulez-vous continuer ?'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text('Continue'),
-              ),
-            ],
-          );
-        },
-      ) ??
-      false;
-}
-
-class UserUpdatedModel {
-  final String? firstName;
-  final String? lastName;
-  final String? address;
-  final String? phoneNumber;
-  UserUpdatedModel({
-    this.firstName,
-    this.lastName,
-    this.address,
-    this.phoneNumber,
-  });
+  Future<bool> _showPhoneChangeDialog(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Attention!'),
+              content: Text(
+                  'Changer votre numéro de téléphone vous déconnectera immédiatement. Voulez-vous continuer ?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: Text('Continue'),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
+  }
 }

@@ -1571,7 +1571,7 @@ extension ClientExtension$Subscription$AttendanceStatus
 class Subscription$AttendanceStatus$attendance {
   Subscription$AttendanceStatus$attendance({
     this.attendance_state,
-    this.clock_in_date,
+    required this.clock_in_date,
     this.clock_in_time,
     this.clock_out_time,
     this.$__typename = 'attendance',
@@ -1589,7 +1589,7 @@ class Subscription$AttendanceStatus$attendance {
           ? null
           : Subscription$AttendanceStatus$attendance$attendance_state.fromJson(
               (l$attendance_state as Map<String, dynamic>)),
-      clock_in_date: (l$clock_in_date as String?),
+      clock_in_date: (l$clock_in_date as String),
       clock_in_time: (l$clock_in_time as String?),
       clock_out_time: (l$clock_out_time as String?),
       $__typename: (l$$__typename as String),
@@ -1599,7 +1599,7 @@ class Subscription$AttendanceStatus$attendance {
   final Subscription$AttendanceStatus$attendance$attendance_state?
       attendance_state;
 
-  final String? clock_in_date;
+  final String clock_in_date;
 
   final String? clock_in_time;
 
@@ -1731,9 +1731,9 @@ class _CopyWithImpl$Subscription$AttendanceStatus$attendance<TRes>
             ? _instance.attendance_state
             : (attendance_state
                 as Subscription$AttendanceStatus$attendance$attendance_state?),
-        clock_in_date: clock_in_date == _undefined
+        clock_in_date: clock_in_date == _undefined || clock_in_date == null
             ? _instance.clock_in_date
-            : (clock_in_date as String?),
+            : (clock_in_date as String),
         clock_in_time: clock_in_time == _undefined
             ? _instance.clock_in_time
             : (clock_in_time as String?),
@@ -2341,7 +2341,7 @@ extension ClientExtension$Subscription$AttendanceList on graphql.GraphQLClient {
 class Subscription$AttendanceList$attendance {
   Subscription$AttendanceList$attendance({
     this.attendance_state,
-    this.clock_in_date,
+    required this.clock_in_date,
     this.clock_in_time,
     this.clock_out_time,
     this.$__typename = 'attendance',
@@ -2359,7 +2359,7 @@ class Subscription$AttendanceList$attendance {
           ? null
           : Subscription$AttendanceList$attendance$attendance_state.fromJson(
               (l$attendance_state as Map<String, dynamic>)),
-      clock_in_date: (l$clock_in_date as String?),
+      clock_in_date: (l$clock_in_date as String),
       clock_in_time: (l$clock_in_time as String?),
       clock_out_time: (l$clock_out_time as String?),
       $__typename: (l$$__typename as String),
@@ -2369,7 +2369,7 @@ class Subscription$AttendanceList$attendance {
   final Subscription$AttendanceList$attendance$attendance_state?
       attendance_state;
 
-  final String? clock_in_date;
+  final String clock_in_date;
 
   final String? clock_in_time;
 
@@ -2501,9 +2501,9 @@ class _CopyWithImpl$Subscription$AttendanceList$attendance<TRes>
             ? _instance.attendance_state
             : (attendance_state
                 as Subscription$AttendanceList$attendance$attendance_state?),
-        clock_in_date: clock_in_date == _undefined
+        clock_in_date: clock_in_date == _undefined || clock_in_date == null
             ? _instance.clock_in_date
-            : (clock_in_date as String?),
+            : (clock_in_date as String),
         clock_in_time: clock_in_time == _undefined
             ? _instance.clock_in_time
             : (clock_in_time as String?),

@@ -74,7 +74,7 @@ class GlobalController extends GetxController {
   }
 
   clearMessages() async {
-    // await locator<IsarDb>().clearMessages();
+    // await locator<IsarDb>().clearMessages(); // Supprimé car IsarDb n'existe plus
   }
 
 //   getValue() async {
