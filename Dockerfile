@@ -1,4 +1,4 @@
-# Build de l'application Next.js
+# Étape 1 : Build de l'application Next.js
 FROM node:18-alpine AS builder
 WORKDIR /app
 COPY vvims_web_react/package.json ./
@@ -6,12 +6,13 @@ RUN npm install
 COPY vvims_web_react/ .
 RUN npm run build:cnps
 
-# Serveur de production Next.js
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-RUN npm install --only=production
-EXPOSE 3000
-CMD ["npm", "run", "start:cnps"]
+# Étape 2 : Servir avec nginx
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+# Copier les fichiers statiques générés vers nginx
+COPY --from=builder /app/.next /usr/share/nginx/html
+# Copier une configuration nginx personnalisée
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+# Lancer nginx
+CMD ["nginx", "-g", "daemon off;"]
