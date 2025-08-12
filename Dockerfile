@@ -29,8 +29,8 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
 
-# Installation des dépendances de production
-RUN npm install --only=production
+# Installation des dépendances de production + cross-env
+RUN npm install --only=production && npm install cross-env
 
 # Exposition du port 3000 (cohérent avec Next.js)
 EXPOSE 3000
