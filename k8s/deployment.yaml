@@ -27,7 +27,7 @@ spec:
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           resources:
             requests:
@@ -39,7 +39,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 3000
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
@@ -47,7 +47,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 3000
             initialDelaySeconds: 5
             periodSeconds: 5
             timeoutSeconds: 3
@@ -57,14 +57,6 @@ spec:
               value: "cnps"
             - name: NEXT_PUBLIC_ENV
               value: "cnps"
-          volumeMounts:
-            - name: nginx-config
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
-      volumes:
-        - name: nginx-config
-          configMap:
-            name: employee-web-nginx-config
 ---
 apiVersion: v1
 kind: Service
@@ -78,124 +70,7 @@ spec:
     app: employee-web
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 3000
       nodePort: 30188
       protocol: TCP
       name: http
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: employee-web-nginx-config
-  labels:
-    app: employee-web
-data:
-  nginx.conf: |
-    events {
-      worker_connections 1024;
-    }
-    
-    http {
-      include       /etc/nginx/mime.types;
-      default_type  application/octet-stream;
-      
-      sendfile on;
-      tcp_nopush on;
-      tcp_nodelay on;
-      keepalive_timeout 65;
-      types_hash_max_size 2048;
-      
-      gzip on;
-      gzip_vary on;
-      gzip_min_length 1024;
-      gzip_types
-        text/plain
-        text/css
-        text/xml
-        text/javascript
-        application/javascript
-        application/xml+rss
-        application/json;
-      
-      server {
-        listen 80;
-        server_name localhost;
-        root /usr/share/nginx/html;
-        index index.html;
-        
-        location / {
-          try_files $uri $uri/ /index.html;
-        }
-        
-        location /_next/ {
-          expires 1y;
-          add_header Cache-Control "public, immutable";
-          add_header X-Content-Type-Options nosniff;
-        }
-        
-        location /dashboard {
-          try_files $uri $uri/ /dashboard/index.html;
-        }
-        
-        location /user-type {
-          try_files $uri $uri/ /user-type/index.html;
-        }
-        
-        location /login {
-          try_files $uri $uri/ /login/index.html;
-        }
-        
-        location /dashboard/ {
-          try_files $uri $uri/ /dashboard/index.html;
-        }
-        
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
-          expires 1y;
-          add_header Cache-Control "public, immutable";
-          add_header X-Content-Type-Options nosniff;
-        }
-        
-        add_header X-Frame-Options "SAMEORIGIN" always;
-        add_header X-Content-Type-Options "nosniff" always;
-        add_header X-XSS-Protection "1; mode=block" always;
-        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-        
-        error_page 404 /404.html;
-        error_page 500 502 503 504 /50x.html;
-      }
-    }
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: employee-web-pvc
-  labels:
-    app: employee-web
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: employee-web-ingress
-  labels:
-    app: employee-web
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-    - host: vvims-cnps.local
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: employee-web-service
-                port:
-                  number: 80

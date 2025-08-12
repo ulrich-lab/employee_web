@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "vvims_web_react/out",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",

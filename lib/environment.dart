@@ -1,1 +1,0 @@
-const String localStorageEncryptionKey = 'my unique and private encryption key (store securely and locally)';

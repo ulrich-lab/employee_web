@@ -5,11 +5,11 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copie du package.json et installation des dépendances
-COPY vvims_web_react/package.json ./
+COPY package.json ./
 RUN npm install
 
 # Copie du code source
-COPY vvims_web_react/ .
+COPY . .
 
 # Création du dossier public s'il n'existe pas (évite erreur COPY)
 RUN mkdir -p public
@@ -27,11 +27,12 @@ WORKDIR /app
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./
 
 # Installation des dépendances de production
 RUN npm install --only=production
 
-# Exposition du port
+# Exposition du port 3000 (cohérent avec Next.js)
 EXPOSE 3000
 
 # Commande de démarrage
