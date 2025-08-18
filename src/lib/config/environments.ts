@@ -22,7 +22,7 @@ export interface EnvironmentConfig {
   } | null
   
   // Upload Configuration
-  uploadType: string | null
+  uploadType: string
   
   // Date Format Configuration
   dateFormat: {
@@ -56,7 +56,7 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     staticLocation: null,
     
     // Upload Configuration
-    uploadType: null,
+    uploadType: 'online',
     
     // Date Format Configuration
     dateFormat: {
@@ -92,7 +92,7 @@ export const environments: Record<Environment, EnvironmentConfig> = {
     },
     
     // Upload Configuration
-    uploadType: 'online',
+    uploadType: 'local',
     
     // Date Format Configuration
     dateFormat: {

@@ -68,7 +68,7 @@ export function BottomNavigation() {
               onClick={() => handleNavigation(item.href)}
             >
               {item.icon}
-              <span className="text-xs leading-tight">{item.label}</span>
+              <span className="text-[10px] leading-tight">{item.label}</span>
             </Button>
           )
         })}

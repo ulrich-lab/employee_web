@@ -117,13 +117,13 @@ export default function MessagesPage() {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'online':
-        return 'En ligne'
+        return t('messages.online')
       case 'away':
-        return 'Absent'
+        return t('messages.away')
       case 'offline':
-        return 'Hors ligne'
+        return t('messages.offline')
       default:
-        return 'Inconnu'
+        return t('messages.unknown')
     }
   }
 
@@ -264,7 +264,7 @@ export default function MessagesPage() {
               {t('navigation.messages')}
             </h1>
             <p className="text-sm text-gray-600">
-              {t('chatMessages.subtitle')}
+              {t('messages.subtitle')}
             </p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export default function MessagesPage() {
             className="bg-blue-600 hover:bg-blue-700 text-xs"
           >
             <Plus className="h-3 w-3 mr-1" />
-            {t('chatMessages.newConversation')}
+            {t('messages.newConversation')}
           </Button>
           <Button
             onClick={() => setShowCreateGroup(true)}
@@ -284,7 +284,7 @@ export default function MessagesPage() {
             className="text-xs"
           >
             <Users className="h-3 w-3 mr-1" />
-            {t('chatMessages.createGroup')}
+            {t('messages.createGroup')}
           </Button>
         </div>
       </div>
@@ -294,7 +294,7 @@ export default function MessagesPage() {
         <div className="relative">
           <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 h-3 w-3" />
           <Input
-            placeholder={t('chatMessages.searchContacts')}
+            placeholder={t('messages.searchContacts')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-8 text-sm"
@@ -310,7 +310,7 @@ export default function MessagesPage() {
             {filteredConversations.length === 0 ? (
               <div className="p-3 text-center text-gray-500">
                 <MessageSquare className="h-10 w-10 mx-auto mb-2 text-gray-300" />
-                <p className="text-sm">{t('chatMessages.noConversations')}</p>
+                <p className="text-sm">{t('messages.noConversations')}</p>
               </div>
             ) : (
               <div className="divide-y">
@@ -385,7 +385,7 @@ export default function MessagesPage() {
                     <h3 className="font-medium text-gray-900 text-sm">
                       {transformedConversations.find((c: any) => c.id === activeConversation)?.name}
                     </h3>
-                    <p className="text-xs text-gray-500">En ligne</p>
+                    <p className="text-xs text-gray-500">{t('messages.online')}</p>
                   </div>
                 </div>
                 <div className="flex gap-1">
@@ -443,7 +443,7 @@ export default function MessagesPage() {
                     <Smile className="h-3 w-3" />
                   </Button>
                   <Input
-                    placeholder="Tapez votre message..."
+                    placeholder={t('messages.typeMessage')}
                     value={currentMessage}
                     onChange={(e) => setCurrentMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
@@ -464,8 +464,8 @@ export default function MessagesPage() {
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <MessageSquare className="h-10 w-10 mx-auto mb-3 text-gray-300" />
-                <h3 className="text-base font-medium mb-2">Sélectionnez une conversation</h3>
-                <p className="text-xs">Choisissez une conversation pour commencer à discuter</p>
+                <h3 className="text-base font-medium mb-2">{t('messages.selectConversation')}</h3>
+                <p className="text-xs">{t('messages.selectConversationSubtitle')}</p>
               </div>
             </div>
           )}
@@ -477,8 +477,8 @@ export default function MessagesPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <Card className="w-96 max-h-[80vh] flex flex-col">
             <CardHeader className="pb-3 border-b">
-              <CardTitle className="text-lg">Nouvelle conversation</CardTitle>
-              <p className="text-sm text-gray-600">Sélectionnez un contact pour démarrer une conversation</p>
+              <CardTitle className="text-lg">{t('messages.newConversation')}</CardTitle>
+              <p className="text-sm text-gray-600">{t('messages.selectContactToStart')}</p>
             </CardHeader>
             <CardContent className="flex-1 overflow-hidden flex flex-col">
               {/* Search */}
@@ -486,7 +486,7 @@ export default function MessagesPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
-                    placeholder="Rechercher par nom ou téléphone..."
+                    placeholder={t('messages.searchByName')}
                     value={contactSearchTerm}
                     onChange={(e) => setContactSearchTerm(e.target.value)}
                     className="pl-10 text-sm"
@@ -499,7 +499,7 @@ export default function MessagesPage() {
                 {modalFilteredContacts.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
                     <User className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                    <p className="text-sm">Aucun contact trouvé</p>
+                    <p className="text-sm">{t('messages.noContactsFound')}</p>
                   </div>
                 ) : (
                   <div className="space-y-1">
@@ -525,16 +525,16 @@ export default function MessagesPage() {
               
               {/* Actions */}
               <div className="mt-4 pt-3 border-t">
-                <Button
-                  onClick={() => {
-                    setShowNewChat(false)
-                    setContactSearchTerm('')
-                  }}
-                  variant="outline"
-                  className="w-full"
-                >
-                  Annuler
-                </Button>
+                                  <Button
+                    onClick={() => {
+                      setShowNewChat(false)
+                      setContactSearchTerm('')
+                    }}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    {t('messages.cancel')}
+                  </Button>
               </div>
             </CardContent>
           </Card>
@@ -546,17 +546,17 @@ export default function MessagesPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <Card className="w-96 max-h-[80vh] flex flex-col">
             <CardHeader className="pb-3 border-b">
-              <CardTitle className="text-lg">Créer un groupe</CardTitle>
-              <p className="text-sm text-gray-600">Sélectionnez les membres et donnez un nom au groupe</p>
+              <CardTitle className="text-lg">{t('messages.createGroup')}</CardTitle>
+              <p className="text-sm text-gray-600">{t('messages.selectMembersAndName')}</p>
             </CardHeader>
             <CardContent className="flex-1 overflow-hidden flex flex-col">
               {/* Group Name Input */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nom du groupe
+                  {t('messages.groupName')}
                 </label>
                 <Input
-                  placeholder="Entrez le nom du groupe..."
+                  placeholder={t('messages.enterGroupName')}
                   value={groupName}
                   onChange={(e) => setGroupName(e.target.value)}
                   className="text-sm"
@@ -568,7 +568,7 @@ export default function MessagesPage() {
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
-                    placeholder="Rechercher des membres..."
+                    placeholder={t('messages.searchMembers')}
                     value={contactSearchTerm}
                     onChange={(e) => setContactSearchTerm(e.target.value)}
                     className="pl-10 text-sm"
@@ -580,7 +580,7 @@ export default function MessagesPage() {
               {selectedContacts.length > 0 && (
                 <div className="mb-3 p-2 bg-blue-50 rounded-lg">
                   <p className="text-sm text-blue-700">
-                    {selectedContacts.length} membre{selectedContacts.length > 1 ? 's' : ''} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+                    {selectedContacts.length} {t('messages.selectedMembers')}
                   </p>
                 </div>
               )}
@@ -590,7 +590,7 @@ export default function MessagesPage() {
                 {modalFilteredContacts.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
                     <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                    <p className="text-sm">Aucun contact trouvé</p>
+                    <p className="text-sm">{t('messages.noContactsFound')}</p>
                   </div>
                 ) : (
                   <div className="space-y-1">
@@ -632,14 +632,14 @@ export default function MessagesPage() {
                   variant="outline"
                   className="flex-1"
                 >
-                  Annuler
+                  {t('messages.cancel')}
                 </Button>
                 <Button
                   onClick={handleCreateGroup}
                   disabled={createGroupLoading || selectedContacts.length === 0 || !groupName.trim()}
                   className="flex-1 bg-blue-600 hover:bg-blue-700"
                 >
-                  {createGroupLoading ? 'Création...' : 'Créer le groupe'}
+                  {createGroupLoading ? t('messages.creating') : t('messages.createGroup')}
                 </Button>
               </div>
             </CardContent>

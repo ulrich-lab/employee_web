@@ -51,6 +51,10 @@ import {
   // Appointments
   GET_APPOINTMENTS_QUERY,
   CREATE_APPOINTMENT_MUTATION,
+  
+  // Work Sites
+  GET_WORK_SITES_QUERY,
+  UPDATE_EMPLOYEE_WORK_SITE_MUTATION,
 } from './queries'
 
 // ============================================================================
@@ -63,13 +67,25 @@ export const useClockIn = () => {
   const clockIn = useCallback(async (variables: {
     employee_id: string
     location?: string
+    building_id?: string
   }) => {
     try {
       const result = await mutate({ variables })
-      toast.success('Pointage d\'arrivée enregistré avec succès')
-      return result.data?.insert_attendance_one?.id
+      
+      // Vérifier s'il y a des erreurs GraphQL
+      if (result.errors && result.errors.length > 0) {
+        return { errors: result.errors }
+      }
+      
+      // Vérifier si la mutation a réussi
+      if (result.data?.insert_attendance_one) {
+        return { data: result.data }
+      }
+      
+      // Cas où il n'y a ni erreurs ni données
+      return result
+      
     } catch (error) {
-      toast.error('Erreur lors du pointage d\'arrivée')
       throw error
     }
   }, [mutate])
@@ -83,10 +99,21 @@ export const useClockOut = () => {
   const clockOut = useCallback(async (employee_id: string) => {
     try {
       const result = await mutate({ variables: { employee_id } })
-      toast.success('Pointage de départ enregistré avec succès')
-      return result.data?.update_attendance?.affected_rows
+      
+      // Vérifier s'il y a des erreurs GraphQL
+      if (result.errors && result.errors.length > 0) {
+        return { errors: result.errors }
+      }
+      
+      // Vérifier si la mutation a réussi
+      if (result.data?.update_attendance_by_pk) {
+        return { data: result.data }
+      }
+      
+      // Cas où il n'y a ni erreurs ni données
+      return result
+      
     } catch (error) {
-      toast.error('Erreur lors du pointage de départ')
       throw error
     }
   }, [mutate])
@@ -595,5 +622,42 @@ export const useCreateAppointment = () => {
 
   return { createAppointment, loading, error }
 } 
+
+// ============================================================================
+// WORK SITE HOOKS
+// ============================================================================
+
+export const useWorkSites = (company_id?: string) => {
+  const { data, loading, error } = useQuery(GET_WORK_SITES_QUERY, {
+    variables: { company_id },
+    skip: !company_id,
+  })
+
+  return {
+    workSites: data?.work_site || [],
+    loading,
+    error: error?.message
+  }
+}
+
+export const useUpdateEmployeeWorkSite = () => {
+  const [mutate, { loading, error }] = useMutation(UPDATE_EMPLOYEE_WORK_SITE_MUTATION)
+
+  const updateWorkSite = useCallback(async (variables: {
+    id: string
+    work_site_id: string
+  }) => {
+    try {
+      const result = await mutate({ variables })
+      toast.success('Zone de travail mise à jour avec succès')
+      return result.data?.update_employees_by_pk
+    } catch (error) {
+      toast.error('Erreur lors de la mise à jour de la zone de travail')
+      throw error
+    }
+  }, [mutate])
+
+  return { updateWorkSite, loading, error }
+}
 
  

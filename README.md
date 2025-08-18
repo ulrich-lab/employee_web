@@ -56,8 +56,12 @@ npm run start:cnps
 - **CNPS**: Format technique avec millisecondes
 
 ### Upload de Fichiers
-- **FODECC**: Pas de paramètre spécial
-- **CNPS**: Paramètre `upload_type=online`
+- **FODECC**: `upload_type=online`
+- **CNPS**: `upload_type=local`
+
+### Gestion des Zones de Travail
+- **FODECC**: Les employés peuvent sélectionner leur zone de travail via un sélecteur déroulant
+- **CNPS**: La zone de travail est gérée automatiquement par l'administrateur
 
 ## 📁 Structure des Fichiers
 

@@ -28,13 +28,12 @@ export const useLocation = (): UseLocationReturn => {
     try {
       // Si CNPS, utiliser les coordonnées statiques
       if (isCNPS() && config.useStaticLocation && config.staticLocation) {
-        console.log('📍 Using static location for CNPS:', config.staticLocation)
         setLocation(config.staticLocation)
         setLoading(false)
         return config.staticLocation
       }
 
-      // Pour FODECC, utiliser la géolocalisation dynamique
+      // Pour FODECC, utiliser la géolocalisation dynamique avec optimisations iPhone
       return new Promise((resolve, reject) => {
         if (!navigator.geolocation) {
           const error = 'Géolocalisation non supportée par ce navigateur'
@@ -44,13 +43,22 @@ export const useLocation = (): UseLocationReturn => {
           return
         }
 
+        // Détecter si c'est un iPhone/iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+
+        // Options optimisées pour iPhone
+        const options = {
+          enableHighAccuracy: isIOS ? false : true,  // False pour iOS (plus fiable)
+          timeout: isIOS ? 30000 : 15000,           // 30s pour iOS, 15s pour autres
+          maximumAge: isIOS ? 300000 : 60000        // 5min pour iOS, 1min pour autres
+        }
+
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const newLocation: Location = {
               lat: position.coords.latitude,
               long: position.coords.longitude
             }
-            console.log('📍 Dynamic location obtained:', newLocation)
             setLocation(newLocation)
             setLoading(false)
             resolve(newLocation)
@@ -60,16 +68,24 @@ export const useLocation = (): UseLocationReturn => {
             
             switch (error.code) {
               case error.PERMISSION_DENIED:
-                errorMessage = 'Permission de géolocalisation refusée'
+                errorMessage = isIOS 
+                  ? 'Permission de géolocalisation refusée sur iPhone. Vérifiez les Paramètres > Confidentialité > Localisation'
+                  : 'Permission de géolocalisation refusée'
                 break
               case error.POSITION_UNAVAILABLE:
-                errorMessage = 'Informations de localisation indisponibles'
+                errorMessage = isIOS
+                  ? 'Localisation indisponible sur iPhone. Vérifiez que la localisation est activée dans les Paramètres'
+                  : 'Informations de localisation indisponibles'
                 break
               case error.TIMEOUT:
-                errorMessage = 'Délai de géolocalisation dépassé'
+                errorMessage = isIOS
+                  ? 'Délai de géolocalisation dépassé sur iPhone. Vérifiez votre connexion et les paramètres de localisation'
+                  : 'Délai de géolocalisation dépassé'
                 break
               default:
-                errorMessage = 'Erreur inconnue de géolocalisation'
+                errorMessage = isIOS
+                  ? 'Erreur de géolocalisation sur iPhone. Vérifiez les paramètres de localisation'
+                  : 'Erreur inconnue de géolocalisation'
                 break
             }
             
@@ -77,11 +93,7 @@ export const useLocation = (): UseLocationReturn => {
             setLoading(false)
             reject(new Error(errorMessage))
           },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 60000
-          }
+          options
         )
       })
     } catch (err) {

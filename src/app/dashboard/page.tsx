@@ -33,6 +33,9 @@ import { isCNPS } from '@/lib/config/environments'
 import toast from 'react-hot-toast'
 import { useLogger } from '@/lib/utils/logger'
 
+// Constants
+const CNPS_BUILDING_ID = "d94085cf-286a-4895-b346-14401c69736d"
+
 // Types
 interface Visitor {
   id: string
@@ -244,14 +247,49 @@ export default function DashboardPage() {
 
       // Ajouter building_id seulement pour CNPS
       if (isCNPS()) {
-        clockInVariables.building_id = "d94085cf-286a-4895-b346-14401c69736d"
+        clockInVariables.building_id = CNPS_BUILDING_ID
       }
 
-      await clockIn(clockInVariables)
-    } catch (error) {
-      logger.error('Error clocking in', error)
-    }
-  }, [user?.id, "d94085cf-286a-4895-b346-14401c69736d", location, getCurrentLocation, clockIn])
+      const result = await clockIn(clockInVariables)
+      
+      // Afficher le message de succès ou d'erreur du retour
+      if (result?.data?.insert_attendance_one) {
+        toast.success('Pointage enregistré avec succès !')
+        logger.info('Clock-in successful', result.data.insert_attendance_one)
+      } else if (result?.errors) {
+        // Extraire le vrai message d'erreur depuis les extensions
+        let errorMessage = 'Erreur lors du pointage'
+        const firstError = result.errors[0]
+        
+        if (firstError?.extensions?.internal && 
+            typeof firstError.extensions.internal === 'object' && 
+            'error' in firstError.extensions.internal &&
+            firstError.extensions.internal.error &&
+            typeof firstError.extensions.internal.error === 'object' &&
+            'message' in firstError.extensions.internal.error) {
+          // Message d'erreur détaillé depuis la base de données
+          errorMessage = (firstError.extensions.internal.error as any).message
+        } else if (firstError?.message) {
+          // Message d'erreur GraphQL standard
+          errorMessage = firstError.message
+        }
+        
+        // Console.log du message d'erreur réel
+        console.log('❌ Clock-in Error Message.:', errorMessage)
+        
+        toast.error(`Erreur de pointage: ${errorMessage}`)
+        logger.error('Clock-in GraphQL error', result.errors)
+      } else {
+        toast.success('Pointage enregistré !')
+        logger.info('Clock-in completed')
+      }
+          } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue lors du pointage'
+        toast.error(`Erreur de pointage: ${errorMessage}`)
+        console.log(`Erreur de pointage: ${errorMessage}`)
+        console.log('Error clocking in', error)
+      }
+  }, [user?.id, location, getCurrentLocation, clockIn])
 
   // Memoized clock out handler
   const handleClockOut = useCallback(async () => {
@@ -275,8 +313,42 @@ export default function DashboardPage() {
         return
       }
 
-      await clockOut(user.id)
+      const result = await clockOut(user.id)
+      
+      // Afficher le message de succès ou d'erreur du retour
+      if (result?.data?.update_attendance_by_pk) {
+        toast.success('Déconnexion enregistrée avec succès !')
+        logger.info('Clock-out successful', result.data.update_attendance_by_pk)
+      } else if (result?.errors) {
+        // Extraire le vrai message d'erreur depuis les extensions
+        let errorMessage = 'Erreur lors de la déconnexion'
+        const firstError = result.errors[0]
+        
+        if (firstError?.extensions?.internal && 
+            typeof firstError.extensions.internal === 'object' && 
+            'error' in firstError.extensions.internal &&
+            firstError.extensions.internal.error &&
+            typeof firstError.extensions.internal.error === 'object' &&
+            'message' in firstError.extensions.internal.error) {
+          // Message d'erreur détaillé depuis la base de données
+          errorMessage = (firstError.extensions.internal.error as any).message
+        } else if (firstError?.message) {
+          // Message d'erreur GraphQL standard
+          errorMessage = firstError.message
+        }
+        
+        // Console.log du message d'erreur réel
+        console.log('❌ Clock-out Error Message:', errorMessage)
+        
+        toast.error(`Erreur de déconnexion: ${errorMessage}`)
+        logger.error('Clock-out GraphQL error', result.errors)
+      } else {
+        toast.success('Déconnexion enregistrée !')
+        logger.info('Clock-out completed')
+      }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue lors de la déconnexion'
+      toast.error(`Erreur de déconnexion: ${errorMessage}`)
       logger.error('Error clocking out', error)
     }
   }, [user?.id, location, getCurrentLocation, clockOut])

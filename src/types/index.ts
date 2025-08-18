@@ -175,4 +175,11 @@ export interface AppError {
   message: string
   code?: string
   details?: any
+}
+
+// Types pour les zones de travail
+export interface WorkSite {
+  id: string
+  name: string
+  company_id?: string
 } 

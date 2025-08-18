@@ -701,3 +701,24 @@ export const CHANGE_PASSWORD = gql`
     }
   }
 ` 
+
+// ============================================================================
+// WORK SITE QUERIES & MUTATIONS
+// ============================================================================
+
+export const GET_WORK_SITES_QUERY = gql`
+  query GetWorkSites($company_id: uuid = "") {
+    work_site(where: {company_id: {_eq: $company_id}}) {
+      id
+      name
+    }
+  }
+`
+
+export const UPDATE_EMPLOYEE_WORK_SITE_MUTATION = gql`
+  mutation UpdateEmployeeWorkSite($id: uuid = "", $work_site_id: uuid = "") {
+    update_employees_by_pk(pk_columns: {id: $id}, _set: {work_site_id: $work_site_id}) {
+      id
+    }
+  }
+`

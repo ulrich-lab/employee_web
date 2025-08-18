@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from '@/lib/i18n/useTranslation'
 import { User, Edit, Save, X, Eye, EyeOff, Camera, MapPin, Phone, Mail, Building, Briefcase, Calendar, Shield, Key, LogOut, Settings, Globe } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,8 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '@/store/auth-store'
-import { useEmployeeProfile, useUpdateEmployeeProfile, useChangePassword } from '@/lib/graphql/hooks'
+import { useEmployeeProfile, useUpdateEmployeeProfile, useChangePassword, useWorkSites, useUpdateEmployeeWorkSite } from '@/lib/graphql/hooks'
 import { useRouter } from 'next/navigation'
+import { Select, SelectOption } from '@/components/ui/select'
+import { isFODECC, getCurrentConfig } from '@/lib/config/environments'
+import { WorkSite } from '@/types'
+import { toast } from 'sonner'
 
 export default function ProfilePage() {
   const { t, language, changeLanguage, getLanguageName } = useTranslation()
@@ -43,10 +47,31 @@ export default function ProfilePage() {
   const { profile, loading: profileLoading } = useEmployeeProfile(user?.id || '')
   const { updateProfile, loading: updateLoading } = useUpdateEmployeeProfile()
   const { changePassword, loading: passwordLoading } = useChangePassword()
+  const { workSites, loading: workSitesLoading } = useWorkSites(profile?.company_id)
+  const { updateWorkSite, loading: updateWorkSiteLoading } = useUpdateEmployeeWorkSite()
+  
+  // Configuration de l'environnement
+  const config = getCurrentConfig()
+  
+  // État pour la zone de travail
+  const [selectedWorkSite, setSelectedWorkSite] = useState<string>('')
+  
+  // Convertir les work sites en options pour le select
+  const workSiteOptions: SelectOption[] = (workSites as WorkSite[]).map((site: WorkSite) => ({
+    value: site.id,
+    label: site.name
+  }))
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
+  
+  // Initialiser la zone de travail sélectionnée quand le profil se charge
+  React.useEffect(() => {
+    if (profile?.work_site_id) {
+      setSelectedWorkSite(profile.work_site_id)
+    }
+  }, [profile?.work_site_id])
 
   const handlePasswordChange = (field: string, value: string) => {
     setPasswordData(prev => ({ ...prev, [field]: value }))
@@ -84,6 +109,20 @@ export default function ProfilePage() {
       })
     } catch (error) {
       console.error('Erreur lors du changement de mot de passe:', error)
+    }
+  }
+  
+  const handleWorkSiteUpdate = async () => {
+    if (!user?.id || !selectedWorkSite) return
+    
+    try {
+      await updateWorkSite({
+        id: user.id,
+        work_site_id: selectedWorkSite
+      })
+      toast.success('Zone de travail mise à jour avec succès')
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la zone de travail:', error)
     }
   }
 
@@ -177,7 +216,7 @@ export default function ProfilePage() {
         {/* Profile Information */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-sm">
               <User className="h-5 w-5 text-blue-600" />
               {t('profile.personalInfo')}
             </CardTitle>
@@ -286,20 +325,71 @@ export default function ProfilePage() {
         {/* Work Information */}
         <Card>
           <CardHeader>
-                         <CardTitle className="flex items-center gap-2">
+                         <CardTitle className="flex items-center gap-2 text-sm">
                <Briefcase className="h-5 w-5 text-green-600" />
                {t('profile.professionalInfo')}
              </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4">
-                             <div className="flex items-center gap-3">
-                 <Building className="h-4 w-4 text-gray-400" />
-                 <div>
-                   <p className="text-sm font-medium text-gray-900">{t('profile.company')}</p>
-                   <p className="text-sm text-gray-600">{profile?.company?.name || t('profile.notSpecified')}</p>
-                 </div>
-               </div>
+              {/* Affichage de l'entreprise selon l'environnement */}
+              <div className="flex items-center gap-3">
+                <Building className="h-4 w-4 text-gray-400" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Entreprise</p>
+                  <p className="text-sm text-gray-600">{config.companyDisplayName}</p>
+                </div>
+              </div>
+              
+              {/* Zone de travail pour FODECC */}
+              {isFODECC() && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="h-4 w-4 text-gray-400" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-900 mb-2">Zone de Travail</p>
+                      {isEditing ? (
+                        <div className="space-y-2">
+                          <Select
+                            options={workSiteOptions}
+                            value={selectedWorkSite}
+                            onChange={setSelectedWorkSite}
+                            placeholder="Choisir une zone de travail"
+                            disabled={workSitesLoading}
+                          />
+                          <Button
+                            onClick={handleWorkSiteUpdate}
+                            disabled={updateWorkSiteLoading || !selectedWorkSite}
+                            size="sm"
+                            className="w-full"
+                          >
+                            <Save className="h-4 w-4 mr-2" />
+                            {updateWorkSiteLoading ? 'Mise à jour...' : 'Mettre à jour'}
+                          </Button>
+                        </div>
+                      ) : (
+                        <p className="text-sm text-gray-600">
+                          {profile?.work_site_id ? 
+                            workSiteOptions.find(opt => opt.value === profile.work_site_id)?.label || 'Non spécifié' :
+                            'Non spécifié'
+                          }
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Message pour CNPS */}
+              {!isFODECC() && (
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-4 w-4 text-gray-400" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">Zone de Travail</p>
+                    <p className="text-sm text-gray-600">Gérée automatiquement par l'administrateur</p>
+                  </div>
+                </div>
+              )}
                <div className="flex items-center gap-3">
                  <Briefcase className="h-4 w-4 text-gray-400" />
                  <div>
@@ -338,7 +428,7 @@ export default function ProfilePage() {
       {/* Security Section */}
       <Card>
         <CardHeader>
-                   <CardTitle className="flex items-center gap-2">
+                   <CardTitle className="flex items-center gap-2 text-sm">
            <Shield className="h-5 w-5 text-red-600" />
            {t('profile.security')}
          </CardTitle>

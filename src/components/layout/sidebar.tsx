@@ -92,7 +92,10 @@ export function Sidebar() {
         {!isCollapsed && (
           <div className="flex items-center gap-2">
             <Shield className="h-7 w-7 text-blue-600" />
-            <span className="text-base font-bold text-gray-900">vvims </span>
+            <div className="flex items-baseline gap-1">
+              <span className="text-base font-bold text-gray-900">vvims</span>
+              <span className="text-xs text-gray-400 font-normal">v1.0.1</span>
+            </div>
           </div>
         )}
         <Button
