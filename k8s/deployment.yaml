@@ -31,14 +31,14 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
               memory: "256Mi"
               cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "400m"
           livenessProbe:
             httpGet:
-              path: /
+              path: /dashboard
               port: 3000
             initialDelaySeconds: 30
             periodSeconds: 10
@@ -46,7 +46,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /
+              path: /dashboard
               port: 3000
             initialDelaySeconds: 5
             periodSeconds: 5
@@ -57,6 +57,12 @@ spec:
               value: "cnps"
             - name: NEXT_PUBLIC_ENV
               value: "cnps"
+            - name: NEXT_PUBLIC_HASURA_URL
+              value: "http://172.17.15.28:30011/v1/graphql"
+            - name: NEXT_PUBLIC_HASURA_WS_URL
+              value: "ws://172.17.15.28:30011/v1/graphql"
+            - name: NEXT_PUBLIC_HASURA_ADMIN_SECRET
+              value: "aFVeqGfcVsDTpS7efXQZ1rlMyIJugSBJ"
 ---
 apiVersion: v1
 kind: Service
