@@ -11,7 +11,7 @@
     "build:cnps": "cross-env NODE_ENV=cnps next build",
     "start": "next start",
     "start:fodecc": "cross-env NODE_ENV=fodecc npx serve@latest out",
-    "start:cnps": "cross-env NODE_ENV=cnps next start",
+    "start:cnps": "cross-env NODE_ENV=cnps next start -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test-environments": "node scripts/test-environments.js",
