@@ -27,9 +27,12 @@ interface Leave {
 
 interface Permission {
   id: string
-  type: 'vacation' | 'sick' | 'personal' | 'other'
-  startDate: string
-  endDate: string
+  type: 'sick' | 'personal' | 'other'
+  mode: 'daily' | 'hourly'
+  startDate?: string
+  endDate?: string
+  startTime?: string
+  endTime?: string
   reason: string
   status: 'pending' | 'approved' | 'rejected'
   submittedAt: string
@@ -69,9 +72,12 @@ export default function SchedulePage() {
   const [showPermissionModal, setShowPermissionModal] = useState(false)
   const [editingPermission, setEditingPermission] = useState<Leave | null>(null)
   const [formData, setFormData] = useState({
-    type: 'vacation',
+    type: 'sick',
+    mode: 'daily' as 'daily' | 'hourly',
     startDate: '',
     endDate: '',
+    startTime: '',
+    endTime: '',
     reason: ''
   })
 
@@ -85,9 +91,12 @@ export default function SchedulePage() {
   useEffect(() => {
     if (!showPermissionModal) {
       setFormData({
-        type: 'vacation',
+        type: 'sick',
+        mode: 'daily',
         startDate: '',
         endDate: '',
+        startTime: '',
+        endTime: '',
         reason: ''
       })
       setEditingPermission(null)
@@ -99,8 +108,11 @@ export default function SchedulePage() {
     if (editingPermission) {
       setFormData({
         type: mapEnumToLeaveType(editingPermission.leave_type),
+        mode: 'daily', // Par défaut en mode daily pour la compatibilité
         startDate: editingPermission.start_date,
         endDate: editingPermission.end_date,
+        startTime: '',
+        endTime: '',
         reason: editingPermission.comment || ''
       })
     }
@@ -115,28 +127,49 @@ export default function SchedulePage() {
       return
     }
 
-    if (!formData.startDate || !formData.endDate || !formData.reason) {
-      toast.error('Veuillez remplir tous les champs obligatoires')
-      return
+    if (formData.mode === 'daily') {
+      if (!formData.startDate || !formData.endDate || !formData.reason) {
+        toast.error('Veuillez remplir tous les champs obligatoires')
+        return
+      }
+    } else {
+      if (!formData.startTime || !formData.endTime || !formData.reason) {
+        toast.error('Veuillez remplir tous les champs obligatoires')
+        return
+      }
     }
 
     try {
       if (editingPermission) {
         // Update existing permission
+        const startDate = formData.mode === 'daily' 
+          ? formData.startDate 
+          : new Date().toISOString().split('T')[0] + 'T' + formData.startTime + ':00'
+        const endDate = formData.mode === 'daily' 
+          ? formData.endDate 
+          : new Date().toISOString().split('T')[0] + 'T' + formData.endTime + ':00'
+        
         await updateLeave(editingPermission.id, {
           leave_type: mapLeaveTypeToEnum(formData.type),
-          start_date: formData.startDate,
-          end_date: formData.endDate,
+          start_date: startDate,
+          end_date: endDate,
           comment: formData.reason
         })
         toast.success('Permission mise à jour avec succès')
       } else {
         // Create new permission
+        const startDate = formData.mode === 'daily' 
+          ? formData.startDate 
+          : new Date().toISOString().split('T')[0] + 'T' + formData.startTime + ':00'
+        const endDate = formData.mode === 'daily' 
+          ? formData.endDate 
+          : new Date().toISOString().split('T')[0] + 'T' + formData.endTime + ':00'
+        
         await insertLeave({
           employee_id: user.id,
           leave_type: mapLeaveTypeToEnum(formData.type),
-          start_date: formData.startDate,
-          end_date: formData.endDate,
+          start_date: startDate,
+          end_date: endDate,
           comment: formData.reason
         })
         toast.success('Demande de permission soumise avec succès')
@@ -170,8 +203,6 @@ export default function SchedulePage() {
   // Memoized utility functions
   const mapLeaveTypeToEnum = useCallback((uiType: string): string => {
     switch (uiType) {
-      case 'vacation':
-        return 'VACATION'
       case 'sick':
         return 'SICK'
       case 'personal':
@@ -185,8 +216,6 @@ export default function SchedulePage() {
 
   const mapEnumToLeaveType = useCallback((enumType: string): string => {
     switch (enumType) {
-      case 'VACATION':
-        return 'vacation'
       case 'SICK':
         return 'sick'
       case 'OTHER':
@@ -199,8 +228,6 @@ export default function SchedulePage() {
   // Memoized permission type functions
   const getPermissionTypeText = useCallback((type: string) => {
     switch (type) {
-      case 'vacation':
-        return 'Vacances'
       case 'sick':
         return 'Maladie'
       case 'personal':
@@ -214,8 +241,6 @@ export default function SchedulePage() {
 
   const getPermissionTypeColor = useCallback((type: string) => {
     switch (type) {
-      case 'vacation':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'sick':
         return 'bg-red-100 text-red-800 border-red-200'
       case 'personal':
@@ -338,18 +363,8 @@ export default function SchedulePage() {
   const permissions: Permission[] = useMemo(() => [
     {
       id: '1',
-      type: 'vacation',
-      startDate: '2024-02-15',
-      endDate: '2024-02-20',
-      reason: 'Vacances familiales',
-      status: 'approved',
-      submittedAt: '2024-01-20',
-      approvedBy: 'Marie Martin',
-      notes: 'Approuvé par le manager'
-    },
-    {
-      id: '2',
       type: 'sick',
+      mode: 'daily',
       startDate: '2024-01-25',
       endDate: '2024-01-26',
       reason: 'Maladie',
@@ -358,19 +373,21 @@ export default function SchedulePage() {
       approvedBy: 'Pierre Durand'
     },
     {
-      id: '3',
+      id: '2',
       type: 'personal',
-      startDate: '2024-02-10',
-      endDate: '2024-02-10',
+      mode: 'hourly',
+      startTime: '14:00',
+      endTime: '16:00',
       reason: 'Rendez-vous médical',
       status: 'pending',
       submittedAt: '2024-01-30'
     },
     {
-      id: '4',
+      id: '3',
       type: 'other',
-      startDate: '2024-02-28',
-      endDate: '2024-02-28',
+      mode: 'hourly',
+      startTime: '09:00',
+      endTime: '12:00',
       reason: 'Formation externe',
       status: 'rejected',
       submittedAt: '2024-01-25',
@@ -905,39 +922,109 @@ export default function SchedulePage() {
                     onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
                     required
                   >
-                    <option value="vacation">Vacances</option>
                     <option value="sick">Maladie</option>
                     <option value="personal">Personnel</option>
                     <option value="other">Autre</option>
                   </select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                      Date de début
-                    </label>
-                    <Input 
-                      type="date" 
-                      className="text-xs md:text-sm"
-                      value={formData.startDate}
-                      onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                      Date de fin
-                    </label>
-                    <Input 
-                      type="date" 
-                      className="text-xs md:text-sm"
-                      value={formData.endDate}
-                      onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                      required
-                    />
+                <div>
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+                    Mode de permission
+                  </label>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, mode: 'daily' })}
+                      className={`flex-1 p-2 rounded-lg border text-xs md:text-sm transition-colors ${
+                        formData.mode === 'daily'
+                          ? 'bg-blue-600 text-white border-blue-600'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      Par jour
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, mode: 'hourly' })}
+                      className={`flex-1 p-2 rounded-lg border text-xs md:text-sm transition-colors ${
+                        formData.mode === 'hourly'
+                          ? 'bg-blue-600 text-white border-blue-600'
+                          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                      }`}
+                    >
+                      Par heure
+                    </button>
                   </div>
                 </div>
+
+                {formData.mode === 'daily' ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+                        Date de début
+                      </label>
+                      <Input 
+                        type="date" 
+                        className="text-xs md:text-sm"
+                        value={formData.startDate}
+                        onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+                        Date de fin
+                      </label>
+                      <Input 
+                        type="date" 
+                        className="text-xs md:text-sm"
+                        value={formData.endDate}
+                        onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="mb-2 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                      <p className="text-xs text-blue-700">
+                        📅 Permission pour aujourd'hui : {new Date().toLocaleDateString('fr-FR', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+                          Heure de début
+                        </label>
+                        <Input 
+                          type="time" 
+                          className="text-xs md:text-sm"
+                          value={formData.startTime}
+                          onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+                          Heure de fin
+                        </label>
+                        <Input 
+                          type="time" 
+                          className="text-xs md:text-sm"
+                          value={formData.endTime}
+                          onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div>
                   <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">

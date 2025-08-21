@@ -32,6 +32,7 @@ import { useLocation } from '@/hooks/useLocation'
 import { isCNPS } from '@/lib/config/environments'
 import toast from 'react-hot-toast'
 import { useLogger } from '@/lib/utils/logger'
+import { AttendanceHistoryDetailed } from '@/components/ui/attendance-history-detailed'
 
 // Constants
 const CNPS_BUILDING_ID = "d94085cf-286a-4895-b346-14401c69736d"
@@ -759,64 +760,11 @@ export default function DashboardPage() {
 
           {/* Attendance History - 40% */}
           <div className="col-span-2">
-            <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-base font-semibold text-gray-800">
-                  <div className="p-1.5 bg-green-100 rounded-lg">
-                    <Clock className="h-4 w-4 text-green-600" />
-                  </div>
-                  {t('dashboard.attendanceHistory')}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-4">
-                <div className="space-y-3">
-                  {attendanceList.slice().reverse().slice(0, 5).map((attendance: any, index: number) => (
-                    <div key={index} className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <div className={`w-2 h-2 rounded-full ${attendance.clock_out_date ? 'bg-green-500' : 'bg-blue-500'
-                              }`}></div>
-                            <p className="text-xs text-gray-600">
-                              {attendance.clock_out_date ? 'Pointage complet' : 'Pointage partiel'}
-                            </p>
-                          </div>
-                          <p className="text-sm font-medium text-gray-800">
-                            {new Date(attendance.clock_in_date).toLocaleDateString('fr-FR', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric'
-                            })}
-                          </p>
-                          <div className="flex items-center gap-4 mt-1">
-                            <div className="flex items-center gap-1">
-                              <LogIn className="h-3 w-3 text-green-600" />
-                              <span className="text-xs text-gray-600">
-                                {formatTime(attendance.clock_in_date)}
-                              </span>
-                            </div>
-                            {attendance.clock_out_date && (
-                              <div className="flex items-center gap-1">
-                                <LogOut className="h-3 w-3 text-red-600" />
-                                <span className="text-xs text-gray-600">
-                                  {formatTime(attendance.clock_out_date)}
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {attendanceList.length === 0 && (
-                    <div className="bg-gray-50 rounded-lg p-4 text-center">
-                      <Clock className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                      <p className="text-xs text-gray-600">{t('dashboard.noAttendance')}</p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <AttendanceHistoryDetailed 
+              attendanceList={attendanceList}
+              loading={attendanceListLoading}
+              maxItems={5}
+            />
           </div>
         </div>
       </div>
