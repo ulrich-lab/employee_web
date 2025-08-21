@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '@/store/auth-store'
-import { useEmployeeProfile, useUpdateEmployeeProfile, useChangePassword, useWorkSites, useUpdateEmployeeWorkSite } from '@/lib/graphql/hooks'
+import { useEmployeeProfile, useUpdateEmployeeProfile, useChangePassword, useWorkSites, useUpdateEmployeeWorkSite, useEmployeeWorkSite } from '@/lib/graphql/hooks'
 import { useRouter } from 'next/navigation'
 import { Select, SelectOption } from '@/components/ui/select'
 import { isFODECC, getCurrentConfig } from '@/lib/config/environments'
@@ -49,6 +49,7 @@ export default function ProfilePage() {
   const { changePassword, loading: passwordLoading } = useChangePassword()
   const { workSites, loading: workSitesLoading } = useWorkSites(profile?.company_id)
   const { updateWorkSite, loading: updateWorkSiteLoading } = useUpdateEmployeeWorkSite()
+  const { workSite: currentWorkSite, loading: currentWorkSiteLoading } = useEmployeeWorkSite(user?.id)
   
   // Configuration de l'environnement
   const config = getCurrentConfig()
@@ -369,8 +370,8 @@ export default function ProfilePage() {
                         </div>
                       ) : (
                         <p className="text-sm text-gray-600">
-                          {profile?.work_site_id ? 
-                            workSiteOptions.find(opt => opt.value === profile.work_site_id)?.label || 'Non spécifié' :
+                          {currentWorkSite ? 
+                            currentWorkSite.name :
                             'Non spécifié'
                           }
                         </p>

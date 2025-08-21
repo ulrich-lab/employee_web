@@ -145,7 +145,9 @@ export default function DashboardPage() {
 
   // Memoized attendance status logic
   const attendanceStatusData = useMemo(() => {
+  
     if (!attendanceStatus) {
+      
       return {
         status: 'none' as const,
         clockInTime: null,
@@ -153,7 +155,7 @@ export default function DashboardPage() {
         isLate: false
       }
     }
-
+    console.log('No attendance status found====== ', attendanceStatus?.clock_in_time)
     const attendance = attendanceStatus
     const hasClockIn = attendance.clock_in_time !== null
     const hasClockOut = attendance.clock_out_time !== null
@@ -188,29 +190,49 @@ export default function DashboardPage() {
   const formatTime = useCallback((timeString: string | null) => {
     if (!timeString) return '--:--'
 
+
     try {
       // Parse the date and extract time without timezone conversion
       const date = new Date(timeString)
+        // console.log('  - Parsed Date object:', date)
+        // console.log('  - Date.toISOString():', date.toISOString())
+        // console.log('  - Date.toLocaleString():', date.toLocaleString())
 
       // Extract time directly from the string to avoid timezone issues
       const timeMatch = timeString.match(/(\d{2}):(\d{2}):\d{2}/)
       if (timeMatch) {
-        const hours = timeMatch[1]
-        const minutes = timeMatch[2]
-        const formattedTime = `${hours}:${minutes}`
+        const hours = parseInt(timeMatch[1])
+        const minutes = parseInt(timeMatch[2])
+        
+        // Ajuster pour le fuseau horaire du Cameroun (UTC+1)
+        const adjustedHours = (hours + 1) % 24
+        const adjustedHoursStr = adjustedHours.toString().padStart(2, '0')
+        const formattedTime = `${adjustedHoursStr}:${timeMatch[2]}`
+        
+          // console.log('  - Regex match found:')
+          // console.log('    - Original hours (UTC):', hours)
+          // console.log('    - Adjusted hours (UTC+1):', adjustedHours)
+          // console.log('    - Minutes:', minutes)
+          // console.log('    - Final formatted time (Cameroun):', formattedTime)
 
         return formattedTime
       }
 
-      // Fallback to locale time if regex fails
-      const formattedTime = date.toLocaleTimeString('fr-FR', {
+      // Fallback: ajuster l'heure pour UTC+1
+      const adjustedDate = new Date(date.getTime() + (60 * 60 * 1000)) // +1 heure
+      const formattedTime = adjustedDate.toLocaleTimeString('fr-FR', {
         hour: '2-digit',
         minute: '2-digit'
       })
+      
+      // console.log('  - Using fallback with UTC+1 adjustment:')
+      // console.log('    - Original time (UTC):', date.toLocaleTimeString('fr-FR'))
+      // console.log('    - Adjusted time (UTC+1):', formattedTime)
 
       return formattedTime
     } catch (error) {
       logger.error('Error formatting time', error)
+      console.log('  - ❌ Error formatting time:', error)
       return '--:--'
     }
   }, [])

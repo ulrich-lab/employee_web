@@ -55,6 +55,7 @@ import {
   // Work Sites
   GET_WORK_SITES_QUERY,
   UPDATE_EMPLOYEE_WORK_SITE_MUTATION,
+  GET_EMPLOYEE_WORK_SITE_SUBSCRIPTION,
 } from './queries'
 
 // ============================================================================
@@ -658,6 +659,19 @@ export const useUpdateEmployeeWorkSite = () => {
   }, [mutate])
 
   return { updateWorkSite, loading, error }
+}
+
+export const useEmployeeWorkSite = (employee_id?: string) => {
+  const { data, loading, error } = useSubscription(GET_EMPLOYEE_WORK_SITE_SUBSCRIPTION, {
+    variables: { employee_id },
+    skip: !employee_id,
+  })
+
+  return {
+    workSite: data?.work_site?.[0] || null,
+    loading,
+    error: error?.message
+  }
 }
 
  

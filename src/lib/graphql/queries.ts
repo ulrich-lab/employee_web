@@ -722,3 +722,13 @@ export const UPDATE_EMPLOYEE_WORK_SITE_MUTATION = gql`
     }
   }
 `
+
+export const GET_EMPLOYEE_WORK_SITE_SUBSCRIPTION = gql`
+  subscription GetEmployeeWorkSite($employee_id: uuid = "") {
+    work_site(where: {employees: {id: {_eq: $employee_id}}}) {
+      name
+      location
+      id
+    }
+  }
+`
