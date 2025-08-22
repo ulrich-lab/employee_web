@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 import { Sidebar } from '@/components/layout/sidebar'
@@ -15,20 +15,23 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter()
   const { isAuthenticated, checkAuth, user } = useAuthStore()
   const [isInitialized, setIsInitialized] = useState(false)
-  const config = getCurrentConfig()
+  
+  // Memoizer la configuration pour éviter la recréation
+  const config = useMemo(() => getCurrentConfig(), [])
+
+  // Memoizer initializeAuth pour éviter la recréation
+  const initializeAuth = useCallback(() => {
+    const isUserAuthenticated = checkAuth()
+    
+    if (!isUserAuthenticated && !isAuthenticated) {
+      router.push('/user-type')
+    } else {
+      setIsInitialized(true)
+    }
+  }, [checkAuth, isAuthenticated, router])
 
   useEffect(() => {
     // Vérification d'authentification uniquement au montage du composant
-    const initializeAuth = () => {
-      const isUserAuthenticated = checkAuth()
-      
-      if (!isUserAuthenticated && !isAuthenticated) {
-        router.push('/user-type')
-      } else {
-        setIsInitialized(true)
-      }
-    }
-
     // Vérification immédiate si les données sont déjà disponibles
     if (isAuthenticated) {
       setIsInitialized(true)
@@ -37,7 +40,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       const timer = setTimeout(initializeAuth, 50)
       return () => clearTimeout(timer)
     }
-  }, []) // Dépendances vides pour ne s'exécuter qu'une fois
+  }, [isAuthenticated, initializeAuth])
 
   // Loading state uniquement au démarrage
   if (!isInitialized) {

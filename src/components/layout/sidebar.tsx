@@ -1,97 +1,65 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useState, useMemo, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/store/auth-store'
 import { useTranslation } from '@/lib/i18n/useTranslation'
 import { LanguageSelector } from '@/components/ui/language-selector'
+import { useNavigationConfig } from '@/components/ui/navigation-config'
+import { useNavigation } from '@/hooks/useNavigation'
+import { NavigationItem } from '@/components/ui/navigation-item'
 import { 
   Shield, 
   LogOut, 
-  Home, 
-  Users, 
-  Calendar, 
-  MessageSquare,
-  Settings,
-  Bell,
-  QrCode,
   User,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-interface SidebarItem {
-  id: string
-  label: string
-  icon: React.ReactNode
-  href: string
-  badge?: number
-}
-
 export function Sidebar() {
   const router = useRouter()
-  const pathname = usePathname()
   const { t } = useTranslation()
   const { user, logout } = useAuthStore()
   const [isCollapsed, setIsCollapsed] = useState(false)
+  
+  const { navigationItems, icons } = useNavigationConfig()
+  const { navigate, isActive } = useNavigation()
 
-  const handleLogout = () => {
+  // Memoizer les icônes spécifiques au sidebar
+  const sidebarIcons = useMemo(() => ({
+    shield: <Shield className="h-7 w-7 text-blue-600" />,
+    chevronLeft: <ChevronLeft className="h-3 w-3" />,
+    chevronRight: <ChevronRight className="h-3 w-3" />,
+    user: <User className="h-4 w-4 text-white" />,
+  }), [])
+
+  // Memoizer handleLogout pour éviter la recréation
+  const handleLogout = useCallback(() => {
     logout()
     toast.success('Déconnexion réussie')
     router.push('/user-type')
-  }
+  }, [logout, router])
 
-  const handleNavigation = (href: string) => {
-    // Navigation optimisée - pas de re-vérification d'auth
-    if (pathname !== href) {
-      router.push(href)
-    }
-  }
+  // Memoizer les classes CSS pour éviter la recréation
+  const sidebarClasses = useMemo(() => 
+    `h-screen bg-white border-r border-gray-200 transition-all duration-300 ${
+      isCollapsed ? 'w-16' : 'w-64'
+    }`, [isCollapsed]
+  )
 
-  const sidebarItems: SidebarItem[] = [
-    {
-      id: 'dashboard',
-      label: t('navigation.dashboard'),
-      icon: <Home className="h-4 w-4" />,
-      href: '/dashboard',
-    },
-    {
-      id: 'visitors',
-      label: t('navigation.visitors'),
-      icon: <Users className="h-4 w-4" />,
-      href: '/dashboard/visitors',
-    },
-    {
-      id: 'schedule',
-      label: t('navigation.schedule'),
-      icon: <Calendar className="h-4 w-4" />,
-      href: '/dashboard/schedule',
-    },
-    {
-      id: 'messages',
-      label: t('navigation.messages'),
-      icon: <MessageSquare className="h-4 w-4" />,
-      href: '/dashboard/messages',
-    },
-    {
-      id: 'profile',
-      label: t('navigation.profile'),
-      icon: <User className="h-4 w-4" />,
-      href: '/dashboard/profile',
-    },
-  ]
+  const toggleButtonClasses = useMemo(() => 
+    `${isCollapsed ? 'mx-auto' : ''} h-7 w-7 p-0 hover:bg-gray-100 transition-colors`, [isCollapsed]
+  )
 
   return (
-    <div className={`h-screen bg-white border-r border-gray-200 transition-all duration-300 ${
-      isCollapsed ? 'w-16' : 'w-64'
-    }`}>
+    <div className={sidebarClasses}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed && (
           <div className="flex items-center gap-2">
-            <Shield className="h-7 w-7 text-blue-600" />
+            {sidebarIcons.shield}
             <div className="flex items-baseline gap-1">
               <span className="text-base font-bold text-gray-900">vvims</span>
               <span className="text-xs text-gray-400 font-normal">v1.0.1</span>
@@ -102,13 +70,9 @@ export function Sidebar() {
           variant="ghost"
           size="sm"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className={`${isCollapsed ? 'mx-auto' : ''} h-7 w-7 p-0 hover:bg-gray-100 transition-colors`}
+          className={toggleButtonClasses}
         >
-          {isCollapsed ? (
-            <ChevronRight className="h-3 w-3" />
-          ) : (
-            <ChevronLeft className="h-3 w-3" />
-          )}
+          {isCollapsed ? sidebarIcons.chevronRight : sidebarIcons.chevronLeft}
         </Button>
       </div>
 
@@ -116,7 +80,7 @@ export function Sidebar() {
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center">
-            <User className="h-4 w-4 text-white" />
+            {sidebarIcons.user}
           </div>
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
@@ -134,29 +98,17 @@ export function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
-          {sidebarItems.map((item) => {
-            const isActive = pathname === item.href
-            return (
-              <li key={item.id}>
-                <Button
-                  variant={isActive ? 'default' : 'ghost'}
-                  className={`w-full justify-start h-9 transition-all duration-200 ${
-                    isActive 
-                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                      : 'text-gray-700 hover:bg-gray-100'
-                  } ${isCollapsed ? 'justify-center' : ''}`}
-                  onClick={() => handleNavigation(item.href)}
-                >
-                  <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
-                    {item.icon}
-                    {!isCollapsed && (
-                      <span className="flex-1 text-left text-sm">{item.label}</span>
-                    )}
-                  </div>
-                </Button>
-              </li>
-            )
-          })}
+          {navigationItems.map((item) => (
+            <li key={item.id}>
+              <NavigationItem
+                {...item}
+                isActive={isActive(item.href)}
+                onClick={navigate}
+                variant="sidebar"
+                isCollapsed={isCollapsed}
+              />
+            </li>
+          ))}
         </ul>
       </nav>
 
