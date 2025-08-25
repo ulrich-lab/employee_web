@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/auth-store'
 import { Sidebar } from '@/components/layout/sidebar'
 import { BottomNavigation } from '@/components/layout/bottom-navigation'
 import { getCurrentConfig } from '@/lib/config/environments'
+import { useAutoLogout } from '@/hooks/useAutoLogout'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -15,6 +16,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter()
   const { isAuthenticated, checkAuth, user } = useAuthStore()
   const [isInitialized, setIsInitialized] = useState(false)
+  
+  // Auto-logout après 5 minutes d'inactivité
+  useAutoLogout()
   
   // Memoizer la configuration pour éviter la recréation
   const config = useMemo(() => getCurrentConfig(), [])
